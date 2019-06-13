@@ -7,7 +7,12 @@ public class ChangeCourseController {
 
   public void setup(Course course) {}
 
-  public void doMenu(ActionEvent event){}
+    public void doMenu(ActionEvent event) {
+        System.out.println(event);
+        System.out.println("wat een toestand");
+    }
 
-  public void doChangeCourse(ActionEvent event){}
+    public void doChangeCourse(ActionEvent event) {
+        System.out.println("verandering aangebracht");
+    }
 }

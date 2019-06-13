@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import model.entity.user.User;
+import model.entity.User.User;
 import view.SceneManager;
 
 import java.io.File;

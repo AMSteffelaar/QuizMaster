@@ -1,7 +1,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import model.entity.user.User;
+import model.entity.User.User;
 
 public class ChangeUserController {
 

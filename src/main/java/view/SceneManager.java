@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import model.entity.Course;
 import model.entity.Group;
 import model.entity.Quiz;
-import model.entity.user.User;
+import model.entity.User.User;
 
 import java.io.IOException;
 
