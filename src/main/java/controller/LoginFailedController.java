@@ -1,11 +1,13 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import view.SceneManager;
 
 public class LoginFailedController {
 
   public void doTryAgain(ActionEvent event) {
-      System.out.println("Poging 2?");
+      SceneManager.getSceneManager().showLoginScene();
+      ;
 
   }
 

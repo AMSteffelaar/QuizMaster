@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class AbstractDAO {
-    private final DBaccess db;
+public class AbstractDAO {
+    DBaccess db;
 
-    AbstractDAO(DBaccess databaseaccess) {
+    public AbstractDAO(DBaccess databaseaccess) {
         this.db = databaseaccess;
     }
 
@@ -19,7 +19,7 @@ class AbstractDAO {
      *
      * @param sql, the SQl query
      */
-    PreparedStatement getStatement(String sql) throws SQLException {
+    protected PreparedStatement getStatement(String sql) throws SQLException {
         return db.getConnection().prepareStatement(sql);
     }
 

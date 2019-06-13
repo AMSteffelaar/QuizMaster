@@ -2,22 +2,12 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Database.DBaccess;
 
 public class Main extends Application {
 
   private static SceneManager sceneManager = null;
   private static Stage primaryStage = null;
 
-
-  static class DbLauncher {
-    private DBaccess db;
-
-    DbLauncher() {
-      super();
-      db = new DBaccess();
-    }
-  }
 
   public static SceneManager getSceneManager() {
     if (sceneManager == null) {
@@ -39,8 +29,6 @@ public class Main extends Application {
   }
 
   public static void main(String[] args) {
-    DbLauncher database = new DbLauncher();
-    database.db.openConnection();
     launch(args);
   }
 }
