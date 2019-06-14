@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import model.Database.DbLauncher;
 import model.Database.UserDAO;
+import view.Main;
 import view.SceneManager;
 
 public class LoginController {
@@ -32,6 +33,6 @@ public class LoginController {
     }
 
     public void doQuit(ActionEvent event) {
-        System.out.println("Waarom wil je stoppen?");
+        Main.getPrimaryStage().close();
     }
 }

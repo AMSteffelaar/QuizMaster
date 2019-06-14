@@ -28,6 +28,11 @@ public class Main extends Application {
     primaryStage.show();
   }
 
+  @Override
+  public void stop() throws Exception {
+    super.stop();
+  }
+
   public static void main(String[] args) {
     launch(args);
   }
