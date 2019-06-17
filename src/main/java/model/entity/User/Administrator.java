@@ -6,7 +6,7 @@ public class Administrator extends User {
 
     public Administrator(String name, String password){
         super(name, password);
-        super.role = ROLE;
+        super.setRole(ROLE);
     }
 }
 

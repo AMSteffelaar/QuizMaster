@@ -5,7 +5,7 @@ public abstract class User {
 
     private String name;
     private String password;
-    public String role;
+    private String role;
 
     public User(String name, String password){
         super();
