@@ -28,7 +28,7 @@ CREATE TABLE `course` (
 
 
 CREATE TABLE `group` (
-  `idGroup` int(11) NOT NULL,
+  `idGroup` int(11) NOT NULL AUTO_INCREMENT,
   `course_idCourse` int(11) NOT NULL,
   `teacher_idUser` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `group` (
 
 
 CREATE TABLE `quiz` (
-  `idQuiz` int(11) NOT NULL,
+  `idQuiz` int(11) NOT NULL AUTO_INCREMENT,
   `course_idCourse` int(11) NOT NULL,
   `quizName` varchar(45) NOT NULL,
   PRIMARY KEY (`idQuiz`),
@@ -52,7 +52,7 @@ CREATE TABLE `quiz` (
 
 
 CREATE TABLE `q&a` (
-  `idQ&A` int(11) NOT NULL,
+  `idQ&A` int(11) NOT NULL AUTO_INCREMENT,
   `Quiz_idQuiz` int(11) NOT NULL,
   `question` varchar(255) NOT NULL,
   `answerA` varchar(45) NOT NULL,
