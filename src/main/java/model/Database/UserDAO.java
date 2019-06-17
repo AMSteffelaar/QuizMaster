@@ -1,6 +1,5 @@
 package model.Database;
 
-import model.entity.User.User;
 import view.Main;
 
 import java.sql.PreparedStatement;
@@ -12,6 +11,15 @@ public class UserDAO extends AbstractDAO {
 
     public UserDAO(DBaccess db) {
         super(db);
+    }
+
+    public static UserDAO getInstance() {
+        if (udao == null) {
+            udao = new UserDAO(Main.getInstance());
+            return udao;
+        } else {
+            return udao;
+        }
     }
 
     public int getUserIdByNamePassword(String name, String password) {
@@ -31,17 +39,6 @@ public class UserDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return id;
-    }
-
-
-    public static UserDAO getInstance(){
-        if(udao==null){
-            udao = new UserDAO(Main.getInstance());
-            return udao;
-        }
-        else {
-            return udao;
-        }
     }
 }
 
