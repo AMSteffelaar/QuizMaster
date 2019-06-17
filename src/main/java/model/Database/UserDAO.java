@@ -1,6 +1,6 @@
 package model.Database;
 
-import model.entity.User.User;
+import model.entity.User.*;
 import view.Main;
 
 import java.sql.PreparedStatement;
@@ -31,6 +31,60 @@ public class UserDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return id;
+    }
+
+    /**
+     * Haalt een user uit de database met een bepaald id.
+     * @param id het id waarvoor je de user wil ophalen.
+     * @return de User.
+     */
+    public User getUserById(int id) {
+        String sql = "Select * from user where idUser = ?";
+        User user = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String password = rs.getString("password");
+                String role = rs.getString("role_roleName");
+                user = createUser(name, password, role);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return user;
+    }
+
+    /**
+     * Maakt een user van het juiste type, afhankelijk van de rol.
+     * @param name naam van de user
+     * @param password password van de user
+     * @param role rol van de user
+     * @return een User van het juiste type.
+     */
+    private User createUser(String name, String password, String role) {
+        User user = null;
+        switch (role) {
+            case "Teacher":
+                user = new Teacher(name,password);
+                break;
+            case "Administrator":
+                user = new Administrator(name, password);
+                break;
+            case "SystemAdministrator":
+                user = new SystemAdministrator(name, password);
+                break;
+            case "Student":
+                user = new Student(name, password);
+                break;
+            case "Coordinator":
+                user = new Coordinator(name, password);
+                break;
+        }
+        return user;
     }
 
 
