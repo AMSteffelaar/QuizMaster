@@ -1,28 +1,30 @@
 package model.Database;
 
 import model.entity.User.User;
+import view.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO extends AbstractDAO {
+    private static UserDAO udao;
 
     public UserDAO(DBaccess db) {
         super(db);
     }
 
-    public int getUserIdByNamePassword(String naam, String password) {
-        String sql = "Select * from gebruiker where naam = ? and paswoord = ?";
+    public int getUserIdByNamePassword(String name, String password) {
+        String sql = "Select * from user where name = ? and password = ?";
         int id = 0;
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setString(1, naam);
+            ps.setString(1, name);
             ps.setString(2, password);
             ResultSet rs = executeSelectPreparedStatement(ps);
 
             while (rs.next()) {
-                id = rs.getInt("idGebruiker");
+                id = rs.getInt("idUser");
 
             }
         } catch (SQLException e) {
@@ -31,36 +33,16 @@ public class UserDAO extends AbstractDAO {
         return id;
     }
 
-    public User getUserByID(int id) {
-        String sql = "Select * from klant where klantnr = ?";
-        User result = null;
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = executeSelectPreparedStatement(ps);
 
-            while (rs.next()) {
-                String naam = rs.getString("naam");
-                String password = rs.getString("paswoord");
-                String rol = rs.getString("rol_rol_naam");
-                result = new User(naam, password, rol);
-                result.setId(id);
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
+    public static UserDAO getInstance(){
+        if(udao==null){
+            udao = new UserDAO(Main.getInstance());
+            return udao;
         }
-        return result;
+        else {
+            return udao;
+        }
     }
-
-//    public static UserDAO getInstance(){
-//        if(udao==null){
-//            udao = new UserDAO(db);
-//            return udao;
-//        }
-//        else {
-//            return udao;
-//        }
-//    }
 }
 
 

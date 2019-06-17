@@ -20,6 +20,7 @@ public class DBaccess {
 
     /**
      * Open database connection
+     * melding in console als verbinding in orde is
      */
     public void openConnection() {
         String connectionURL = PREFIX_CONNECTION_URL + DATABASE_NAME + CONNECTION_SETTINGS;
@@ -40,10 +41,12 @@ public class DBaccess {
 
     /**
      * Close database connection
+     * melding in console als verbinding is gesloten
      */
     public void closeConnection() {
         try {
             connection.close();
+            System.out.println("Connectie afgesloten");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

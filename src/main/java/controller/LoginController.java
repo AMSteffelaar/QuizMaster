@@ -3,7 +3,6 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import model.Database.DbLauncher;
 import model.Database.UserDAO;
 import view.Main;
 import view.SceneManager;
@@ -19,11 +18,11 @@ public class LoginController {
     public void doLogin(ActionEvent event) {
         String naam = nameTextField.getText();
         String password = passwordField.getText();
-        DbLauncher db = new DbLauncher();
-        UserDAO udao = db.getUdao();
-        db.getDb().openConnection();
+        UserDAO udao = UserDAO.getInstance();
+        // In verband met autoincrement idGebruiker heeft iedere naam password combinatie een unieke id, tenzij het voor gaat komen
+        // als er iemand met dezelfde naam hetzelfde password kiest.... Misschien iets om rekening mee te houden bij de implementatie
+        // van de NewUserController. zodat dit niet voor kan gaan komen
         int id = udao.getUserIdByNamePassword(naam, password);
-        db.getDb().closeConnection();
         if (id != 0) {
             SceneManager.getSceneManager().showWelcomeScene();
         } else {

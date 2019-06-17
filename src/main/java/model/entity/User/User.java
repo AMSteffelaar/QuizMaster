@@ -1,24 +1,24 @@
 package model.entity.User;
 
-public class User {
 
-    private int id;
-    private String naam;
+public abstract class User {
+
+    private String name;
     private String password;
-    private String rol;
+    public String role;
 
-    public User(String naam, String password, String rol) {
-        this.naam = naam;
+    public User(String name, String password){
+        super();
+        this.name = name;
         this.password = password;
-        this.rol = rol;
     }
 
-    public String getNaam() {
-        return naam;
+    public String getName() {
+        return name;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -29,19 +29,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
