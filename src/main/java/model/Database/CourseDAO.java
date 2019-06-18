@@ -1,5 +1,8 @@
 package model.Database;
 
+import model.entity.Course;
+import model.entity.User.User;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +17,10 @@ public class CourseDAO extends AbstractDAO {
     }
 
     //deze methode levert alle bestaande cursussen - to do
-    public int[] getIds() {
+    //deze methode moet opleveren: een arrayList van courses
+    public ArrayList<Course> getCourses() {
         String sql = "Select * from course";
-        int[] results = null;
+        ArrayList<Course> results = null;
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
@@ -38,22 +42,30 @@ public class CourseDAO extends AbstractDAO {
     //deze methode schrijft een cursus weg naar de db - to do - kijk bij bestellingen
 
 
-    //deze methode levert het unieke Id van de cursus als er een is.
-    public int getCourseIdByName(String name) {
+    //deze methode levert een unieke cursus van de lijst met cursus namen als deze voorkomt.
+    public Course getCourseByName(String name) {
         String sql = "Select * from course where name = ?";
-        int id = 0;
+        int course_id;
+        int coordinator_id;
+        Course course = null;
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, name);
             ResultSet rs = executeSelectPreparedStatement(ps);
-
             while (rs.next()) {
-                id = rs.getInt("idCourse");
-
+                course_id = rs.getInt("idCourse");
+                coordinator_id = rs.getInt("coordinator_idUser");
+                //mbv getUserNameByUserId in UserDAO de user naam ophalen
+                UserDAO udao = UserDAO.getInstance();
+                String udao_name = udao.getUserNameById(coordinator_id);
+                String udao_password = udao.getUserPasswordById(coordinator_id);
+                User user = new User(udao_name,udao_password);
+                course = new Course(name, user);
+                course.setIdCourse(course_id);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
-        return id;
+        return course;
     }
 }

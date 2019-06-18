@@ -40,6 +40,40 @@ public class UserDAO extends AbstractDAO {
         }
         return id;
     }
+
+    //Arnout: een get user_name by user_id tbv CourseDAO
+    public String getUserNameById(int id) {
+        String sql = "Select * from user where idUser = ?";
+        String name = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                name = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return name;
+    }
+
+    //Arnout tbv CourseDAO
+    public String getUserPasswordById(int id) {
+        String sql = "Select * from user where idUser = ?";
+        String password = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                password = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return password;
+    }
 }
 
 

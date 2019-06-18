@@ -1,7 +1,7 @@
 package model.entity.User;
 
 
-public abstract class User {
+public class User {
 
     private String name;
     private String password;
@@ -11,6 +11,12 @@ public abstract class User {
         super();
         this.name = name;
         this.password = password;
+    }
+
+    //Arnout: constructor tbv CourseDAO
+    public User(String name) {
+        super();
+        this.name = name;
     }
 
     public String getName() {
