@@ -6,8 +6,10 @@ public class Coordinator extends Teacher {
 
         public Coordinator(String name, String password){
             super(name, password);
-            super.role = ROLE;
+            super.setRole(ROLE);
         }
 
-    }
+
+
+}
 
