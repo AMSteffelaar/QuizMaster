@@ -6,7 +6,7 @@ package model.entity.User;
 
         public Teacher(String name, String password){
             super(name, password);
-            super.role = ROLE;
+            super.setRole(ROLE);
         }
 
     }

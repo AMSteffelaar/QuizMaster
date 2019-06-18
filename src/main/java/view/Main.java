@@ -23,27 +23,6 @@ public class Main extends Application {
         return primaryStage;
     }
 
-    public static void main(String[] args) {
-        DBaccess dbAccess = getInstance();
-        dbAccess.openConnection();
-        Student student1 = new Student("Huub", "huub");
-        Coordinator coordinator1 = new Coordinator("Danielle", "danielle");
-        SystemAdministrator systemAdministrator1 = new SystemAdministrator("Arnout", "arnout");
-        Teacher teacher1 = new Teacher("Gerke", "gerke");
-        Administrator administrator1 = new Administrator("Baukje", "baukje");
-        launch(args);
-        dbAccess.closeConnection();
-    }
-
-    public static DBaccess getInstance() {
-        if (db == null) {
-            db = new DBaccess();
-            return db;
-        } else {
-            return db;
-        }
-    }
-
     @Override
     public void start(Stage primaryStage) {
         Main.primaryStage = primaryStage;
@@ -56,5 +35,25 @@ public class Main extends Application {
     public void stop() throws Exception {
         super.stop();
     }
+
+
+    public static void main(String[] args) {
+        DBaccess dbAccess = getInstance();
+        dbAccess.openConnection();
+        launch(args);
+        dbAccess.closeConnection();
+    }
+
+    public static DBaccess getInstance() {
+        if (db == null) {
+            db = new DBaccess();
+            return db;
+        } else {
+            return db;
+        }
+
+    }
+
 }
+
 

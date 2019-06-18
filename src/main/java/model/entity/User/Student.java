@@ -7,7 +7,7 @@ public class Student extends User {
 
     public Student(String name, String password){
         super(name, password);
-        super.role = ROLE;
+        super.setRole(ROLE);
     }
 
     public void subscribe(){

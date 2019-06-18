@@ -6,6 +6,6 @@ public class SystemAdministrator extends User {
 
     public SystemAdministrator(String name, String password) {
         super(name, password);
-        super.role = ROLE;
+        super.setRole(ROLE);
     }
 }
