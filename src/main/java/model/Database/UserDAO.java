@@ -32,6 +32,22 @@ public class UserDAO extends AbstractDAO {
         return id;
     }
 
+    //Arnout: een get user_name by user_id tbv CourseDAO
+    public String getUserNameById(int id) {
+        String sql = "Select * from user where idUser = ?";
+        String name = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                name = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+                return name;
+            }
 
     /**
      * Haalt een user uit de database met een bepaald id.
@@ -45,7 +61,6 @@ public class UserDAO extends AbstractDAO {
             PreparedStatement ps = getStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = executeSelectPreparedStatement(ps);
-
             while (rs.next()) {
                 String name = rs.getString("name");
                 String password = rs.getString("password");
@@ -98,6 +113,22 @@ public class UserDAO extends AbstractDAO {
         }
     }
 
+    //Arnout tbv CourseDAO
+    public String getUserPasswordById(int id) {
+        String sql = "Select * from user where idUser = ?";
+        String password = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                password = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return password;
+    }
 }
 
 
