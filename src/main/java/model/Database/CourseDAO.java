@@ -48,26 +48,24 @@ public class CourseDAO extends AbstractDAO {
 
     //deze methode schrijft een cursus weg naar de db
     // doing
-   /* public Course storeCourse(Course course) {
+    public void storeCourse(Course course) {
         String sql = "insert into Course (coordinator_idUser, name)"
                 + " values(?,?)";
+        UserDAO udao = UserDAO.getInstance();
+        int coordinatorId;
         try {
             PreparedStatement ps = getStatementWithKey(sql);
             //Arnout: hier de userId ophalen met behulp van de naam en het password
-            ps.setInt(1, course.getCoordinator()
-            ps.setString(2, order.getOrderDate());
-            int bestellingId = executeInsertPreparedStatement(ps);//dit levert een nw record in wb, incl de auto-key
-            // en levert het bestelnr uit wb terug
-            order.setOrderId(bestellingId);
+            coordinatorId = udao.getUserIdByNamePassword(course.getCoordinator().getName(), course.getCoordinator().getPassword());
+            ps.setInt(1, coordinatorId);
+            ps.setString(2, course.getName());
+            int idCourse = executeInsertPreparedStatement(ps);
+            //dit levert een nw record in wb, incl de auto-key en levert het nieuwe id terug
+            course.setIdCourse(idCourse);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
-        }
-        for (Orderline o : order.getOrderLines()) {
-            System.out.println("start nu een storeOrderLine.");
-            orderLineDAO.storeOrderLine(o);
-        }
-        return order;
-    }*/
+        };
+    }
 
     //deze methode update een cursus - to do
 

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Database.CourseDAO;
 import model.Database.DBaccess;
+import model.Database.UserDAO;
 import model.entity.Course;
 import model.entity.User.*;
 
@@ -44,7 +45,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBaccess dbAccess = getInstance();
         dbAccess.openConnection();
-        launch(args);
         dbAccess.closeConnection();
     }
 
