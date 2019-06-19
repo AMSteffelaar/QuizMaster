@@ -3,7 +3,12 @@ package controller;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import model.Database.UserDAO;
 import model.entity.User.User;
 import view.Main;
@@ -20,16 +25,24 @@ public class ChangeUserController {
     @FXML
     private TextField passwordField;
 
-    public void setup(User user) {
+    Stage window;
+    Button button;
+    ComboBox<String> comboBox;
 
+    public void setup(User user) {
     }
 
     public void doMenu(ActionEvent event) {
         Main.getSceneManager().showLoginScene();
     }
 
-    public void changeRole(String name) {
+    public void changeRole(ActionEvent event) throws Exception {
+        comboBox = new ComboBox<>();
+        comboBox.getItems().addAll("Student", "Docent", "Coordinator");
 
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(20,20,20,20));
+        layout.getChildren().addAll(comboBox);
 
     }
 
@@ -40,11 +53,14 @@ public class ChangeUserController {
 
         //deze is wel anders
         int iduser = udao.getUserIdByNamePassword(name, password);
-        User user = udao.getUserById(iduser);
+        User user = udao.changeUser(name, password);
         if (iduser != 0) {
             SceneManager.getSceneManager().showSelectUserScene();
         } else {
             SceneManager.getSceneManager().showLoginFailedScene();
         }
+    }
+
+    public static void main(String[] args) {
     }
 }

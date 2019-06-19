@@ -1,7 +1,11 @@
 package model.Database;
 
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.skin.ComboBoxListViewSkin;
 import model.entity.User.*;
 import view.Main;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,18 +106,40 @@ public class UserDAO extends AbstractDAO {
         return user;
     }
     // updaten van de gebruiker door de
-        private User changeUser( String name, String password) {
+        public User changeUser( String name, String password) {
             String sql = "UPDATE user SET name = ?, password = ?, role =?";
+            User user = null;
             try {
                 PreparedStatement ps = getStatement(sql);
                 ps.setString(1, changeUser(name, password).getName());
                 ps.setString(2, changeUser(name, password).getPassword());
                 ps.setString(3, changeUser(name, password).getRole());
+                user = changeUser(name, password);
                 executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
             } catch (SQLException e) {
                 System.out.println("SQL error: " + e.getMessage());
             }
+            return user;
         }
+/*
+    public ComboBox buildComboBoxModel() throws Exception {
+        ComboBox comboBoxModel = new ComboBox();
+        String sql = "SELECT role FROM user";
+
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                comboBoxModel.add(new DemoModelItem(rs.getString("OBJECT_NAME"),rs.getString("OBJECT_TYPE")));
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        }finally{
+            try{c.close();}catch(Exception e){;}
+        }
+        return comboBoxModel;*/
 
 
     public static UserDAO getInstance(){

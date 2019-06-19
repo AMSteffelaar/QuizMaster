@@ -12,12 +12,17 @@ public class User {
         super();
         this.name = name;
         this.password = password;
+        this.role= role;
     }
 
     //Arnout: constructor tbv CourseDAO
     public User(String name) {
         super();
         this.name = name;
+    }
+
+    public String toString(){
+        return role;
     }
 
     public String getName() {
