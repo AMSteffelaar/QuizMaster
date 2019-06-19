@@ -53,8 +53,8 @@ public class CourseDAO extends AbstractDAO {
                 + " values(?,?)";
         try {
             PreparedStatement ps = getStatementWithKey(sql);
-            //Arnout: hier verder
-            ps.setInt(1, course.getCoordinator().g;
+            //Arnout: hier de userId ophalen met behulp van de naam en het password
+            ps.setInt(1, course.getCoordinator()
             ps.setString(2, order.getOrderDate());
             int bestellingId = executeInsertPreparedStatement(ps);//dit levert een nw record in wb, incl de auto-key
             // en levert het bestelnr uit wb terug
