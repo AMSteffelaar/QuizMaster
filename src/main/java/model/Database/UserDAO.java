@@ -102,13 +102,13 @@ public class UserDAO extends AbstractDAO {
         return user;
     }
     // updaten van de gebruiker door de
-        public void changeUser( User userChange) {
+        private User changeUser( String name, String password) {
             String sql = "UPDATE user SET name = ?, password = ?, role =?";
             try {
                 PreparedStatement ps = getStatement(sql);
-                ps.setString(1, userChange.getName());
-                ps.setString(2, userChange.getPassword());
-                ps.setString(3, userChange.getRole());
+                ps.setString(1, changeUser(name, password).getName());
+                ps.setString(2, changeUser(name, password).getPassword());
+                ps.setString(3, changeUser(name, password).getRole());
                 executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
             } catch (SQLException e) {
                 System.out.println("SQL error: " + e.getMessage());
