@@ -16,21 +16,26 @@ public class CourseDAO extends AbstractDAO {
         super(dBaccess);
     }
 
-    //deze methode levert alle bestaande cursussen - to do
-    //deze methode moet opleveren: een arrayList van courses
+    //deze methode levert alle bestaande cursussen
+    //deze methode levert: een arrayList van de bestaande courses
+    // - done - nog testen
     public ArrayList<Course> getCourses() {
         String sql = "Select * from course";
         ArrayList<Course> results = null;
+        Course result;
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
             while (rs.next()) {
                 int courseId = rs.getInt("idCourse");
+                int courseCoordinator = rs.getInt("coordinator_idUser");
                 String courseName = rs.getString("name");
-                String courseCoordinator = rs.getString("coordinator_idUser");
-                int result = -1;
-                //result = new Course(); de klass is door een collega gemaakt, deze ophalen uit de remote
-                //results.add(result); add werkt alleen als het een arrayList is
+                UserDAO udao = UserDAO.getInstance();
+                String udao_name = udao.getUserNameById(courseCoordinator);
+                String udao_password = udao.getUserPasswordById(courseCoordinator);
+                User user = new User(udao_name,udao_password);
+                result = new Course(courseId, courseName, user);
+                results.add(result);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -38,8 +43,16 @@ public class CourseDAO extends AbstractDAO {
         return results;
     }
 
-
     //deze methode schrijft een cursus weg naar de db - to do - kijk bij bestellingen
+
+
+    //deze methode update een cursus - to do
+
+
+
+    //deze methode delete een cursus - to do
+
+
 
 
     //deze methode levert een unieke cursus van de lijst met cursus namen als deze voorkomt.
