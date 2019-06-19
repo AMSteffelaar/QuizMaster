@@ -2,6 +2,7 @@ package model.Database;
 
 import model.entity.User.*;
 import view.Main;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,15 @@ public class UserDAO extends AbstractDAO {
 
     public UserDAO(DBaccess db) {
         super(db);
+    }
+
+    public static UserDAO getInstance() {
+        if (udao == null) {
+            udao = new UserDAO(Main.getInstance());
+            return udao;
+        } else {
+            return udao;
+        }
     }
 
     public int getUserIdByNamePassword(String name, String password) {
@@ -46,11 +56,12 @@ public class UserDAO extends AbstractDAO {
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
-                return name;
-            }
+        return name;
+    }
 
     /**
      * Haalt een user uit de database met een bepaald id.
+     *
      * @param id het id waarvoor je de user wil ophalen.
      * @return de User.
      */
@@ -75,9 +86,10 @@ public class UserDAO extends AbstractDAO {
 
     /**
      * Maakt een user van het juiste type, afhankelijk van de rol.
-     * @param name naam van de user
+     *
+     * @param name     naam van de user
      * @param password password van de user
-     * @param role rol van de user
+     * @param role     rol van de user
      * @return een User van het juiste type.
      */
     private User createUser(String name, String password, String role) {
@@ -101,28 +113,18 @@ public class UserDAO extends AbstractDAO {
         }
         return user;
     }
+
     // updaten van de gebruiker door de
-        public void changeUser( User userChange) {
-            String sql = "UPDATE user SET name = ?, password = ?, role =?";
-            try {
-                PreparedStatement ps = getStatement(sql);
-                ps.setString(1, userChange.getName());
-                ps.setString(2, userChange.getPassword());
-                ps.setString(3, userChange.getRole());
-                executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
-            } catch (SQLException e) {
-                System.out.println("SQL error: " + e.getMessage());
-            }
-        }
-
-
-    public static UserDAO getInstance(){
-        if(udao==null){
-            udao = new UserDAO(Main.getInstance());
-            return udao;
-        }
-        else {
-            return udao;
+    public void changeUser(User userChange) {
+        String sql = "UPDATE user SET name = ?, password = ?, role =?";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, userChange.getName());
+            ps.setString(2, userChange.getPassword());
+            ps.setString(3, userChange.getRole());
+            executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
         }
     }
 
@@ -141,6 +143,27 @@ public class UserDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return password;
+    }
+
+    /**
+     * Slaat nieuw gemaakte user die is ingevoerd in de NewUserController op in de MySQL DB
+     * JK
+     * @param naam     naam van de user
+     * @param password password van de user
+     * @param role     rol van de user
+     */
+    public void storeUser(String naam, String password, String role) {
+        User user = createUser(naam, password, role);
+        String sql = "INSERT INTO `quizmaster`.`user` (`role_roleName`, `name`, `password`) VALUES (?, ?, ?);";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, user.getRole());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPassword());
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
     }
 }
 
