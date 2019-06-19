@@ -1,6 +1,7 @@
 package model.Database;
 
 import model.entity.Course;
+import model.entity.User.Coordinator;
 import model.entity.User.User;
 
 import java.sql.PreparedStatement;
@@ -59,7 +60,7 @@ public class CourseDAO extends AbstractDAO {
                 UserDAO udao = UserDAO.getInstance();
                 String udao_name = udao.getUserNameById(coordinator_id);
                 String udao_password = udao.getUserPasswordById(coordinator_id);
-                User user = new User(udao_name,udao_password);
+                User user = new Coordinator(udao_name,udao_password);
                 course = new Course(name, user);
                 course.setIdCourse(course_id);
             }
