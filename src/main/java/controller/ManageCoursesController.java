@@ -5,8 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import model.Database.CourseDAO;
 import model.entity.Course;
 import view.SceneManager;
+
+import java.util.ArrayList;
 
 public class ManageCoursesController {
     private Course course;
@@ -17,6 +20,9 @@ public class ManageCoursesController {
     @FXML
     public void setup() {
         courseList = new ListView<String>();
+      CourseDAO courseDAO = CourseDAO.getInstance();
+      ArrayList<Course> courses;
+      courses = courseDAO.getCourses();
         ObservableList<String> items = FXCollections.observableArrayList(
                 "Single", "Double", "Suite", "Family App");
         courseList.setItems(items);

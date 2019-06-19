@@ -47,4 +47,12 @@ public class Course {
         this.name = name;
         this.coordinator = coordinator;
     }
+
+    @Override
+    public String toString() {
+        return "Course " +
+                "idCourse " + idCourse +
+                ", name " + name + '\'' +
+                ", coordinator " + coordinator;
+    }
 }

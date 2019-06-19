@@ -9,5 +9,9 @@ package model.entity.User;
             super.setRole(ROLE);
         }
 
+        @Override
+        public String toString() {
+            return "Name " + getName();
+        }
     }
 
