@@ -9,4 +9,5 @@ public class NewCourseController {
   public void doMenu(ActionEvent event){}
 
   public void doNewCourse(ActionEvent event){}
+
 }
