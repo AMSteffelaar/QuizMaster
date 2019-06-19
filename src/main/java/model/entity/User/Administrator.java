@@ -8,7 +8,7 @@ public class Administrator extends User {
     public Administrator(String name, String password) {
         super(name, password);
         super.setRole(ROLE);
-        super.screens= new String[]{"NewGroup.fxml", "NewCourse.fxml", "ManageGroups.fxml", "ManageCourses", "ChangeGroup.fxml", "ChangeCourse.fxml"};
+        super.screens= new String[]{"NewGroup.fxml", "NewCourse.fxml", "ManageGroups.fxml", "ManageCourses.fxml", "ChangeGroup.fxml", "ChangeCourse.fxml"};
 
     }
 }

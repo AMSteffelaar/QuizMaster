@@ -43,4 +43,8 @@ public abstract class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String[] getScreens() {
+        return screens;
+    }
 }
