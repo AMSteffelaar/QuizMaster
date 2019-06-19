@@ -1,7 +1,9 @@
 package model.Database;
 
 import model.entity.Course;
+import model.entity.User.Coordinator;
 import model.entity.User.User;
+import view.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class CourseDAO extends AbstractDAO {
 
-    private static CourseDAO courseDAO;
+    private static CourseDAO cdao;
 
     public CourseDAO (DBaccess dBaccess) {
         super(dBaccess);
@@ -18,7 +20,6 @@ public class CourseDAO extends AbstractDAO {
 
     //deze methode levert alle bestaande cursussen
     //deze methode levert: een arrayList van de bestaande courses
-    // - done - nog testen
     public ArrayList<Course> getCourses() {
         String sql = "Select * from course";
         ArrayList<Course> results = null;
@@ -26,6 +27,7 @@ public class CourseDAO extends AbstractDAO {
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
+            results = new ArrayList<>();
             while (rs.next()) {
                 int courseId = rs.getInt("idCourse");
                 int courseCoordinator = rs.getInt("coordinator_idUser");
@@ -33,7 +35,8 @@ public class CourseDAO extends AbstractDAO {
                 UserDAO udao = UserDAO.getInstance();
                 String udao_name = udao.getUserNameById(courseCoordinator);
                 String udao_password = udao.getUserPasswordById(courseCoordinator);
-                User user = new User(udao_name,udao_password);
+                //maak een user die een coordinator is
+                User user = new Coordinator(udao_name,udao_password);
                 result = new Course(courseId, courseName, user);
                 results.add(result);
             }
@@ -43,8 +46,28 @@ public class CourseDAO extends AbstractDAO {
         return results;
     }
 
-    //deze methode schrijft een cursus weg naar de db - to do - kijk bij bestellingen
-
+    //deze methode schrijft een cursus weg naar de db
+    // doing
+   /* public Course storeCourse(Course course) {
+        String sql = "insert into Course (coordinator_idUser, name)"
+                + " values(?,?)";
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            //Arnout: hier de userId ophalen met behulp van de naam en het password
+            ps.setInt(1, course.getCoordinator()
+            ps.setString(2, order.getOrderDate());
+            int bestellingId = executeInsertPreparedStatement(ps);//dit levert een nw record in wb, incl de auto-key
+            // en levert het bestelnr uit wb terug
+            order.setOrderId(bestellingId);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+        for (Orderline o : order.getOrderLines()) {
+            System.out.println("start nu een storeOrderLine.");
+            orderLineDAO.storeOrderLine(o);
+        }
+        return order;
+    }*/
 
     //deze methode update een cursus - to do
 
@@ -72,7 +95,7 @@ public class CourseDAO extends AbstractDAO {
                 UserDAO udao = UserDAO.getInstance();
                 String udao_name = udao.getUserNameById(coordinator_id);
                 String udao_password = udao.getUserPasswordById(coordinator_id);
-                User user = new User(udao_name,udao_password);
+                User user = new Coordinator(udao_name,udao_password);
                 course = new Course(name, user);
                 course.setIdCourse(course_id);
             }
@@ -80,5 +103,15 @@ public class CourseDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return course;
+    }
+
+    public static CourseDAO getInstance(){
+        if(cdao==null){
+            cdao = new CourseDAO(Main.getInstance());
+            return cdao;
+        }
+        else {
+            return cdao;
+        }
     }
 }
