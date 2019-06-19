@@ -6,6 +6,7 @@ public abstract class User {
     private String name;
     private String password;
     public String role;
+    protected String[] screens;
 
     public User(String name, String password){
         super();

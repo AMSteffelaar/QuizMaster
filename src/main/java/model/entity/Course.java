@@ -7,10 +7,11 @@ public class Course {
     private String name;
     private User coordinator;
 
-    public Course(){
+    public Course() {
         super();
     }
-    public Course(String name, User coordinator){
+
+    public Course(String name, User coordinator) {
         this.name = name;
         this.coordinator = coordinator;
     }
