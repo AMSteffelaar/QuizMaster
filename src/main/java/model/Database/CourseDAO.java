@@ -34,7 +34,7 @@ public class CourseDAO extends AbstractDAO {
                 UserDAO udao = UserDAO.getInstance();
                 String udao_name = udao.getUserNameById(courseCoordinator);
                 String udao_password = udao.getUserPasswordById(courseCoordinator);
-                User user = new User(udao_name,udao_password);
+                User user = new Coordinator(udao_name,udao_password);
                 result = new Course(courseId, courseName, user);
                 results.add(result);
             }
