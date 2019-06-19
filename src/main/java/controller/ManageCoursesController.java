@@ -12,14 +12,14 @@ import view.SceneManager;
 import java.util.ArrayList;
 
 public class ManageCoursesController {
-    private Course course;
+    private CourseDAO cdao = CourseDAO.getInstance();
 
     @FXML
     private ListView courseList = new ListView();
 
     @FXML
     public void setup() {
-        CourseDAO cdao = CourseDAO.getInstance();
+
         ObservableList<String> cursus = FXCollections.observableArrayList();
         ArrayList<Course> courses = cdao.getCourses();
         for (Course c : courses) {
@@ -37,10 +37,12 @@ public class ManageCoursesController {
     }
 
     public void doChangeCourse(ActionEvent event) {
+        //gemaakt door Joost Kager
+        Course course = cdao.getCourseByName((String)courseList.getSelectionModel().getSelectedItem());
         SceneManager.getSceneManager().showChangeCourseScene(course);
     }
 
     public void doDeleteCourse(ActionEvent event) {
-        //courseDAO drop/deletefunctie
+        //courseDAO drop/deletefunctie wordt nog gemaakt door Arnout
     }
 }
