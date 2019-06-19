@@ -5,7 +5,7 @@ public class Quiz {
     private Course course;
     private String name;
 
-    public Quiz(){
+    public Quiz() {
         super();
     }
 

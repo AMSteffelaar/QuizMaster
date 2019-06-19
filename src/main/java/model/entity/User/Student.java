@@ -8,6 +8,7 @@ public class Student extends User {
     public Student(String name, String password){
         super(name, password);
         super.setRole(ROLE);
+        super.screens = new String[]{"StudentFeedback.fxml", "FillOutQuiz.fxml", "SelectQuizForStudent.fxml", "StudentSigninOut"};
     }
 
     public void subscribe(){

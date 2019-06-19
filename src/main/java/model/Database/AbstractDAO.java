@@ -29,6 +29,7 @@ public class AbstractDAO {
      *
      * @param ps, the prepared statement filled by a DAO
      */
+    //gebruikt voor ChangeUserController
     void executeManipulatePreparedStatement(PreparedStatement ps) throws SQLException {
         ps.executeUpdate();
     }
