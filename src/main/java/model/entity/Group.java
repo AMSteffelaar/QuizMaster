@@ -11,10 +11,11 @@ public class Group {
     private Course course;
     private ArrayList<User> students;
 
-    public Group(){
+    public Group() {
         super();
     }
-    public Group(String name, User teacher, Course course){
+
+    public Group(String name, User teacher, Course course) {
         this.name = name;
         this.teacher = teacher;
         this.course = course;
@@ -51,5 +52,13 @@ public class Group {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public void addStudent(User student) {
+        students.add(student);
+    }
+
+    public void removeStudent(User student) {
+        students.remove(student);
     }
 }

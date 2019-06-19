@@ -7,9 +7,7 @@ public class Coordinator extends Teacher {
         public Coordinator(String name, String password){
             super(name, password);
             super.setRole(ROLE);
+            super.screens = new String[]{"NewQuiz.fxml", "NewQuestion.fxml"};
         }
-
-
-
 }
 
