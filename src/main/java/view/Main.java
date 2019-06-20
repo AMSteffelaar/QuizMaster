@@ -3,7 +3,10 @@ package view;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Database.DBaccess;
+import model.Database.UserDAO;
+import model.entity.Course;
 import model.entity.User.*;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -31,17 +34,16 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-    }
-
-
     public static void main(String[] args) {
         DBaccess dbAccess = getInstance();
         dbAccess.openConnection();
         launch(args);
         dbAccess.closeConnection();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
     }
 
     public static DBaccess getInstance() {

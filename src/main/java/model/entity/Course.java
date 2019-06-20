@@ -39,4 +39,20 @@ public class Course {
     public void setCoordinator(User coordinator) {
         this.coordinator = coordinator;
     }
+
+
+    //Arnout: extra constructor inclusief de uit de db opgehaalde courseId
+    public Course(int idCourse, String name, User coordinator){
+        this.idCourse = idCourse;
+        this.name = name;
+        this.coordinator = coordinator;
+    }
+
+    @Override
+    public String toString() {
+        return "Course " +
+                "idCourse " + idCourse +
+                ", name " + name + '\'' +
+                ", coordinator " + coordinator;
+    }
 }

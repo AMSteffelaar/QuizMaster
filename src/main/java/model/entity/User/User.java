@@ -1,7 +1,7 @@
 package model.entity.User;
 
 
-public class User {
+public abstract class User {
 
     private String name;
     private String password;
@@ -12,12 +12,17 @@ public class User {
         super();
         this.name = name;
         this.password = password;
+        this.role= role;
     }
 
     //Arnout: constructor tbv CourseDAO
     public User(String name) {
         super();
         this.name = name;
+    }
+
+    public String toString(){
+        return role;
     }
 
     public String getName() {
@@ -42,5 +47,9 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String[] getScreens() {
+        return screens;
     }
 }
