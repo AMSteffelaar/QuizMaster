@@ -13,6 +13,12 @@ public class UserDAO extends AbstractDAO {
         super(db);
     }
 
+    /**
+     * Singleton constructie, waardoor er maar 1 instantie van de UserDAO bestaat.
+     * Zie het als een getter voor een instantie.
+     * Dit zodat er altijd één stabiele koppeling is en blijft met de MySQL DB.
+     * @return Een stabiele koppeling met de MySQL db.
+     */
     public static UserDAO getInstance() {
         if (udao == null) {
             udao = new UserDAO(Main.getInstance());
@@ -91,7 +97,7 @@ public class UserDAO extends AbstractDAO {
      * @param role     rol van de user
      * @return een User van het juiste type.
      */
-    private User createUser(String name, String password, String role) {
+    public User createUser(String name, String password, String role) {
         User user = null;
         switch (role) {
             case "Teacher":
@@ -112,52 +118,19 @@ public class UserDAO extends AbstractDAO {
         }
         return user;
     }
+    
 
-    // updaten van de gebruiker door de
-        public User changeUser( String name, String password) {
-            String sql = "UPDATE user SET name = ?, password = ?, role =?";
-            User user = null;
-            try {
-                PreparedStatement ps = getStatement(sql);
-                ps.setString(1, changeUser(name, password).getName());
-                ps.setString(2, changeUser(name, password).getPassword());
-                ps.setString(3, changeUser(name, password).getRole());
-                user = changeUser(name, password);
-                executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
-            } catch (SQLException e) {
-                System.out.println("SQL error: " + e.getMessage());
-            }
-            return user;
-        }
-/*
-    public ComboBox buildComboBoxModel() throws Exception {
-        ComboBox comboBoxModel = new ComboBox();
-        String sql = "SELECT role FROM user";
-
+    // updaten van de gebruiker door de SystemAdministrator
+    public void changeUser(User user, int id) {
+       /* User user = createUser(nameUser, password, role);*/
+        String sql = "update user SET role_roleName = ?, name = ?, password = ? WHERE idUser = ?";
         try {
             PreparedStatement ps = getStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                comboBoxModel.add(new DemoModelItem(rs.getString("OBJECT_NAME"),rs.getString("OBJECT_TYPE")));
-            }
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            throw e;
-        }finally{
-            try{c.close();}catch(Exception e){;}
-        }
-        return comboBoxModel;*/
-
-    // updaten van de gebruiker door de
-    public void changeUser(User userChange) {
-        String sql = "UPDATE user SET name = ?, password = ?, role =?";
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setString(1, userChange.getName());
-            ps.setString(2, userChange.getPassword());
-            ps.setString(3, userChange.getRole());
-            executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
+            ps.setString(1, user.getRole());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, id);
+            executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }

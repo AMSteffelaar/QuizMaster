@@ -27,7 +27,7 @@
       </Label>
       <TextField fx:id="nameField" layoutX="150.0" layoutY="61.0" />
       <TextField fx:id="passwordField" layoutX="150.0" layoutY="96.0" />
-      <MenuButton fx:id="roleMenuButton" layoutX="150.0" layoutY="135.0" mnemonicParsing="false" onAction = "#changeRole" text="Kies rol">
+      <MenuButton fx:id="roleMenuButton" layoutX="150.0" layoutY="135.0" mnemonicParsing="false" text="Kies rol">
          <font>
             <Font size="14.0" />
          </font>
