@@ -2,6 +2,7 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Database.CourseDAO;
 import model.Database.DBaccess;
 import model.Database.UserDAO;
 import model.entity.Course;

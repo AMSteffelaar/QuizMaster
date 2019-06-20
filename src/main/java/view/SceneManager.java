@@ -137,6 +137,13 @@ public class SceneManager {
     controller.setup();
   }
 
+  public void showNewQuiz(Course course) {
+    FXMLLoader loader = getScene("/view/fxml/newQuiz.fxml");
+    NewQuizController controller = loader.getController();
+    controller.setup(course);
+  }
+
+
   public void showStudentFeedback(Quiz quiz) {
     FXMLLoader loader = getScene("/view/fxml/studentFeedback.fxml");
     StudentFeedbackController controller = loader.getController();
