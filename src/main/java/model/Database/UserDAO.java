@@ -1,10 +1,12 @@
 package model.Database;
 
+import model.entity.Course;
 import model.entity.User.*;
 import view.Main;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDAO extends AbstractDAO {
     private static UserDAO udao;
@@ -145,7 +147,7 @@ public class UserDAO extends AbstractDAO {
             ps.setInt(1, id);
             ResultSet rs = executeSelectPreparedStatement(ps);
             while (rs.next()) {
-                password = rs.getString("name");
+                password = rs.getString("password");
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -169,6 +171,83 @@ public class UserDAO extends AbstractDAO {
             ps.setString(2, user.getName());
             ps.setString(3, user.getPassword());
             executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+    }
+
+    //Arnout: tbv SelectUserController
+    public ArrayList<User> getUsers() {
+        String sql = "Select * from user";
+        ArrayList<User> results = null;
+        User result = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            results = new ArrayList<>();
+            while (rs.next()) {
+                String role = rs.getString("role_roleName");
+                String nameUser = rs.getString("name");
+                String password = rs.getString("password");
+                UserDAO udao = UserDAO.getInstance();
+                //maak een user afhankelijk van de role
+                switch (role) {
+                    case "Student" : result = new Student(nameUser,password);
+                    case "Teacher" : result = new Teacher(nameUser,password);
+                    case "Coordinator" : result = new Coordinator(nameUser,password);
+                    case "Administrator" : result = new Administrator(nameUser,password);
+                    case "SystemAdministrator" : result = new SystemAdministrator(nameUser,password);
+                    //een default is niet nodig
+                }
+                results.add(result);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return results;
+    }
+
+
+    //Arnout tbv SelectUserController, doChangeUser
+    public User getUserByName(String name) {
+        String sql = "Select * from user where name = ?";
+        String password = null;
+        String role = null;
+        User user = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, name);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                password = rs.getString("password");
+                role = rs.getString("role_roleName");
+                UserDAO udao = UserDAO.getInstance();
+                //maak een user afhankelijk van de role
+                switch (role) {
+                    case "Student" : user = new Student(name,password);
+                    case "Teacher" : user = new Teacher(name,password);
+                    case "Coordinator" : user = new Coordinator(name,password);
+                    case "Administrator" : user = new Administrator(name,password);
+                    case "SystemAdministrator" : user = new SystemAdministrator(name,password);
+                        //een default is niet nodig
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return user;
+    }
+
+    //deze methode delete een user - doing
+    public void deleteUser(User user) {
+        String sql = "delete FROM quizmaster.user where IdUser = ?;";
+        UserDAO udao = UserDAO.getInstance();
+        //getUserId wordt gemaakt door Joost - voor nu even de constante 10
+        int userId = 11;
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setInt(1, userId);
+            udao.executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
