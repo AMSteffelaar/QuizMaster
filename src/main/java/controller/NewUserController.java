@@ -10,11 +10,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import model.Database.RoleDAO;
 import model.Database.UserDAO;
-import view.Main;
+import view.SceneManager;
 
 import java.util.ArrayList;
 
 public class NewUserController {
+    private SceneManager manager = SceneManager.getSceneManager();
 
     @FXML
     private TextField nameField;
@@ -38,13 +39,14 @@ public class NewUserController {
      * @param event noodzakelijk ivm JavaFX, verder niet in gebruik
      */
     public void doMenu(ActionEvent event) {
-        Main.getSceneManager().showLoginScene();
+        manager.showWelcomeScene();
     }
 
     /**
      * Joost Kager
      * Haalt gevulde tekstvelden op en keuze van rol en schrijft nieuw gebruiker weg in de MySQL database.
      * Aansluitend keer je terug naar scherm SelectUser.
+     *
      * @param event noodzakelijk ivm JavaFX, verder niet in gebruik
      */
     public void doCreateUser(ActionEvent event) {
@@ -52,7 +54,7 @@ public class NewUserController {
         String password = passwordField.getText();
         String role = roleMenuButton.getText();
         UserDAO.getInstance().storeUser(name, password, role);
-        Main.getSceneManager().showSelectUserScene();
+        manager.showSelectUserScene();
     }
 
     /**
