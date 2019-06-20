@@ -22,8 +22,12 @@ public class ChangeCourseController extends UpdateCourseController {
         String naam = coordinatorMenuButton.getText();
         int idcoordinator = UserDAO.getInstance().getUserByName(naam).getId();
         String naamCursus = nameField.getText();
-        cdao.updateCourse(courseID, idcoordinator, naamCursus);
-        manager.showManageCoursesScene();
+        if (naamCursus.equals("")){
+            nameField.setText("Voer aub een naam in");
+        } else {
+            cdao.updateCourse(courseID, idcoordinator, naamCursus);
+            manager.showManageCoursesScene();
+        }
     }
 
 
