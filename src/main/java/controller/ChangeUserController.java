@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,15 +9,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Database.RoleDAO;
 import model.Database.UserDAO;
-import model.entity.User.Student;
 import model.entity.User.User;
 import view.Main;
-import view.SceneManager;
+
 
 import java.util.ArrayList;
 
 
 public class ChangeUserController {
+    private int id;
 
     @FXML
     public MenuButton roleMenuButton = new MenuButton();
@@ -31,14 +30,15 @@ public class ChangeUserController {
 
 
     public void setup(User user) {
+        id = UserDAO.getInstance().getUserIdByNamePassword(user.getName(), user.getPassword());
         ArrayList<String> roles = RoleDAO.getInstance().getRoles();
-        ObservableList<String> rollen = FXCollections.observableArrayList(roles);
-        for (String rol : rollen) {
-            MenuItem item = new MenuItem(rol);
+        ObservableList<String> userRoles = FXCollections.observableArrayList(roles);
+        for (String role : userRoles) {
+            MenuItem item = new MenuItem(role);
             item.setOnAction((new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    roleMenuButton.setText(rol);
+                    roleMenuButton.setText(role);
                 }
             }));
         }
@@ -53,7 +53,9 @@ public class ChangeUserController {
         String name = nameField.getText();
         String password = passwordField.getText();
         String role = roleMenuButton.getText();
-        UserDAO.getInstance().changeUser(name, password, role);
+        UserDAO udao = UserDAO.getInstance();
+        User user = udao.createUser(name, password, role);
+        udao.changeUser(user, id);
         Main.getSceneManager().showSelectUserScene();
     }
 }
