@@ -1,12 +1,7 @@
 package model.Database;
 
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.skin.ComboBoxListViewSkin;
 import model.entity.User.*;
 import view.Main;
-
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

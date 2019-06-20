@@ -4,7 +4,6 @@ import model.entity.Course;
 import model.entity.User.Coordinator;
 import model.entity.User.User;
 import view.Main;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
