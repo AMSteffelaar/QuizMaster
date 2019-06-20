@@ -2,12 +2,21 @@ package controller;
 
 import javafx.event.ActionEvent;
 import model.entity.Group;
+import view.SceneManager;
 
 public class ChangeGroupController {
 
-  public void setup(Group group) {}
+  private SceneManager manager = SceneManager.getSceneManager();
+  private Group group;
 
-  public void doMenu(ActionEvent event){}
+  public void setup(Group group) {
+    populateScreen(group);}
+
+  private void populateScreen(Group group){
+    manager.showChangeGroupScene(group);
+  }
+
+  public void doMenu(ActionEvent event){manager.showWelcomeScene();}
 
   public void doChangeGroup(ActionEvent event){}
 }
