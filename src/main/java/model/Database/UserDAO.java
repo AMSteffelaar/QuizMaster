@@ -13,6 +13,12 @@ public class UserDAO extends AbstractDAO {
         super(db);
     }
 
+    /**
+     * Singleton constructie, waardoor er maar 1 instantie van de UserDAO bestaat.
+     * Zie het als een getter voor een instantie.
+     * Dit zodat er altijd één stabiele koppeling is en blijft met de MySQL DB.
+     * @return Een stabiele koppeling met de MySQL db.
+     */
     public static UserDAO getInstance() {
         if (udao == null) {
             udao = new UserDAO(Main.getInstance());
