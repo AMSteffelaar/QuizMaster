@@ -97,7 +97,7 @@ public class UserDAO extends AbstractDAO {
      * @param role     rol van de user
      * @return een User van het juiste type.
      */
-    private User createUser(String name, String password, String role) {
+    public User createUser(String name, String password, String role) {
         User user = null;
         switch (role) {
             case "Teacher":
@@ -121,14 +121,15 @@ public class UserDAO extends AbstractDAO {
     
 
     // updaten van de gebruiker door de SystemAdministrator
-    public void changeUser(String nameUser, String password, String role) {
-        User user = createUser(nameUser, password, role);
-        String sql = "update user SET role_roleName = ?, name =?, password = ?;";
+    public void changeUser(User user, int id) {
+       /* User user = createUser(nameUser, password, role);*/
+        String sql = "update user SET role_roleName = ?, name = ?, password = ? WHERE idUser = ?";
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setString(1, user.getRole());
             ps.setString(2, user.getName());
             ps.setString(3, user.getPassword());
+            ps.setInt(4, id);
             executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
