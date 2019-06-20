@@ -45,6 +45,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBaccess dbAccess = getInstance();
         dbAccess.openConnection();
+        //de launch nog verder invullen?
+        //launch();
         dbAccess.closeConnection();
     }
 
