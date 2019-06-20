@@ -13,7 +13,7 @@ public abstract class User {
         super();
         this.name = name;
         this.password = password;
-        this.role= role;
+        this.role = role;
     }
 
     //Arnout: constructor tbv CourseDAO

@@ -20,7 +20,6 @@ public class SceneManager {
     return Main.getSceneManager();
   }
 
-
   public SceneManager(Stage primaryStage) {
     super();
     this.primaryStage = primaryStage;
