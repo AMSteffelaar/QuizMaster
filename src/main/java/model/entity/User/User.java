@@ -7,9 +7,7 @@ public abstract class User {
     private String password;
     private String role;
 
-    protected String[] screens;
-
-    public User(String name, String password){
+    public User(String name, String password) {
         super();
         this.name = name;
         this.password = password;
@@ -21,7 +19,7 @@ public abstract class User {
         this.name = name;
     }
 
-    public String toString(){
+    public String toString() {
         return role;
     }
 
@@ -49,7 +47,5 @@ public abstract class User {
         this.role = role;
     }
 
-    public String[] getScreens() {
-        return screens;
-    }
 }
+
