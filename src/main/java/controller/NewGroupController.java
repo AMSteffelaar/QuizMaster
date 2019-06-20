@@ -1,12 +1,20 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import view.SceneManager;
 
 public class NewGroupController {
 
-  public void setup() {}
+    private SceneManager manager = SceneManager.getSceneManager();
 
-  public void doMenu(ActionEvent event){}
+    public void setup() {
+    }
 
-  public void doCreateGroup(ActionEvent event){}
+    public void doMenu(ActionEvent event) {
+        manager.showWelcomeScene();
+    }
+
+    public void doCreateGroup(ActionEvent event) {
+
+    }
 }
