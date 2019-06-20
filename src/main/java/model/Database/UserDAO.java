@@ -112,37 +112,18 @@ public class UserDAO extends AbstractDAO {
         }
         return user;
     }
+    
 
-    // updaten van de gebruiker door de
-       /* public void changeUser(String name, String password, String role) {
-            String sql = "UPDATE user SET name = ?, password = ?, role =?";
-            try {
-                PreparedStatement ps = getStatement(sql);
-                ResultSet rs= executeSelectPreparedStatement(ps);
-
-                executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
-
-                while(rs.next()){
-                    String  = rs.getString("name");
-                    String password = rs.getString("password");
-                    String role = rs.getString("role_roleName");
-                }
-            } catch (SQLException e) {
-                System.out.println("SQL error: " + e.getMessage());
-            }
-        }*/
-
-
-
-    // updaten van de gebruiker door de
-    public void changeUser(User userChange) {
-        String sql = "UPDATE user SET name = ?, password = ?, role =?";
+    // updaten van de gebruiker door de SystemAdministrator
+    public void changeUser(String nameUser, String password, String role) {
+        User user = createUser(nameUser, password, role);
+        String sql = "update user SET role_roleName = ?, name =?, password = ?;";
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setString(1, userChange.getName());
-            ps.setString(2, userChange.getPassword());
-            ps.setString(3, userChange.getRole());
-            executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
+            ps.setString(1, user.getRole());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getPassword());
+            executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
