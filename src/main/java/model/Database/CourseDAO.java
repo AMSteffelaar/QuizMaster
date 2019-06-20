@@ -17,6 +17,29 @@ public class CourseDAO extends AbstractDAO {
         super(dBaccess);
     }
 
+    //deze methode levert de course adhva het Id, deze is nodig om een group te maken in
+    //de methode getGroups in groupDAO
+    public Course getCourseById(int id) {
+        String sql = "Select * from course where idCourse = ?";
+        Course course = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int coordinator_IdUser = rs.getInt("coordinator_idUser");
+                UserDAO udao = UserDAO.getInstance();
+                User coordinator = udao.getUserById(coordinator_IdUser);
+                course = new Course(name,coordinator);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return course;
+    }
+
+
     //deze methode levert alle bestaande cursussen
     //deze methode levert: een arrayList van de bestaande courses
     public ArrayList<Course> getCourses() {
