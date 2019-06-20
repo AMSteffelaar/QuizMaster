@@ -28,7 +28,11 @@ public class LoginController {
         Session session = Session.getInstance();
         session.setCurrentUser(user);
         if (user != null) {
-            SceneManager.getSceneManager().showWelcomeScene();
+            if (user.getPassword().equals(password)) {
+                SceneManager.getSceneManager().showWelcomeScene();
+            } else {
+                SceneManager.getSceneManager().showLoginFailedScene();
+            }
         } else {
             SceneManager.getSceneManager().showLoginFailedScene();
         }
