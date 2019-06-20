@@ -18,6 +18,7 @@ public class RoleDAO extends AbstractDAO {
     public RoleDAO(DBaccess db) {
         super(db);
     }
+    
 
     public static RoleDAO getInstance() {
         if (rdao == null) {

@@ -119,9 +119,6 @@ public class WelcomeController {
                         case "studentSignInOut.fxml":
                             manager.showStudentSignInOutScene();
                             break;
-                        default:
-                            manager.getScene("/view/fxml/" + screenName);
-                            break;
                     }
                 }
             });
