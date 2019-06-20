@@ -130,8 +130,7 @@ public class CourseDAO extends AbstractDAO {
     }
 
 
-    //deze methode delete een cursus - doing
-    //
+    //deze methode delete een cursus
     public void deleteCourse(Course course) {
         String sql = "delete FROM quizmaster.course where Idcourse = ?;";
         CourseDAO cdao = CourseDAO.getInstance();
