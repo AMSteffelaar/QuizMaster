@@ -42,9 +42,9 @@ public class GroupDAO extends AbstractDAO{
     //deze methode levert alle bestaande groups
     //deze methode levert: een arrayList van de bestaande groups
     public ArrayList<Group> getGroups() {
-        String sql = "Select * from group";
+        String sql = "SELECT * FROM quizmaster.`group`;";
         ArrayList<Group> results = null;
-        Course result;
+        Group result;
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
@@ -60,8 +60,9 @@ public class GroupDAO extends AbstractDAO{
                 //maak een user die een coordinator is
                 User user = new Coordinator(udao_name,udao_password);
                 //maak een course
-
-                result = new Group(courseName, user, );
+                CourseDAO cdao = CourseDAO.getInstance();
+                Course course = cdao.getCourseById(course_idCourse);
+                result = new Group(courseName, user, course);
                 results.add(result);
             }
         } catch (SQLException e) {
@@ -69,6 +70,28 @@ public class GroupDAO extends AbstractDAO{
         }
         return results;
     }
+
+    //deze methode schrijft een group weg naar de db
+    public void storeGroup(Group group) {
+        String sql = "insert into Group (course_idCourse, teacher_idUser, name)"
+                + " values(?,?,?)";
+        UserDAO udao = UserDAO.getInstance();
+        int groupId;
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            //Hier de userId ophalen met behulp van de naam en het password
+            groupId = udao.getUserIdByNamePassword(group.getCoordinator().getName(), group.getCoordinator().getPassword());
+            ps.setInt(1, coordinatorId);
+            ps.setString(2, course.getName());
+            executeInsertPreparedStatement(ps);
+            //dit levert een nw record in wb, incl de auto-key en levert het nieuwe id terug
+        }
+        catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        };
+    }
+
+
 
 
     public static GroupDAO getInstance(){
