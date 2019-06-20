@@ -28,40 +28,21 @@ public class UserDAO extends AbstractDAO {
         }
     }
 
-    public int getUserIdByNamePassword(String name, String password) {
-        String sql = "Select * from user where name = ? and password = ?";
-        int id = 0;
+    public User getUserByName(String username) {
+        String sql = "Select * from user where name = ?";
+        User user = null;
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2, password);
+            ps.setString(1, username);
             ResultSet rs = executeSelectPreparedStatement(ps);
-
             while (rs.next()) {
-                id = rs.getInt("idUser");
-
+                int id = rs.getInt("idUser");
+                user = getUserById(id);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
-        return id;
-    }
-
-    //Arnout: een get user_name by user_id tbv CourseDAO
-    public String getUserNameById(int id) {
-        String sql = "Select * from user where idUser = ?";
-        String name = null;
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = executeSelectPreparedStatement(ps);
-            while (rs.next()) {
-                name = rs.getString("name");
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return name;
+        return user;
     }
 
     /**
@@ -82,6 +63,7 @@ public class UserDAO extends AbstractDAO {
                 String password = rs.getString("password");
                 String role = rs.getString("role_roleName");
                 user = createUser(name, password, role);
+                user.setId(id);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -135,25 +117,6 @@ public class UserDAO extends AbstractDAO {
             }
             return user;
         }
-/*
-    public ComboBox buildComboBoxModel() throws Exception {
-        ComboBox comboBoxModel = new ComboBox();
-        String sql = "SELECT role FROM user";
-
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                comboBoxModel.add(new DemoModelItem(rs.getString("OBJECT_NAME"),rs.getString("OBJECT_TYPE")));
-            }
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            throw e;
-        }finally{
-            try{c.close();}catch(Exception e){;}
-        }
-        return comboBoxModel;*/
 
     // updaten van de gebruiker door de
     public void changeUser(User userChange) {
@@ -168,27 +131,8 @@ public class UserDAO extends AbstractDAO {
             System.out.println("SQL error: " + e.getMessage());
         }
     }
-
-    //Arnout tbv CourseDAO
-    public String getUserPasswordById(int id) {
-        String sql = "Select * from user where idUser = ?";
-        String password = null;
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = executeSelectPreparedStatement(ps);
-            while (rs.next()) {
-                password = rs.getString("name");
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return password;
-    }
-
     /**
      * Slaat nieuw gemaakte user die is ingevoerd in de NewUserController op in de MySQL DB
-     * JK
      * @param naam     naam van de user
      * @param password password van de user
      * @param role     rol van de user
@@ -197,11 +141,12 @@ public class UserDAO extends AbstractDAO {
         User user = createUser(naam, password, role);
         String sql = "INSERT INTO `quizmaster`.`user` (`role_roleName`, `name`, `password`) VALUES (?, ?, ?);";
         try {
-            PreparedStatement ps = getStatement(sql);
+            PreparedStatement ps = getStatementWithKey(sql);
             ps.setString(1, user.getRole());
             ps.setString(2, user.getName());
             ps.setString(3, user.getPassword());
-            executeManipulatePreparedStatement(ps);
+            int id = executeInsertPreparedStatement(ps);
+            user.setId(id);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }

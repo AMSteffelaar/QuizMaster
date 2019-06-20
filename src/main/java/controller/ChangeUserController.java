@@ -3,10 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import model.Database.UserDAO;
 import model.entity.User.User;
 import view.Main;
@@ -57,7 +54,7 @@ public class ChangeUserController {
         String password = passwordField.getText();
         UserDAO udao = UserDAO.getInstance();
         //deze is wel anders
-        int iduser = udao.getUserIdByNamePassword(name, password);
+        int iduser = udao.getUserByName(name).getId();
         User user = udao.changeUser(name, password);
         if (iduser != 0) {
             SceneManager.getSceneManager().showSelectUserScene();

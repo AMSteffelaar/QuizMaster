@@ -1,12 +1,20 @@
 package model.entity.User;
 
 
+import model.Database.UserDAO;
+
 public abstract class User {
 
+    private int id;
     private String name;
     private String password;
     private String role;
 
+    /**
+     * Constructor die liefst alleen wordt aangeroepen wanneer een user al in de DB aanwezig is. geeft mogelijk problemen met nieuw user
+     * @param name
+     * @param password
+     */
     public User(String name, String password) {
         super();
         this.name = name;
@@ -47,5 +55,11 @@ public abstract class User {
         this.role = role;
     }
 
-}
+    public int getId() {return id;}
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    }
+
 
