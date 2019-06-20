@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Database.CourseDAO;
 import model.entity.Course;
@@ -19,6 +20,7 @@ public class ManageCoursesController {
     private ListView courseList = new ListView();
 
     @FXML
+    private Label selectLabel = new Label();
     /**
      * wordt gestart bij het aanroepen van de view via de Scenemanager
      */
@@ -49,8 +51,12 @@ public class ManageCoursesController {
      * @param event noodzakelijk ivm JavaFX, maar niet in gebruik
      */
     public void doChangeCourse(ActionEvent event) {
-        Course course = cdao.getCourseByName((String)courseList.getSelectionModel().getSelectedItem());
-        manager.showChangeCourseScene(course);
+        Course course = cdao.getCourseByName((String) courseList.getSelectionModel().getSelectedItem());
+        if (course == null) {
+            selectLabel.setText("Er is geen Cursus geselecteerd, maak AUB een keuze");
+        } else {
+            manager.showChangeCourseScene(course);
+        }
     }
 
     /**
