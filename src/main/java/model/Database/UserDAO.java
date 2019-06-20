@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UserDAO extends AbstractDAO {
     private static UserDAO udao;
@@ -215,6 +216,32 @@ public class UserDAO extends AbstractDAO {
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
+    }
+
+    /**
+     * Haalt een lijst van users op uit de database met de opgegeven rol.
+     * @param role De opgegeven rol.
+     * @return Array van users.
+     */
+    public User[] getUsersByRole(String role) {
+        String sql = "Select * from user where role_roleName = ?";
+        ArrayList<User> results = new ArrayList<>();
+        User user;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, role);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                String nameUser = rs.getString("name");
+                String password = rs.getString("password");
+                String roleUser = rs.getString("role_roleName");
+                user = createUser(nameUser,password,roleUser);
+                results.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return results.toArray(new User[results.size()]);
     }
 }
 
