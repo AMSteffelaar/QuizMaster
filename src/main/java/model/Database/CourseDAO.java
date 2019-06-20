@@ -1,7 +1,9 @@
 package model.Database;
 
 import model.entity.Course;
+import model.entity.User.Coordinator;
 import model.entity.User.User;
+import view.Main;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,27 +12,33 @@ import java.util.ArrayList;
 
 public class CourseDAO extends AbstractDAO {
 
-    private static CourseDAO courseDAO;
+    private static CourseDAO cdao;
 
     public CourseDAO (DBaccess dBaccess) {
         super(dBaccess);
     }
 
-    //deze methode levert alle bestaande cursussen - to do
-    //deze methode moet opleveren: een arrayList van courses
+    //deze methode levert alle bestaande cursussen
+    //deze methode levert: een arrayList van de bestaande courses
     public ArrayList<Course> getCourses() {
         String sql = "Select * from course";
         ArrayList<Course> results = null;
+        Course result;
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
+            results = new ArrayList<>();
             while (rs.next()) {
                 int courseId = rs.getInt("idCourse");
+                int courseCoordinator = rs.getInt("coordinator_idUser");
                 String courseName = rs.getString("name");
-                String courseCoordinator = rs.getString("coordinator_idUser");
-                int result = -1;
-                //result = new Course(); de klass is door een collega gemaakt, deze ophalen uit de remote
-                //results.add(result); add werkt alleen als het een arrayList is
+                UserDAO udao = UserDAO.getInstance();
+                String udao_name = udao.getUserNameById(courseCoordinator);
+                String udao_password = udao.getUserPasswordById(courseCoordinator);
+                //maak een user die een coordinator is
+                User user = new Coordinator(udao_name,udao_password);
+                result = new Course(courseId, courseName, user);
+                results.add(result);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -38,9 +46,82 @@ public class CourseDAO extends AbstractDAO {
         return results;
     }
 
+    //deze methode schrijft een cursus weg naar de db
+    public void storeCourse(Course course) {
+        String sql = "insert into Course (coordinator_idUser, name)"
+                + " values(?,?)";
+        UserDAO udao = UserDAO.getInstance();
+        int coordinatorId;
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            //Arnout: hier de userId ophalen met behulp van de naam en het password
+            coordinatorId = udao.getUserIdByNamePassword(course.getCoordinator().getName(), course.getCoordinator().getPassword());
+            ps.setInt(1, coordinatorId);
+            ps.setString(2, course.getName());
+            executeInsertPreparedStatement(ps);
+            //dit levert een nw record in wb, incl de auto-key en levert het nieuwe id terug
+            }
+        catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        };
+    }
 
-    //deze methode schrijft een cursus weg naar de db - to do - kijk bij bestellingen
+    //deze methode update van een cursus de cursus naam
+    //afstemmen met Inge wat er binnen moet komen in deze methode voor wat betreft de nieuwe coordinator
+    public void updateCourse(Course course, String newCourseName, User newCoordinator) {
+        String sql = "update course set coordinator_idUser = ?, name = ? where idCourse = ?;";
+        CourseDAO cdao = CourseDAO.getInstance();
+        UserDAO udao = UserDAO.getInstance();
+        int newCoordinatorId = udao.getUserIdByNamePassword(newCoordinator.getName(),newCoordinator
+                .getPassword());
+        int courseId = cdao.getCourseIdByUserName(course.getCoordinator(), course.getName());
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setInt(1, newCoordinatorId);
+            ps.setString(2, newCourseName);
+            ps.setInt(3,courseId);
+            cdao.executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+    }
 
+
+    //methode getCourseIdByCourseUserName deze is nodig voor de testgevallen
+    public Integer getCourseIdByUserName(User user, String name) {
+        String sql = "Select idCourse from course where coordinator_idUser = ? and name = ?";
+        int course_id = -1;
+        UserDAO udao = UserDAO.getInstance();
+        int userId = udao.getUserIdByNamePassword(user.getName(),user.getPassword());
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, userId);
+            ps.setString(2, name);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                course_id = rs.getInt("idCourse");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return course_id;
+    }
+
+
+    //deze methode delete een cursus - doing
+    //
+    public void deleteCourse(Course course) {
+        String sql = "delete FROM quizmaster.course where Idcourse = ?;";
+        CourseDAO cdao = CourseDAO.getInstance();
+        int courseId = cdao.getCourseIdByUserName(course.getCoordinator(), course.getName());
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setInt(1, courseId);
+            cdao.executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+    }
 
     //deze methode levert een unieke cursus van de lijst met cursus namen als deze voorkomt.
     public Course getCourseByName(String name) {
@@ -59,7 +140,7 @@ public class CourseDAO extends AbstractDAO {
                 UserDAO udao = UserDAO.getInstance();
                 String udao_name = udao.getUserNameById(coordinator_id);
                 String udao_password = udao.getUserPasswordById(coordinator_id);
-                User user = new User(udao_name,udao_password);
+                User user = new Coordinator(udao_name,udao_password);
                 course = new Course(name, user);
                 course.setIdCourse(course_id);
             }
@@ -67,5 +148,15 @@ public class CourseDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return course;
+    }
+
+    public static CourseDAO getInstance(){
+        if(cdao==null){
+            cdao = new CourseDAO(Main.getInstance());
+            return cdao;
+        }
+        else {
+            return cdao;
+        }
     }
 }

@@ -9,5 +9,11 @@ public class Coordinator extends Teacher {
             super.setRole(ROLE);
             super.screens = new String[]{"NewQuiz.fxml", "NewQuestion.fxml"};
         }
+
+    @Override
+    public String toString() {
+        return super.toString() + " in de rol van Coordinator.";
+    }
+
 }
 
