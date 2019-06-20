@@ -65,9 +65,17 @@ public class ManageCoursesController {
      */
     public void doDeleteCourse(ActionEvent event) {
         Course course = cdao.getCourseByName((String)courseList.getSelectionModel().getSelectedItem());
-        cdao.deleteCourse(course);
-        manager.showManageCoursesScene();
+        if (course == null) {
+            selectLabel.setText("Er is geen Cursus geselecteerd, maak AUB een keuze");
+        } else {
+            cdao.deleteCourse(course);
+            manager.showChangeCourseScene(course);
+        }
     }
+
+    /**
+     * geeft vulling aan het overzicht met alle cursussen die er zijn in de MySQL DB
+     */
     private void populateScreen(){
         ObservableList<String> cursus = FXCollections.observableArrayList();
         ArrayList<Course> courses = cdao.getCourses();
