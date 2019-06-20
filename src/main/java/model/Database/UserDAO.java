@@ -119,40 +119,25 @@ public class UserDAO extends AbstractDAO {
     }
 
     // updaten van de gebruiker door de
-        public User changeUser( String name, String password) {
+       /* public void changeUser(String name, String password, String role) {
             String sql = "UPDATE user SET name = ?, password = ?, role =?";
-            User user = null;
             try {
                 PreparedStatement ps = getStatement(sql);
-                ps.setString(1, changeUser(name, password).getName());
-                ps.setString(2, changeUser(name, password).getPassword());
-                ps.setString(3, changeUser(name, password).getRole());
-                user = changeUser(name, password);
+                ResultSet rs= executeSelectPreparedStatement(ps);
+
                 executeManipulatePreparedStatement(ps); // hierdoor krijg je niks terug en wordt het gewoon aagepast.
+
+                while(rs.next()){
+                    String  = rs.getString("name");
+                    String password = rs.getString("password");
+                    String role = rs.getString("role_roleName");
+                }
             } catch (SQLException e) {
                 System.out.println("SQL error: " + e.getMessage());
             }
-            return user;
-        }
-/*
-    public ComboBox buildComboBoxModel() throws Exception {
-        ComboBox comboBoxModel = new ComboBox();
-        String sql = "SELECT role FROM user";
+        }*/
 
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                comboBoxModel.add(new DemoModelItem(rs.getString("OBJECT_NAME"),rs.getString("OBJECT_TYPE")));
-            }
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            throw e;
-        }finally{
-            try{c.close();}catch(Exception e){;}
-        }
-        return comboBoxModel;*/
+
 
     // updaten van de gebruiker door de
     public void changeUser(User userChange) {

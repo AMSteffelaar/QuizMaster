@@ -37,7 +37,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="changeUserButton" layoutX="150.0" layoutY="188.0" mnemonicParsing="false" onAction="#doChangeUser" text="Wijzig gebruiker">
+      <Button fx:id="changeUserButton" layoutX="150.0" layoutY="188.0" mnemonicParsing="false"  text="Wijzig gebruiker">
          <font>
             <Font size="14.0" />
          </font>
