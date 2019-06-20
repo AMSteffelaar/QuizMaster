@@ -1,8 +1,6 @@
 package model.entity.User;
 
 
-import model.Database.UserDAO;
-
 public abstract class User {
 
     private int id;

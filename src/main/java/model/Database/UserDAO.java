@@ -145,7 +145,7 @@ public class UserDAO extends AbstractDAO {
     public ArrayList<User> getUsers() {
         String sql = "Select * from user";
         ArrayList<User> results = null;
-        User result = null;
+        User result;
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
@@ -194,7 +194,7 @@ public class UserDAO extends AbstractDAO {
 //        return user;
 //    }
 
-    //deze methode delete een user - doing
+    //deze methode delete een user
     public void deleteUser(User user) {
         String sql = "delete FROM quizmaster.user where IdUser = ?;";
         UserDAO udao = UserDAO.getInstance();

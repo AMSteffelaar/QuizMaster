@@ -15,7 +15,7 @@ public class Coordinator extends Teacher {
 
     @Override
     public String toString() {
-        return "coördinator " + super.getName();
+        return "coördinator ";
     }
 }
 
