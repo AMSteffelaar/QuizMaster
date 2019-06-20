@@ -154,16 +154,7 @@ public class UserDAO extends AbstractDAO {
                 String role = rs.getString("role_roleName");
                 String nameUser = rs.getString("name");
                 String password = rs.getString("password");
-                UserDAO udao = UserDAO.getInstance();
-                //maak een user afhankelijk van de role
-                switch (role) {
-                    case "Student" : result = new Student(nameUser,password);
-                    case "Teacher" : result = new Teacher(nameUser,password);
-                    case "Coordinator" : result = new Coordinator(nameUser,password);
-                    case "Administrator" : result = new Administrator(nameUser,password);
-                    case "SystemAdministrator" : result = new SystemAdministrator(nameUser,password);
-                    //een default is niet nodig
-                }
+                result = createUser(nameUser, password, role);
                 results.add(result);
             }
         } catch (SQLException e) {
