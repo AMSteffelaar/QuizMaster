@@ -223,7 +223,7 @@ public class UserDAO extends AbstractDAO {
      * @param role De opgegeven rol.
      * @return Array van users.
      */
-    public User[] getUsersByRole(String role) {
+    public ArrayList<User> getUsersByRole(String role) {
         String sql = "Select * from user where role_roleName = ?";
         ArrayList<User> results = new ArrayList<>();
         User user;
@@ -241,7 +241,7 @@ public class UserDAO extends AbstractDAO {
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
-        return results.toArray(new User[results.size()]);
+        return results;
     }
 }
 
