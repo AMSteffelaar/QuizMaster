@@ -80,7 +80,7 @@ public class SceneManager {
   public void showChangeUserScene(User user) {
     FXMLLoader loader = getScene("/view/fxml/changeUser.fxml");
     ChangeUserController controller = loader.getController();
-    controller.setup();
+    controller.setup(user);
   }
 
   public void showManageCoursesScene() {
