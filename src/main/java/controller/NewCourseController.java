@@ -34,7 +34,7 @@ public class NewCourseController {
   }
 
   public void doNewCourse(ActionEvent event){
-
+  String name = nameField.getText();
   }
 
 }

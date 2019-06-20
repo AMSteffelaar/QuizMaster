@@ -71,11 +71,11 @@ public class GroupDAO extends AbstractDAO{
         return results;
     }
 
-    //deze methode schrijft een group weg naar de db
+  /*  //deze methode schrijft een group weg naar de db
     public void storeGroup(Group group) {
-        String sql = "insert into Group (course_idCourse, teacher_idUser, name)"
-                + " values(?,?,?)";
-        UserDAO udao = UserDAO.getInstance();
+        String sql = "insert into Group (course_idCourse, name)"
+                + " values(?,?)";
+        *//*UserDAO udao = UserDAO.getInstance();*//*
         int groupId;
         try {
             PreparedStatement ps = getStatementWithKey(sql);
@@ -88,11 +88,47 @@ public class GroupDAO extends AbstractDAO{
         }
         catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
-        };
+        }
+    }*/
+
+
+
+
+
+    public void deleteGroup (Group group) {
+        String sql = "delete FROM quizmaster.group where IdGroup = ?;";
+        GroupDAO gdao = GroupDAO.getInstance();
+        int idGroup = group.getIdGroup();
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, idGroup);
+            gdao.executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
     }
+    public Group getGroupById (int id) {
+            String sql = "Select * from group where idGroup = ?";
+            Group group = null;
+            try {
+                PreparedStatement ps = getStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = executeSelectPreparedStatement(ps);
+                while (rs.next()) {
+                    String name = rs.getString("name");
+                    int teacher_idUser = rs.getInt ("teacher_idUser");
+                    UserDAO udao = UserDAO.getInstance();
+                    User teacher = udao.getUserById(teacher_idUser);
+                    CourseDAO cdao = CourseDAO.getInstance();
+                    Course courses = cdao.getCourseById(id);
+                    group = new Group (name, teacher, courses);
+                }
+            } catch (SQLException e){
+                System.out.println("SQL error: " + e.getMessage());
+        }
+            return group;
 
-
-
+    }
 
     public static GroupDAO getInstance(){
         if(gdao==null){
