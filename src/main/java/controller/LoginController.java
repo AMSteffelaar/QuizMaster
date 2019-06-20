@@ -29,7 +29,7 @@ public class LoginController {
         Session session = Session.getInstance();
         session.setCurrentUser(user);
         if (id != 0) {
-            SceneManager.getSceneManager().showWelcomeScene();
+            SceneManager.getSceneManager().showNewUserScene();
         } else {
             SceneManager.getSceneManager().showLoginFailedScene();
         }
