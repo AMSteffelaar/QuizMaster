@@ -243,7 +243,7 @@ public class UserDAO extends AbstractDAO {
         String sql = "delete FROM quizmaster.user where IdUser = ?;";
         UserDAO udao = UserDAO.getInstance();
         //getUserId wordt gemaakt door Joost - voor nu even de constante 10
-        int userId = 11;
+        int userId = 13;
         try {
             PreparedStatement ps = getStatementWithKey(sql);
             ps.setInt(1, userId);
