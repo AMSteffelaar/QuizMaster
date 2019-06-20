@@ -47,36 +47,81 @@ public class CourseDAO extends AbstractDAO {
     }
 
     //deze methode schrijft een cursus weg naar de db
-    // doing
-   /* public Course storeCourse(Course course) {
+    public void storeCourse(Course course) {
         String sql = "insert into Course (coordinator_idUser, name)"
                 + " values(?,?)";
+        UserDAO udao = UserDAO.getInstance();
+        int coordinatorId;
         try {
             PreparedStatement ps = getStatementWithKey(sql);
             //Arnout: hier de userId ophalen met behulp van de naam en het password
-            ps.setInt(1, course.getCoordinator()
-            ps.setString(2, order.getOrderDate());
-            int bestellingId = executeInsertPreparedStatement(ps);//dit levert een nw record in wb, incl de auto-key
-            // en levert het bestelnr uit wb terug
-            order.setOrderId(bestellingId);
+            coordinatorId = udao.getUserIdByNamePassword(course.getCoordinator().getName(), course.getCoordinator().getPassword());
+            ps.setInt(1, coordinatorId);
+            ps.setString(2, course.getName());
+            executeInsertPreparedStatement(ps);
+            //dit levert een nw record in wb, incl de auto-key en levert het nieuwe id terug
+            }
+        catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        };
+    }
+
+    //deze methode update van een cursus de cursus naam
+    //afstemmen met Inge wat er binnen moet komen in deze methode voor wat betreft de nieuwe coordinator
+    public void updateCourse(Course course, String newCourseName, User newCoordinator) {
+        String sql = "update course set coordinator_idUser = ?, name = ? where idCourse = ?;";
+        CourseDAO cdao = CourseDAO.getInstance();
+        UserDAO udao = UserDAO.getInstance();
+        int newCoordinatorId = udao.getUserIdByNamePassword(newCoordinator.getName(),newCoordinator
+                .getPassword());
+        int courseId = cdao.getCourseIdByUserName(course.getCoordinator(), course.getName());
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setInt(1, newCoordinatorId);
+            ps.setString(2, newCourseName);
+            ps.setInt(3,courseId);
+            cdao.executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
-        for (Orderline o : order.getOrderLines()) {
-            System.out.println("start nu een storeOrderLine.");
-            orderLineDAO.storeOrderLine(o);
+    }
+
+
+    //methode getCourseIdByCourseUserName deze is nodig voor de testgevallen
+    public Integer getCourseIdByUserName(User user, String name) {
+        String sql = "Select idCourse from course where coordinator_idUser = ? and name = ?";
+        int course_id = -1;
+        UserDAO udao = UserDAO.getInstance();
+        int userId = udao.getUserIdByNamePassword(user.getName(),user.getPassword());
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, userId);
+            ps.setString(2, name);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                course_id = rs.getInt("idCourse");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
         }
-        return order;
-    }*/
-
-    //deze methode update een cursus - to do
+        return course_id;
+    }
 
 
-
-    //deze methode delete een cursus - to do
-
-
-
+    //deze methode delete een cursus - doing
+    //
+    public void deleteCourse(Course course) {
+        String sql = "delete FROM quizmaster.course where Idcourse = ?;";
+        CourseDAO cdao = CourseDAO.getInstance();
+        int courseId = cdao.getCourseIdByUserName(course.getCoordinator(), course.getName());
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setInt(1, courseId);
+            cdao.executeManipulatePreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+    }
 
     //deze methode levert een unieke cursus van de lijst met cursus namen als deze voorkomt.
     public Course getCourseByName(String name) {

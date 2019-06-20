@@ -3,6 +3,10 @@ package view;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Database.DBaccess;
+import model.Database.UserDAO;
+import model.entity.Course;
+import model.entity.User.*;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
