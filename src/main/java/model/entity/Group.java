@@ -19,7 +19,7 @@ public class Group {
         this.name = name;
         this.teacher = teacher;
         this.course = course;
-        this.students = new ArrayList();
+        this.students = new ArrayList<>();
     }
 
     public int getIdGroup() {
