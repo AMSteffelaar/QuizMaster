@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import model.entity.Course;
 
 public class ManageGroupsController {
 
@@ -12,5 +13,7 @@ public class ManageGroupsController {
 
   public void doChangeGroup(ActionEvent event){}
 
-  public void doDeleteGroup(ActionEvent event){}
+  public void doDeleteGroup(ActionEvent event){
+
+  }
 }

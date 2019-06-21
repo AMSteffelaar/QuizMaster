@@ -19,18 +19,25 @@ import java.util.ArrayList;
 public class ChangeUserController {
     private int id;
 
+
+
+
     @FXML
     public MenuButton roleMenuButton = new MenuButton();
-    // In de selectUserContoller moet nog gemaakt worden hier wordt dan een gebruiker geselecteerd.
-    // Deze gebruiker moet dan gewijzigd worden. DIT IS DUS NOG NIET AF!
     @FXML
     private TextField nameField;
     @FXML
     private TextField passwordField;
+    @FXML
+    private ListView rolelist = new ListView();
 
 
     public void setup(User user) {
+        populateRoleMenu();
         id = UserDAO.getInstance().getUserIdByNamePassword(user.getName(), user.getPassword());
+
+    }
+    public void populateRoleMenu() {
         ArrayList<String> roles = RoleDAO.getInstance().getRoles();
         ObservableList<String> userRoles = FXCollections.observableArrayList(roles);
         for (String role : userRoles) {
@@ -40,11 +47,11 @@ public class ChangeUserController {
                 public void handle(ActionEvent actionEvent) {
                     roleMenuButton.setText(role);
                 }
-            }));
-        }
-    }
 
-    public void doMenu(ActionEvent event) {
+            }));
+        } rolelist.setItems(userRoles);
+    }
+                public void doMenu(ActionEvent event) {
         Main.getSceneManager().showLoginScene();
     }
 

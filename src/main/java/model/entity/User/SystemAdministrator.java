@@ -11,7 +11,7 @@ public class SystemAdministrator extends User {
     public SystemAdministrator(String name, String password) {
         super(name, password);
         super.setRole(ROLE);
-        //super.screens = new String[]{"ChanceUser.fxlm", "NewUser.fxml", "SelectUser.fxml"};
+        //super.screens = new String[]{"chanceUser.fxlm", "NewUser.fxml", "SelectUser.fxml"};
     }
 
     @Override
