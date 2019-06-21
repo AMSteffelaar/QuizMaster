@@ -7,9 +7,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import model.Database.CourseDAO;
 import model.Database.UserDAO;
+import model.entity.Course;
+import model.entity.User.User;
 import view.Main;
+import view.SceneManager;
 
 public class NewCourseController {
+
+  private SceneManager manager = SceneManager.getSceneManager();
 
   @FXML
   private TextField nameField;
@@ -18,23 +23,28 @@ public class NewCourseController {
   private MenuButton coordinatorMenuButton = new MenuButton();
 
   public void setup() {
-    // create menu items
-    MenuItem m1 = new MenuItem("coordinator 1");
-    MenuItem m2 = new MenuItem("coordinator 2");
-    MenuItem m3 = new MenuItem("coordinator 3");
+    //Maak een choice box voor het drop down menu
+    
 
-    // add menu items to menu
-    coordinatorMenuButton.getItems().add(m1);
-    coordinatorMenuButton.getItems().add(m2);
-    coordinatorMenuButton.getItems().add(m3);
+
+
+
   }
 
   public void doMenu(ActionEvent event) {
-    Main.getSceneManager().showLoginScene();
+    //Als op de menu-knop wordt gedrukt, moet de user naar het welkomstscherm
+    Main.getSceneManager().showWelcomeScene();
   }
 
   public void doNewCourse(ActionEvent event){
   String name = nameField.getText();
+  String coordinatorName = coordinatorMenuButton.getText();
+  UserDAO udao = UserDAO.getInstance();
+  User coordinator = udao.getUserByName(coordinatorName);
+  Course course = new Course(name, coordinator);
+  CourseDAO cdao = CourseDAO.getInstance();
+  cdao.storeCourse(course);
+  manager.showManageCoursesScene();
   }
 
 }
