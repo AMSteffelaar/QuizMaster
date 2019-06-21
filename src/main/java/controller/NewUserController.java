@@ -53,8 +53,11 @@ public class NewUserController {
         String name = nameField.getText();
         String password = passwordField.getText();
         String role = roleMenuButton.getText();
-        UserDAO.getInstance().storeUser(name, password, role);
-        manager.showSelectUserScene();
+        if (UserDAO.getInstance().getUserByName(name) == null) {
+            UserDAO.getInstance().storeUser(name, password, role);
+            manager.showSelectUserScene();
+        } else {nameField.setText("Al in gebruik");
+        }
     }
 
     /**

@@ -5,8 +5,8 @@ public class Student extends User {
 
     private static final String ROLE = "Student";
     public static final String[] SCREENS_STUDENT = new String[]{"selectQuizForStudent.fxml", "fillOutQuiz.fxml",
-            "studentFeedback.fxml", "studentSignInOut.fxml"};
-    public static final String[] TASKS_STUDENT = new String[]{"Kies quiz", "Maak een quiz", "Zie quizresultaten",
+            "studentSignInOut.fxml"};
+    public static final String[] TASKS_STUDENT = new String[]{"Kies quiz", "Maak een quiz",
             "Schrijf in/uit"};
 
     public Student(String name, String password){

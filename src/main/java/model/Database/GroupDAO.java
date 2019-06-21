@@ -55,11 +55,7 @@ public class GroupDAO extends AbstractDAO{
                 int teacher_idUser = rs.getInt("teacher_idUser");
                 String courseName = rs.getString("name");
                 UserDAO udao = UserDAO.getInstance();
-                String udao_name = udao.getUserNameById(teacher_idUser);
-                String udao_password = udao.getUserPasswordById(teacher_idUser);
-                //maak een user die een coordinator is
-                User user = new Coordinator(udao_name,udao_password);
-                //maak een course
+                User user = udao.getUserById(teacher_idUser);
                 CourseDAO cdao = CourseDAO.getInstance();
                 Course course = cdao.getCourseById(course_idCourse);
                 result = new Group(courseName, user, course);
@@ -71,11 +67,13 @@ public class GroupDAO extends AbstractDAO{
         return results;
     }
 
-  /*  //deze methode schrijft een group weg naar de db
-    public void storeGroup(Group group) {
+
+    //deze methode schrijft een group weg naar de db
+    /*public void storeGroup(Group group) {
+
         String sql = "insert into Group (course_idCourse, name)"
                 + " values(?,?)";
-        *//*UserDAO udao = UserDAO.getInstance();*//*
+        UserDAO udao = UserDAO.getInstance();
         int groupId;
         try {
             PreparedStatement ps = getStatementWithKey(sql);

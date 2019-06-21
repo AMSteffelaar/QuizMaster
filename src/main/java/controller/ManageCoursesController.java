@@ -49,7 +49,6 @@ public class ManageCoursesController {
      * @param event noodzakelijk ivm JavaFX, maar niet in gebruik
      */
     public void doChangeCourse(ActionEvent event) {
-        //gemaakt door Joost Kager
         Course course = cdao.getCourseByName((String)courseList.getSelectionModel().getSelectedItem());
         manager.showChangeCourseScene(course);
     }

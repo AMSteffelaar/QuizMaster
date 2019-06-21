@@ -24,14 +24,16 @@ public class LoginController {
         // In verband met autoincrement idGebruiker heeft iedere naam password combinatie een unieke id, tenzij het voor gaat komen
         // als er iemand met dezelfde naam hetzelfde password kiest.... Misschien iets om rekening mee te houden bij de implementatie
         // van de NewUserController. zodat dit niet voor kan gaan komen
-        int id = udao.getUserIdByNamePassword(naam, password);
-        User user = udao.getUserById(id);
+        User user = udao.getUserByName(naam);
         Session session = Session.getInstance();
         session.setCurrentUser(user);
-        if (id != 0) {
+        if (user != null) {
             SceneManager.getSceneManager().showWelcomeScene();
-        } else {
-            SceneManager.getSceneManager().showLoginFailedScene();
+            if (user != null) {
+                SceneManager.getSceneManager().showWelcomeScene();
+            } else {
+                SceneManager.getSceneManager().showLoginFailedScene();
+            }
         }
     }
 
