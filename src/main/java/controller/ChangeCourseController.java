@@ -20,9 +20,6 @@ public class ChangeCourseController {
     private ChoiceBox<String> coordinatorChoiceBox;
 
     @FXML
-    private Button changeCourseButton;
-
-    @FXML
     private TextField numberField;
 
     @FXML
