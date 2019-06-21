@@ -18,27 +18,6 @@ public class GroupDAO extends AbstractDAO{
         super(db);
     }
 
-    /*public int getUserIdByNamePassword(String name, String password) {
-        String sql = "Select * from user where name = ? and password = ?";
-        int id = 0;
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2, password);
-            ResultSet rs = executeSelectPreparedStatement(ps);
-
-            while (rs.next()) {
-                id = rs.getInt("idUser");
-
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return id;
-    }*/
-
-
-
     //deze methode levert alle bestaande groups
     //deze methode levert: een arrayList van de bestaande groups
     public ArrayList<Group> getGroups() {
@@ -76,6 +55,20 @@ public class GroupDAO extends AbstractDAO{
             ps.setString(3, naam);
             executeInsertPreparedStatement(ps);
         } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }
+    }
+
+    public void updateGroup(int groupID, int cursusID, int docentId, String naamGroep){
+        String sql = "UPDATE `quizmaster`.`group` SET `course_idCourse` = ?, `teacher_idUser` = ?, `name` = ? WHERE (`idGroup` = ?);";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, cursusID);
+            ps.setInt(2,docentId);
+            ps.setString(3,naamGroep);
+            ps.setInt(4, groupID);
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e){
             System.out.println("SQL error: " + e.getMessage());
         }
     }
