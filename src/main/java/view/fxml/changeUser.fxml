@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -32,11 +32,7 @@
       </Label>
       <TextField fx:id="nameField" layoutX="150.0" layoutY="61.0" />
       <TextField fx:id="passwordField" layoutX="150.0" layoutY="96.0" />
-      <MenuButton fx:id="roleMenuButton" layoutX="150.0" layoutY="135.0" mnemonicParsing="false" text="Kies rol">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </MenuButton>
+      <ChoiceBox fx:id="roleChoiceBox" layoutX="150.0" layoutY="135.0" prefHeight="25.0" prefWidth="149.0" />
       <Button fx:id="menuButton" layoutX="14.0" layoutY="187.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
          <font>
             <Font size="14.0" />
