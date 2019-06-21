@@ -18,27 +18,6 @@ public class GroupDAO extends AbstractDAO{
         super(db);
     }
 
-    /*public int getUserIdByNamePassword(String name, String password) {
-        String sql = "Select * from user where name = ? and password = ?";
-        int id = 0;
-        try {
-            PreparedStatement ps = getStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2, password);
-            ResultSet rs = executeSelectPreparedStatement(ps);
-
-            while (rs.next()) {
-                id = rs.getInt("idUser");
-
-            }
-        } catch (SQLException e) {
-            System.out.println("SQL error " + e.getMessage());
-        }
-        return id;
-    }*/
-
-
-
     //deze methode levert alle bestaande groups
     //deze methode levert: een arrayList van de bestaande groups
     public ArrayList<Group> getGroups() {
@@ -67,32 +46,32 @@ public class GroupDAO extends AbstractDAO{
         return results;
     }
 
-
-    //deze methode schrijft een group weg naar de db
-    /*public void storeGroup(Group group) {
-
-        String sql = "insert into Group (course_idCourse, name)"
-                + " values(?,?)";
-        UserDAO udao = UserDAO.getInstance();
-        int groupId;
+    public void storeGroup(int courseid, int docentid, String naam) {
+        String sql = "INSERT INTO `quizmaster`.`group` (`course_idCourse`, `teacher_idUser`, `name`) VALUES (?, ?, ?);";
         try {
             PreparedStatement ps = getStatementWithKey(sql);
-            //Hier de userId ophalen met behulp van de naam en het password
-            groupId = udao.getUserIdByNamePassword(group.getCoordinator().getName(), group.getCoordinator().getPassword());
-            ps.setInt(1, coordinatorId);
-            ps.setString(2, course.getName());
+            ps.setInt(1, courseid);
+            ps.setInt(2, docentid);
+            ps.setString(3, naam);
             executeInsertPreparedStatement(ps);
-            //dit levert een nw record in wb, incl de auto-key en levert het nieuwe id terug
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
-    }*/
+    }
 
-
-
-
-
+    public void updateGroup(int groupID, int cursusID, int docentId, String naamGroep){
+        String sql = "UPDATE `quizmaster`.`group` SET `course_idCourse` = ?, `teacher_idUser` = ?, `name` = ? WHERE (`idGroup` = ?);";
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, cursusID);
+            ps.setInt(2,docentId);
+            ps.setString(3,naamGroep);
+            ps.setInt(4, groupID);
+            executeManipulatePreparedStatement(ps);
+        } catch (SQLException e){
+            System.out.println("SQL error: " + e.getMessage());
+        }
+    }
     public void deleteGroup (Group group) {
         String sql = "delete FROM quizmaster.group where IdGroup = ?;";
         GroupDAO gdao = GroupDAO.getInstance();

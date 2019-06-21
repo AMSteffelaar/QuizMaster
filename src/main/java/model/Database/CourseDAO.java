@@ -97,16 +97,12 @@ public class CourseDAO extends AbstractDAO {
 
     //deze methode update van een cursus de cursus naam
     //afstemmen met Inge wat er binnen moet komen in deze methode voor wat betreft de nieuwe coordinator
-    public void updateCourse(Course course, String newCourseName, User newCoordinator) {
+    public void updateCourse(int courseId, int idcoordinator, String cursusnaam) {
         String sql = "update course set coordinator_idUser = ?, name = ? where idCourse = ?;";
-        CourseDAO cdao = CourseDAO.getInstance();
-        UserDAO udao = UserDAO.getInstance();
-        int newCoordinatorId = udao.getUserByName(newCoordinator.getName()).getId();
-        int courseId = cdao.getCourseIdByUserName(course.getCoordinator(), course.getName());
         try {
             PreparedStatement ps = getStatementWithKey(sql);
-            ps.setInt(1, newCoordinatorId);
-            ps.setString(2, newCourseName);
+            ps.setInt(1, idcoordinator);
+            ps.setString(2, cursusnaam);
             ps.setInt(3, courseId);
             cdao.executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {

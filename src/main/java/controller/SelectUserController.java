@@ -4,9 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Database.UserDAO;
-import model.entity.Course;
 import model.entity.User.User;
 import view.SceneManager;
 
@@ -22,6 +22,7 @@ public class SelectUserController {
   private ListView userList = new ListView();
 
   @FXML
+  private Label selectUser = new Label();
   /**
    * wordt gestart bij het aanroepen van de view via de Scenemanager
    */
@@ -49,12 +50,20 @@ public class SelectUserController {
 
   public void doChangeUser(ActionEvent event){
     User user = udao.getUserByName((String)userList.getSelectionModel().getSelectedItem());
-    manager.showChangeUserScene(user);
+    if (user == null){
+      selectUser.setText("U heeft geen gebruiker geselecteerd");
+    } else {
+      manager.showChangeUserScene(user);
+    }
   }
 
   public void doDeleteUser(ActionEvent event){
     User user = udao.getUserByName((String)userList.getSelectionModel().getSelectedItem());
-    udao.deleteUser(user);
-    manager.showSelectUserScene();
+    if (user == null){
+      selectUser.setText("U heeft geen gebruiker geselecteerd");
+    } else {
+      udao.deleteUser(user);
+      manager.showChangeUserScene(user);
+    }
   }
 }

@@ -12,7 +12,7 @@ import model.entity.User.User;
 import view.Main;
 import view.SceneManager;
 
-public class NewCourseController {
+public class NewCourseController extends UpdateCourseController{
 
   private SceneManager manager = SceneManager.getSceneManager();
 

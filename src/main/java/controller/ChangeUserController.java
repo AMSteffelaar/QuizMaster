@@ -1,76 +1,40 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import model.Database.RoleDAO;
-import model.Database.UserDAO;
 import model.entity.User.User;
-import view.Main;
 
-
-import java.util.ArrayList;
-
-
-public class ChangeUserController {
-    private int id;
-
-
-
-
-    @FXML
-    private MenuButton roleMenuButton = new MenuButton();
-
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private ListView rolelist = new ListView();
-
+public class ChangeUserController extends UpdateUserController {
+    private int idUser;
 
     public void setup(User user) {
-        id = user.getId();
+        idUser = user.getId();
         nameField.setText(user.getName());
         passwordField.setText(user.getPassword());
-        roleMenuButton.setText(user.getRole());
-        populateRoleMenu();
-
-
-    }
-    public void populateRoleMenu() {
-
-        ArrayList<String> roles = RoleDAO.getInstance().getRoles();
-        ObservableList<String> userRoles = FXCollections.observableArrayList(roles);
-        for (String role : userRoles) {
-            MenuItem item = new MenuItem(role);
-            item.setOnAction((new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    roleMenuButton.setText(role);
-                }
-
-            }));
-            roleMenuButton.getItems().add(item);
-        }
+        roleMenuButton.setText(vertaal(user.getRole()));
+        populateScreen();
     }
 
     public void doMenu(ActionEvent event) {
-        Main.getSceneManager().showWelcomeScene();
+        manager.showWelcomeScene();
     }
 
 
     public void doChangeUser(ActionEvent event) {
         String name = nameField.getText();
+        if (nameField.hasProperties()){
+            nameField.setText("Dit veld mag niet leeg zijn");
+        }
         String password = passwordField.getText();
-        String role = roleMenuButton.getText();
-        UserDAO udao = UserDAO.getInstance();
+        if (passwordField.hasProperties()){
+            passwordField.setText("Dit veld mag niet leeg zijn");
+        }
+        String role = translate(roleMenuButton.getText());
         User user = udao.createUser(name, password, role);
-        udao.changeUser(user, id);
-        Main.getSceneManager().showSelectUserScene();
+        if (udao.getUserByName(name) == null  && !nameField.hasProperties() && !passwordField.hasProperties()) {
+            udao.changeUser(user, idUser);
+            manager.showSelectUserScene();
+        } else {
+            nameField.setText("Al in gebruik");
+        }
     }
 }
