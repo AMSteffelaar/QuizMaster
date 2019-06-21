@@ -8,7 +8,7 @@ public class NewUserController extends UpdateUserController {
      * wordt gestart bij het aanroepen van de view via de Scenemanager
      */
     public void setup() {
-        populateScreen();
+        populateRoleChoiceBox();
     }
 
     /**

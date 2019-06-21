@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -27,24 +28,20 @@ public class UpdateUserController {
     @FXML
     protected MenuButton roleMenuButton = new MenuButton();
 
+    @FXML
+    protected ChoiceBox <String> roleChoiceBox;
+
     /**
      * Haalt rollen op uit table Role in MySQL DB en vult de Menubutton 'kies Rol'
      * geeft tevens de functionaliteit dat de gekozen rol zichtbaar blijft en kan worden uitgelezen
      * als nieuwe gebruiker wordt aangemaakt.
      */
-    protected void populateScreen() {
-        ArrayList<String> roles = RoleDAO.getInstance().getRoles();
-        ObservableList<String> rollen = FXCollections.observableArrayList(roles);
-        for (String role : rollen) {
-            String rol = vertaal(role);
-            MenuItem item = new MenuItem(rol);
-            item.setOnAction((new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    roleMenuButton.setText(rol);
-                }
-            }));
-            roleMenuButton.getItems().add(item);
+    protected void populateRoleChoiceBox() {
+        /*ObservableList<String> rollen = FXCollections.observableArrayList();*/
+        RoleDAO rdao = RoleDAO.getInstance();
+        ArrayList<String> roles = rdao.getRoles();
+        for ( String role : roles){
+            roleChoiceBox.getItems().add(role);
         }
     }
 

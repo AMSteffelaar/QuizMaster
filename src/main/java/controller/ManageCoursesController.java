@@ -69,7 +69,7 @@ public class ManageCoursesController {
             selectLabel.setText("Er is geen Cursus geselecteerd, maak AUB een keuze");
         } else {
             cdao.deleteCourse(course);
-            manager.showChangeCourseScene(course);
+            manager.showManageCoursesScene();
         }
     }
 

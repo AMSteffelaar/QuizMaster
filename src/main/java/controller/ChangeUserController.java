@@ -10,8 +10,8 @@ public class ChangeUserController extends UpdateUserController {
         idUser = user.getId();
         nameField.setText(user.getName());
         passwordField.setText(user.getPassword());
-        roleMenuButton.setText(vertaal(user.getRole()));
-        populateScreen();
+        roleChoiceBox.setValue(user.getRole());
+        populateRoleChoiceBox();
     }
 
     public void doMenu(ActionEvent event) {
@@ -28,7 +28,7 @@ public class ChangeUserController extends UpdateUserController {
         if (passwordField.hasProperties()){
             passwordField.setText("Dit veld mag niet leeg zijn");
         }
-        String role = translate(roleMenuButton.getText());
+        String role = translate(roleChoiceBox.getValue());
         User user = udao.createUser(name, password, role);
         if (udao.getUserByName(name) == null  && !nameField.hasProperties() && !passwordField.hasProperties()) {
             udao.changeUser(user, idUser);
