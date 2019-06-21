@@ -22,6 +22,8 @@ public class NewCourseController extends UpdateCourseController{
   @FXML
   private MenuButton coordinatorMenuButton = new MenuButton();
 
+
+
   public void setup() {
     //Maak een choice box voor het drop down menu
     
