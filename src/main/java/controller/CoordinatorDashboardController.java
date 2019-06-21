@@ -5,8 +5,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import view.SceneManager;
 
 public class CoordinatorDashboardController {
+  SceneManager manager = SceneManager.getSceneManager();
 
   @FXML
   private Button menuButton;
@@ -55,7 +57,9 @@ public class CoordinatorDashboardController {
 
   }
 
-  public void doMenu() {}
+  public void doMenu() {
+    manager.showWelcomeScene();
+  }
 
   public void doNewCourse() {}
 
