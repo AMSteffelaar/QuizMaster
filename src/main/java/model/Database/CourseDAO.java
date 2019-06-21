@@ -76,8 +76,14 @@ public class CourseDAO extends AbstractDAO {
         return results;
     }
 
-    //deze methode schrijft een cursus weg naar de db
     public void storeCourse(Course course) {
+        if ((Integer) course.getIdCourse() == null) {
+            insertCourse(course);
+        } else updateCourse(course);
+    }
+
+    //deze methode schrijft een cursus weg naar de db
+    public void insertCourse(Course course) {
         String sql = "insert into Course (coordinator_idUser, name)"
                 + " values(?,?)";
         UserDAO udao = UserDAO.getInstance();
