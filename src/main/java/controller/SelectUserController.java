@@ -17,6 +17,7 @@ public class SelectUserController {
   private UserDAO udao = UserDAO.getInstance();
   private SceneManager manager = SceneManager.getSceneManager();
 
+
   @FXML
   private ListView userList = new ListView();
 
