@@ -63,7 +63,7 @@ public class SelectUserController {
       selectUser.setText("U heeft geen gebruiker geselecteerd");
     } else {
       udao.deleteUser(user);
-      manager.showChangeUserScene(user);
+      manager.showSelectUserScene();;
     }
   }
 }

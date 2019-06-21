@@ -7,13 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Database.GroupDAO;
-import model.entity.Course;
 import model.entity.Group;
 import view.SceneManager;
 
 import java.util.ArrayList;
-
-import view.SceneManager;
 
 public class ManageGroupsController {
   private SceneManager manager = SceneManager.getSceneManager();
@@ -38,11 +35,13 @@ public class ManageGroupsController {
   }
 
   public void doChangeGroup(ActionEvent event){
-    System.out.println(groupList.getSelectionModel().getSelectedItem());
-//    Group group = gdao.getGroupById()ByName((String) courseList.getSelectionModel().getSelectedItem());
+//    System.out.println(groupList.getSelectionModel().getSelectedItem());
+//    Group group = gdao.getGroupById() ByName((String) courseList.getSelectionModel().getSelectedItem());
 //    manager.showChangeCourseScene();
   }
-  public void doDeleteGroup(ActionEvent event){}
+  public void doDeleteGroup(ActionEvent event){
+//    gdao.deleteGroup();
+  }
 
   private void populateScreen(){
     ObservableList<String> groepen = FXCollections.observableArrayList();
