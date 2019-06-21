@@ -9,6 +9,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import model.Database.CourseDAO;
+import model.Database.GroupDAO;
 import model.Database.UserDAO;
 import model.entity.Course;
 import model.entity.User.Coordinator;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class UpdateGroupController {
     protected SceneManager manager = SceneManager.getSceneManager();
+    protected GroupDAO gdao = GroupDAO.getInstance();
     @FXML
     protected TextField nameField;
     @FXML

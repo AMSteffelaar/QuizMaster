@@ -67,25 +67,18 @@ public class GroupDAO extends AbstractDAO{
         return results;
     }
 
-  /*  //deze methode schrijft een group weg naar de db
-    public void storeGroup(Group group) {
-        String sql = "insert into Group (course_idCourse, name)"
-                + " values(?,?)";
-        *//*UserDAO udao = UserDAO.getInstance();*//*
-        int groupId;
+    public void storeGroup(int courseid, int docentid, String naam) {
+        String sql = "INSERT INTO `quizmaster`.`group` (`course_idCourse`, `teacher_idUser`, `name`) VALUES (?, ?, ?);";
         try {
             PreparedStatement ps = getStatementWithKey(sql);
-            //Hier de userId ophalen met behulp van de naam en het password
-            groupId = udao.getUserIdByNamePassword(group.getCoordinator().getName(), group.getCoordinator().getPassword());
-            ps.setInt(1, coordinatorId);
-            ps.setString(2, course.getName());
+            ps.setInt(1, courseid);
+            ps.setInt(2, docentid);
+            ps.setString(3, naam);
             executeInsertPreparedStatement(ps);
-            //dit levert een nw record in wb, incl de auto-key en levert het nieuwe id terug
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
-    }*/
+    }
 
 
 
