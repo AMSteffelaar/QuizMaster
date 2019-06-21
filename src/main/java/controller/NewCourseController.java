@@ -11,30 +11,30 @@ import view.Main;
 
 public class NewCourseController {
 
-  @FXML
-  private TextField nameField;
+    @FXML
+    private TextField nameField;
 
-  @FXML
-  private MenuButton coordinatorMenuButton = new MenuButton();
+    @FXML
+    private MenuButton coordinatorMenuButton = new MenuButton();
 
-  public void setup() {
-    // create menu items
-    MenuItem m1 = new MenuItem("coordinator 1");
-    MenuItem m2 = new MenuItem("coordinator 2");
-    MenuItem m3 = new MenuItem("coordinator 3");
+    public void setup() {
+        // create menu items
+        MenuItem m1 = new MenuItem("coordinator 1");
+        MenuItem m2 = new MenuItem("coordinator 2");
+        MenuItem m3 = new MenuItem("coordinator 3");
 
-    // add menu items to menu
-    coordinatorMenuButton.getItems().add(m1);
-    coordinatorMenuButton.getItems().add(m2);
-    coordinatorMenuButton.getItems().add(m3);
-  }
+        // add menu items to menu
+        coordinatorMenuButton.getItems().add(m1);
+        coordinatorMenuButton.getItems().add(m2);
+        coordinatorMenuButton.getItems().add(m3);
+    }
 
-  public void doMenu(ActionEvent event) {
-    Main.getSceneManager().showLoginScene();
-  }
+    public void doMenu(ActionEvent event) {
+        Main.getSceneManager().showLoginScene();
+    }
 
-  public void doNewCourse(ActionEvent event){
-  String name = nameField.getText();
-  }
+    public void doNewCourse(ActionEvent event) {
+        String name = nameField.getText();
+    }
 
 }
