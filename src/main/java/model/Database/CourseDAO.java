@@ -14,10 +14,6 @@ public class CourseDAO extends AbstractDAO {
 
     private static CourseDAO cdao;
 
-    private CourseDAO(DBaccess dBaccess) {
-        super(dBaccess);
-    }
-
     public static CourseDAO getInstance() {
         if (cdao == null) {
             cdao = new CourseDAO(Main.getInstance());
@@ -29,6 +25,12 @@ public class CourseDAO extends AbstractDAO {
 
     //deze methode levert de course adhva het Id, deze is nodig om een group te maken in
     //de methode getGroups in groupDAO
+
+    public CourseDAO(DBaccess dBaccess) {
+        super(dBaccess);
+    }
+
+    //deze methode levert de course adhva het Id.
     public Course getCourseById(int id) {
         String sql = "Select * from course where idCourse = ?";
         Course course = null;
@@ -136,9 +138,9 @@ public class CourseDAO extends AbstractDAO {
     public void deleteCourse(Course course) {
         String sql = "delete FROM quizmaster.course where Idcourse = ?;";
         CourseDAO cdao = CourseDAO.getInstance();
-        int courseId = cdao.getCourseIdByUserName(course.getCoordinator(), course.getName());
+        int courseId = course.getIdCourse();
         try {
-            PreparedStatement ps = getStatementWithKey(sql);
+            PreparedStatement ps = getStatement(sql);
             ps.setInt(1, courseId);
             cdao.executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {

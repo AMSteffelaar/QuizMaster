@@ -67,8 +67,10 @@ public class GroupDAO extends AbstractDAO{
         return results;
     }
 
-    /*//deze methode schrijft een group weg naar de db
-    public void storeGroup(Group group) {
+
+    //deze methode schrijft een group weg naar de db
+    /*public void storeGroup(Group group) {
+
         String sql = "insert into Group (course_idCourse, name)"
                 + " values(?,?)";
         UserDAO udao = UserDAO.getInstance();

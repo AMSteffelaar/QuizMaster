@@ -29,8 +29,11 @@ public class LoginController {
         session.setCurrentUser(user);
         if (user != null) {
             SceneManager.getSceneManager().showWelcomeScene();
-        } else {
-            SceneManager.getSceneManager().showLoginFailedScene();
+            if (user != null) {
+                SceneManager.getSceneManager().showWelcomeScene();
+            } else {
+                SceneManager.getSceneManager().showLoginFailedScene();
+            }
         }
     }
 

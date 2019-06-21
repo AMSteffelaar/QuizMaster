@@ -19,6 +19,9 @@ import java.util.ArrayList;
 public class ChangeUserController {
     private int id;
 
+
+
+
     @FXML
     private MenuButton roleMenuButton = new MenuButton();
 
@@ -26,6 +29,8 @@ public class ChangeUserController {
     private TextField nameField;
     @FXML
     private TextField passwordField;
+    @FXML
+    private ListView rolelist = new ListView();
 
 
     public void setup(User user) {
@@ -33,6 +38,12 @@ public class ChangeUserController {
         nameField.setText(user.getName());
         passwordField.setText(user.getPassword());
         roleMenuButton.setText(user.getRole());
+        populateRoleMenu();
+
+
+    }
+    public void populateRoleMenu() {
+
         ArrayList<String> roles = RoleDAO.getInstance().getRoles();
         ObservableList<String> userRoles = FXCollections.observableArrayList(roles);
         for (String role : userRoles) {
@@ -42,6 +53,7 @@ public class ChangeUserController {
                 public void handle(ActionEvent actionEvent) {
                     roleMenuButton.setText(role);
                 }
+
             }));
             roleMenuButton.getItems().add(item);
         }
