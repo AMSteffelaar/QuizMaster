@@ -1,9 +1,11 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import model.Database.CourseDAO;
+import model.Database.UserDAO;
+import view.SceneManager;
 
 public class NewUserController extends UpdateUserController {
-
     /**
      * wordt gestart bij het aanroepen van de view via de Scenemanager
      */
@@ -29,7 +31,7 @@ public class NewUserController extends UpdateUserController {
     public void doCreateUser(ActionEvent event) {
         String name = nameField.getText();
         String password = passwordField.getText();
-        String role = roleMenuButton.getText();
+        String role = roleChoiceBox.getValue();
         if (udao.getUserByName(name) == null) {
             udao.storeUser(name, password, role);
             manager.showSelectUserScene();
