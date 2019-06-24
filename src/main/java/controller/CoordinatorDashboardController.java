@@ -2,13 +2,21 @@ package controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import model.Database.CourseDAO;
+import model.entity.Course;
+import model.entity.Session;
 import view.SceneManager;
+
+import java.util.ArrayList;
 
 public class CoordinatorDashboardController {
   SceneManager manager = SceneManager.getSceneManager();
+  CourseDAO cdao = CourseDAO.getInstance();
 
   @FXML
   private Button menuButton;
@@ -41,6 +49,7 @@ public class CoordinatorDashboardController {
   private ListView<String> questionList;
 
   public void setup() {
+    populateCourses();
     courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
       @Override
       public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -61,9 +70,9 @@ public class CoordinatorDashboardController {
     manager.showWelcomeScene();
   }
 
-  public void doNewCourse() {}
+  public void doNewCourse() {manager.showNewCourseScene();}
 
-  public void doEditCourse() {}
+  public void doEditCourse() {manager.showChangeCourseScene(CourseDAO.getInstance().getCourseByName(courseList.getSelectionModel().getSelectedItem()));}
 
   public void doNewQuiz() {}
 
@@ -72,4 +81,14 @@ public class CoordinatorDashboardController {
   public void doNewQuestion() {}
 
   public void doEditQuestion() {}
+
+  private void populateCourses(){
+    ObservableList<String> cursus = FXCollections.observableArrayList();
+    ArrayList<Course> courses = cdao.getCoursesByCoordinator(Session.getInstance().getCurrentUser().getId());
+    for (Course c : courses) {
+      cursus.add(c.getName());
+    }
+    courseList.setItems(cursus);
+  }
 }
+
