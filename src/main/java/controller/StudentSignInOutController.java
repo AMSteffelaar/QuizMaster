@@ -43,9 +43,13 @@ public class StudentSignInOutController {
     manager.showWelcomeScene();
   }
 
-  public void doSignIn(ActionEvent event){}
+  public void doSignIn(ActionEvent event){
+    System.out.println(courseList.getSelectionModel().getSelectedItems());
+  }
 
-  public void doSignOut(ActionEvent event){}
+  public void doSignOut(ActionEvent event){
+    System.out.println(SignedInCourseList.getSelectionModel().getSelectedItems());
+  }
 
   private void populateCourselist(){
     ObservableList<String> cursus = FXCollections.observableArrayList();
