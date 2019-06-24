@@ -44,6 +44,7 @@ public class CourseDAO extends AbstractDAO {
                 UserDAO udao = UserDAO.getInstance();
                 User coordinator = udao.getUserById(coordinator_IdUser);
                 course = new Course(name, coordinator);
+                course.setIdCourse(id);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
