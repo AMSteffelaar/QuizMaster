@@ -28,7 +28,7 @@ public class QuestionDAO extends AbstractDAO {
         }
     }
 
-    public ArrayList<Question> getQuestionbyQuiz(int idQuiz) {
+    /*public ArrayList<Question> getQuestionbyQuiz(int idQuiz) {
         String sql = "SELECT * FROM q&a where Quiz_idQuiz = ?";
         ArrayList<Question> results = null;
         Question result;
@@ -42,15 +42,14 @@ public class QuestionDAO extends AbstractDAO {
                 String question = rs.getString("question");
                 QuizDAO qdao = QuizDAO.getInstance();
                 Quiz quiz = qdao.getQuizById(quiz_idQuiz);
-                result = new Question(quiz, question);
-                result.setIdQuestion(questionId);
+                result = new Question(question, quiz);
+                result.setQuestion(questionId);
                 results.add(result);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
-        return results;
+        return results;*/
     }
 
 
-}

@@ -50,4 +50,25 @@ public class QuizDAO extends AbstractDAO {
         }
         return results;
     }
+
+    public Quiz getQuizById(int id) {
+        String sql = "Select * from quiz where idQuiz = ?";
+        Quiz quiz = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            while (rs.next()) {
+                String name = rs.getString("name");
+                int course_idCourse = rs.getInt("course_idCourse");
+                CourseDAO cdao = CourseDAO.getInstance();
+                Course course = cdao.getCourseById(course_idCourse);
+                quiz = new Quiz(course, name);
+                quiz.setIdQuiz(id);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return quiz;
+    }
 }

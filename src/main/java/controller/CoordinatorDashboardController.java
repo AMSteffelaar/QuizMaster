@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import model.Database.CourseDAO;
 import model.Database.QuizDAO;
@@ -45,7 +46,7 @@ public class CoordinatorDashboardController {
   private Button editQuestionButton;
 
   @FXML
-  private ListView<String> courseList;
+  private ListView<Course> courseList;
 
   @FXML
   private ListView<String> quizList;
@@ -55,12 +56,27 @@ public class CoordinatorDashboardController {
 
   public void setup() {
     populateCourses();
-
-    courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+    courseList.setCellFactory(param -> new ListCell<Course>() {
       @Override
-      public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-        System.out.println("Selected item in courseList: " + observableValue + ", " + s + ", " + t1);
-        populateQuiz(new Course());
+      protected void updateItem(Course cou, boolean empty) {
+        super.updateItem(cou, empty);
+        if (empty || cou == null || cou.getName() == null) {
+          setText(" ");
+        } else {
+          setText(cou.getName());
+          /*courseList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Course> observable, Course oldValue, Course newValue) -> {*/
+          /*if(courseList.isFocused())*/
+        }
+      }
+    });
+
+
+    courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
+      @Override
+      public void changed(ObservableValue<? extends Course> observableValue, Course s, Course t1) {
+//        System.out.println("Selected item in courseList: " + observableValue + ", " + s + ", " + t1);
+        System.out.println(t1);
+        populateQuiz(t1);
       }
     });
 
@@ -80,7 +96,7 @@ public class CoordinatorDashboardController {
   }
 
   public void doEditCourse() {
-    manager.showChangeCourseScene(CourseDAO.getInstance().getCourseByName(courseList.getSelectionModel().getSelectedItem()));
+    /*manager.showChangeCourseScene(CourseDAO.getInstance().getCourseByName(courseList.getSelectionModel().getSelectedItem()));*/
   }
 
   public void doNewQuiz() {
@@ -96,16 +112,16 @@ public class CoordinatorDashboardController {
   }
 
   private void populateCourses() {
-    ObservableList<String> cursus = FXCollections.observableArrayList();
+    ObservableList<Course> cursus = FXCollections.observableArrayList();
     ArrayList<Course> courses = cdao.getCoursesByCoordinator(Session.getInstance().getCurrentUser().getId());
-    for (Course c : courses) {
-      cursus.add(c.getName());
-    }
+    cursus.setAll(courses);
     courseList.setItems(cursus);
+
   }
 
   private void populateQuiz(Course c) {
     c.getIdCourse();
+    System.out.println(c.getIdCourse());
     ObservableList<String> quizeses = FXCollections.observableArrayList();
     ArrayList<Quiz> quizes = qdao.getQuizByCourse(c.getIdCourse());
     for (Quiz q : quizes) {
