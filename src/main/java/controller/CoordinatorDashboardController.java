@@ -66,9 +66,7 @@ public class CoordinatorDashboardController {
 
   }
 
-  public void doMenu() {
-    manager.showWelcomeScene();
-  }
+  public void doMenu() { manager.showWelcomeScene(); }
 
   public void doNewCourse() {manager.showNewCourseScene();}
 
