@@ -39,8 +39,8 @@ public class CourseDAO extends AbstractDAO {
             ps.setInt(1, id);
             ResultSet rs = executeSelectPreparedStatement(ps);
             while (rs.next()) {
-                String name = rs.getString("name");
                 int coordinator_IdUser = rs.getInt("coordinator_idUser");
+                String name = rs.getString("name");
                 UserDAO udao = UserDAO.getInstance();
                 User coordinator = udao.getUserById(coordinator_IdUser);
                 course = new Course(name, coordinator);
