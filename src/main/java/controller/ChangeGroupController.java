@@ -11,6 +11,7 @@ public class ChangeGroupController extends UpdateGroupController {
 
     public void setup(Group group) {
         groupID = group.getIdGroup();
+        nameField.setText(group.getName());
         vulCursus();
         vulDocent();
         teacherMenuButton.setText(group.getTeacher().getName());
@@ -37,6 +38,7 @@ public class ChangeGroupController extends UpdateGroupController {
             courseMenuButton.setText("maak een keuze");
         } else {
             gdao.updateGroup(groupID, cursusID, docentId, naamGroep);
+            manager.showManageGroupsScene();
         }
     }
 }
