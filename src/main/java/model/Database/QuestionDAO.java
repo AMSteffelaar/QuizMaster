@@ -28,7 +28,7 @@ public class QuestionDAO extends AbstractDAO {
         }
     }
 
-    /*public ArrayList<Question> getQuestionbyQuiz(int idQuiz) {
+   /* public ArrayList<Question> getQuestionbyQuiz(int idQuiz) {
         String sql = "SELECT * FROM q&a where Quiz_idQuiz = ?";
         ArrayList<Question> results = null;
         Question result;
