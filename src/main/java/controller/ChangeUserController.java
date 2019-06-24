@@ -28,7 +28,7 @@ public class ChangeUserController extends UpdateUserController {
         if (passwordField.hasProperties()){
             passwordField.setText("Dit veld mag niet leeg zijn");
         }
-        String role = translate(roleChoiceBox.getValue());
+        String role = roleChoiceBox.getValue();
         User user = udao.createUser(name, password, role);
         if (udao.getUserByName(name) == null  && !nameField.hasProperties() && !passwordField.hasProperties()) {
             udao.changeUser(user, idUser);

@@ -16,19 +16,8 @@ public class NewCourseController extends UpdateCourseController{
 
   private SceneManager manager = SceneManager.getSceneManager();
 
-  @FXML
-  private TextField nameField;
 
-  @FXML
-  private MenuButton coordinatorMenuButton = new MenuButton();
-
-  public void setup() {
-    //Maak een choice box voor het drop down menu
-    
-
-
-
-
+  public void setup() {populateCoordinatorChoiceBox();
   }
 
   public void doMenu(ActionEvent event) {
@@ -38,7 +27,8 @@ public class NewCourseController extends UpdateCourseController{
 
   public void doNewCourse(ActionEvent event){
   String name = nameField.getText();
-  String coordinatorName = coordinatorMenuButton.getText();
+  String coordinatorName = coordinatorChoiceBox.getValue();
+    System.out.println(coordinatorName);
   UserDAO udao = UserDAO.getInstance();
   User coordinator = udao.getUserByName(coordinatorName);
   Course course = new Course(name, coordinator);

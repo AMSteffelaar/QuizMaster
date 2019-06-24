@@ -107,7 +107,6 @@ public class UserDAO extends AbstractDAO {
 
     // updaten van de gebruiker door de SystemAdministrator
     public void changeUser(User user, int id) {
-       /* User user = createUser(nameUser, password, role);*/
         String sql = "update user SET role_roleName = ?, name = ?, password = ? WHERE idUser = ?";
         try {
             PreparedStatement ps = getStatement(sql);
