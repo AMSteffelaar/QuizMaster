@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.entity.Course;
 import model.entity.Group;
+import model.entity.Question;
 import model.entity.Quiz;
 import model.entity.User.User;
 
@@ -141,7 +142,6 @@ public class SceneManager {
     NewQuizController controller = loader.getController();
     controller.setup(course);
   }
-
 
   public void showStudentFeedback(Quiz quiz) {
     FXMLLoader loader = getScene("/view/fxml/studentFeedback.fxml");

@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.util.ArrayList;
+
 public class Question {
     private int idQA;
     private Quiz quiz;
@@ -8,6 +10,7 @@ public class Question {
     private String answerB;
     private String answerC;
     private String answerD;
+    private ArrayList<Question> questions;
 
     public Question(Quiz quiz, String question, String answerA, String answerB, String answerC, String answerD) {
         this.quiz = quiz;
@@ -72,5 +75,14 @@ public class Question {
 
     public void setAnswerD(String answerD) {
         this.answerD = answerD;
+    }
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+    }
+
+    public void removeQuestion(Question question) {
+        questions.remove(question);
+
     }
 }
