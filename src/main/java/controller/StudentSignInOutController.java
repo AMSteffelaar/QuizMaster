@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import model.Database.CourseDAO;
 import model.Database.GroupDAO;
-import model.entity.Course;
 import model.entity.Group;
 import model.entity.Session;
 import view.SceneManager;
@@ -33,7 +32,7 @@ public class StudentSignInOutController {
   private ListView courseList = new ListView(); //is de courselist not signed in
 
   @FXML
-  private ListView SignedInCourseList = new ListView();
+  private ListView signedInCourseList = new ListView();
 
 
   public void setup() {
@@ -45,9 +44,13 @@ public class StudentSignInOutController {
     manager.showWelcomeScene();
   }
 
-  public void doSignIn(ActionEvent event){}
+  public void doSignIn(ActionEvent event){
+    System.out.println(courseList.getSelectionModel().getSelectedItems());
+  }
 
-  public void doSignOut(ActionEvent event){}
+  public void doSignOut(ActionEvent event){
+    System.out.println(signedInCourseList.getSelectionModel().getSelectedItems());
+  }
 
   private void populateCourselist(){ // mag ook heten signedIn courses
     ObservableList<String> cursus = FXCollections.observableArrayList();
@@ -55,7 +58,7 @@ public class StudentSignInOutController {
     for (Group group : ingeschreven_groepen) {
       cursus.add(group.getCourse().getName());
     }
-    SignedInCourseList.setItems(cursus);
+    signedInCourseList.setItems(cursus);
   }
 
   private void populateCourseList_not_signed_in (){
