@@ -43,6 +43,9 @@ public class ManageGroupsController {
   public void doDeleteGroup(ActionEvent event){
     int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
     Group group = gdao.getGroupById(groupID);
+    System.out.println(group.getName());
+    group.setIdGroup(groupID);
+    System.out.println(group.getIdGroup());
     gdao.deleteGroup(group);
   }
 
