@@ -102,7 +102,8 @@ public class GroupDAO extends AbstractDAO{
                     CourseDAO cdao = CourseDAO.getInstance();
                     Course courses = cdao.getCourseById(courseId);
                     group = new Group (name, teacher, courses);
-                }
+                    group.setIdGroup(id);
+                                    }
             } catch (SQLException e){
                 System.out.println("SQL error: " + e.getMessage());
         }
