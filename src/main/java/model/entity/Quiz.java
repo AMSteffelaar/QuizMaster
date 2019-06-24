@@ -6,7 +6,7 @@ public class Quiz {
     private int idQuiz;
     private Course course;
     private String name;
-    private ArrayList<Question> questions;
+    private ArrayList<Quiz> quizes;
 
     public Quiz() {
         super();
@@ -41,11 +41,11 @@ public class Quiz {
         this.name = name;
     }
 
-    public void addQuestion(Question question){
-        questions.add(question);
+    public void addQuiz(Quiz quiz) {
+        this.quizes.add(quiz);
     }
-    public void removeQuestion(Question question){
-        questions.remove(question);
 
+    public void removeQuiz(Quiz quiz) {
+        this.quizes.remove(quiz);
     }
 }
