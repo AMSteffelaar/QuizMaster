@@ -42,8 +42,6 @@
          </font>
       </Label>
       <MenuButton fx:id="teacherMenuButton" layoutX="132.0" layoutY="160.0" mnemonicParsing="false" text="Kies docent">
-        <items>
-        </items>
          <font>
             <Font size="14.0" />
          </font>

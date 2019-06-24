@@ -31,8 +31,6 @@ public class UpdateCourseController {
     @FXML
     protected TextField nameField;
 
-    @FXML
-    protected MenuButton coordinatorMenuButton;
 
         public void populateCoordinatorChoiceBox() {
             UserDAO udao = UserDAO.getInstance();

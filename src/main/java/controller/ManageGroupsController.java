@@ -35,12 +35,18 @@ public class ManageGroupsController {
   }
 
   public void doChangeGroup(ActionEvent event){
-//    System.out.println(groupList.getSelectionModel().getSelectedItem());
-//    Group group = gdao.getGroupById() ByName((String) courseList.getSelectionModel().getSelectedItem());
-//    manager.showChangeCourseScene();
+    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
+    Group group = gdao.getGroupById(groupID);
+    group.setIdGroup(groupID);
+    manager.showChangeGroupScene(group);
   }
   public void doDeleteGroup(ActionEvent event){
-//    gdao.deleteGroup();
+    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
+    Group group = gdao.getGroupById(groupID);
+    System.out.println(group.getName());
+    group.setIdGroup(groupID);
+    System.out.println(group.getIdGroup());
+    gdao.deleteGroup(group);
   }
 
   private void populateScreen(){

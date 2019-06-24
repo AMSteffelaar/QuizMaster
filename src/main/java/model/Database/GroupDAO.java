@@ -3,6 +3,7 @@ package model.Database;
 import model.entity.Course;
 import model.entity.Group;
 import model.entity.User.Coordinator;
+import model.entity.User.Student;
 import model.entity.User.User;
 import view.Main;
 
@@ -38,6 +39,7 @@ public class GroupDAO extends AbstractDAO{
                 CourseDAO cdao = CourseDAO.getInstance();
                 Course course = cdao.getCourseById(course_idCourse);
                 result = new Group(courseName, user, course);
+                result.setIdGroup(groupId);
                 results.add(result);
             }
         } catch (SQLException e) {
@@ -85,7 +87,7 @@ public class GroupDAO extends AbstractDAO{
         }
     }
     public Group getGroupById (int id) {
-            String sql = "Select * from group where idGroup = ?";
+            String sql = "Select * from Quizmaster.group where idGroup = ?";
             Group group = null;
             try {
                 PreparedStatement ps = getStatement(sql);
@@ -94,17 +96,36 @@ public class GroupDAO extends AbstractDAO{
                 while (rs.next()) {
                     String name = rs.getString("name");
                     int teacher_idUser = rs.getInt ("teacher_idUser");
+                    int courseId = rs.getInt("course_idCourse");
                     UserDAO udao = UserDAO.getInstance();
                     User teacher = udao.getUserById(teacher_idUser);
                     CourseDAO cdao = CourseDAO.getInstance();
-                    Course courses = cdao.getCourseById(id);
+                    Course courses = cdao.getCourseById(courseId);
                     group = new Group (name, teacher, courses);
                 }
             } catch (SQLException e){
                 System.out.println("SQL error: " + e.getMessage());
         }
             return group;
+    }
 
+    public ArrayList<Group> studentInGroups(int studentId){
+        String sql = "SELECT * FROM quizmaster.studentsingroup WHERE student_idUser = ?;";
+        ArrayList<Group> results = null;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1,studentId);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            results = new ArrayList<>();
+            while (rs.next()) {
+                int groupId = rs.getInt("Group_idGroup");
+                Group group = getGroupById(groupId);
+                results.add(group);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return results;
     }
 
     public static GroupDAO getInstance(){

@@ -77,7 +77,7 @@ public class CourseDAO extends AbstractDAO {
     }
 
     public void storeCourse(Course course) {
-        if ((Integer) course.getIdCourse() == null) {
+        if (course.getIdCourse() == 0) {
             insertCourse(course);
         } else updateCourse(course);
     }
@@ -178,5 +178,28 @@ public class CourseDAO extends AbstractDAO {
             System.out.println("SQL error " + e.getMessage());
         }
         return course;
+    }
+    public ArrayList<Course> getCoursesByCoordinator(int id) {
+        String sql = "Select * from course where coordinator_idUser = ?";
+        ArrayList<Course> results = null;
+        Course result;
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setInt(1,id);
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            results = new ArrayList<>();
+            while (rs.next()) {
+                int courseId = rs.getInt("idCourse");
+                int courseCoordinator = rs.getInt("coordinator_idUser");
+                String courseName = rs.getString("name");
+                UserDAO udao = UserDAO.getInstance();
+                User user = udao.getUserById(courseCoordinator);
+                result = new Course(courseId, courseName, user);
+                results.add(result);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return results;
     }
 }

@@ -1,9 +1,12 @@
 package model.entity;
 
+import java.util.ArrayList;
+
 public class Quiz {
     private int idQuiz;
     private Course course;
     private String name;
+    private ArrayList<Question> questions;
 
     public Quiz() {
         super();
@@ -36,5 +39,13 @@ public class Quiz {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addQuestion(Question question){
+        questions.add(question);
+    }
+    public void removeQuestion(Question question){
+        questions.remove(question);
+
     }
 }
