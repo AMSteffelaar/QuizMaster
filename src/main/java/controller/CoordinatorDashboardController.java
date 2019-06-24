@@ -49,7 +49,7 @@ public class CoordinatorDashboardController {
   private ListView<Course> courseList;
 
   @FXML
-  private ListView<String> quizList;
+  private ListView<Quiz> quizList;
 
   @FXML
   private ListView<String> questionList;
@@ -70,20 +70,22 @@ public class CoordinatorDashboardController {
       }
     });
 
+    quizList
+
 
     courseList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Course>() {
       @Override
       public void changed(ObservableValue<? extends Course> observableValue, Course s, Course t1) {
 //        System.out.println("Selected item in courseList: " + observableValue + ", " + s + ", " + t1);
-        System.out.println(t1);
         populateQuiz(t1);
       }
     });
 
-    quizList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+    quizList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Quiz>() {
       @Override
-      public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+      public void changed(ObservableValue<? extends Quiz> observableValue, Quiz s, Quiz t1) {
         System.out.println("Selected item in quizList: " + observableValue + ", " + s + ", " + t1);
+        populateQuestion(tl);
       }
     });
 
@@ -121,7 +123,6 @@ public class CoordinatorDashboardController {
 
   private void populateQuiz(Course c) {
     c.getIdCourse();
-    System.out.println(c.getIdCourse());
     ObservableList<String> quizeses = FXCollections.observableArrayList();
     ArrayList<Quiz> quizes = qdao.getQuizByCourse(c.getIdCourse());
     for (Quiz q : quizes) {
@@ -130,14 +131,14 @@ public class CoordinatorDashboardController {
     quizList.setItems(quizeses);
   }
 }
-  /*private void populateQuestion(Quiz q) {
+  private void populateQuestion(Quiz q) {
     q.getIdQuiz();
     ObservableList<String> questions = FXCollections.observableArrayList();
     ArrayList<Question> questions = qdao.getQuestionByQuiz(q.getIdQuiz());
     for (Question qu : questions) {
       questions.add(qu.getQuestion());
     }
-    quizList.setItems(quizeses);*/
+    questionList.setItems(quizeses);
 
 
 
