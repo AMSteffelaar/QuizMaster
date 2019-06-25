@@ -92,6 +92,8 @@ public class CoordinatorDashboardController {
   public void doMenu() { manager.showWelcomeScene(); }
 
   public void doNewCourse() {
+      Course course = courseList.getSelectionModel().getSelectedItem();
+      System.out.println(course.getName());
     manager.showNewCourseScene();
   }
 
