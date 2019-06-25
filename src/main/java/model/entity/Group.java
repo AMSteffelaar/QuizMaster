@@ -65,6 +65,6 @@ public class Group {
     @Override
     //deze to String wordt gebruikt om de lijsten in de Studentsignin/outcontroller te vullen met leesbare tekst
     public String toString() {
-        return String.format("%s", this.course.getName());
+        return String.format("Groep: %s, van cursus %s", name, this.course.getName());
     }
 }

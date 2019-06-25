@@ -84,12 +84,11 @@ public class GroupDAO extends AbstractDAO {
 
     public void deleteGroup(Group group) {
         String sql = "delete FROM quizmaster.group where IdGroup = ?;";
-        GroupDAO gdao = GroupDAO.getInstance();
         int idGroup = group.getIdGroup();
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setInt(1, idGroup);
-            gdao.executeManipulatePreparedStatement(ps);
+            executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
