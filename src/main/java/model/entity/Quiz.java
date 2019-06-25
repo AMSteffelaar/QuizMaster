@@ -48,4 +48,9 @@ public class Quiz {
     public void removeQuiz(Quiz quiz) {
         this.quizes.remove(quiz);
     }
+
+    @Override
+    public String toString() {
+        return name ;
+    }
 }
