@@ -61,4 +61,9 @@ public class Group {
     public void removeStudent(User student) {
         students.remove(student);
     }
+
+    @Override
+    public String toString() {
+        return String.format("Groep: %s, van cursus: %s", name, this.course.getName());
+    }
 }
