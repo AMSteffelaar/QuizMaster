@@ -15,12 +15,11 @@ import view.SceneManager;
 
 import java.util.ArrayList;
 
-public class StudentSignInOutController {
+public class StudentSignInOutController extends StudentGroupController {
+
     SceneManager manager = SceneManager.getSceneManager();
-    GroupDAO gdao = GroupDAO.getInstance();
 
     private int studentId = Session.getInstance().getCurrentUser().getId();
-    ArrayList<Group> ingeschreven_groepen = gdao.studentInGroups(studentId);
 
     @FXML
     private Button signInButton;
@@ -31,8 +30,7 @@ public class StudentSignInOutController {
     @FXML
     private ListView<Group> courseList = new ListView(); //is de courselist not signed in
 
-    @FXML
-    private ListView<Group> signedInCourseList = new ListView();
+
 
     public void setup() {
         signInButton.setTextFill(Paint.valueOf("DarkGreen")); //bepaalt kleur van tekst
@@ -71,15 +69,7 @@ public class StudentSignInOutController {
         }
     }
 
-    /**
-     * Helper methode om linker listview te vullen met Cursussen waarvoor de student die is ingelogd zich heeft ingeschreven.
-     * dit is te herleiden door een notering in de koppeltabel studentsingroup, waarna op basis van groupid de bijpassende course kan worden getoond
-     */
-    private void populateCourselist() { // mag ook heten signedIn courses
-        ObservableList<Group> groepen = FXCollections.observableArrayList();
-        groepen.setAll(ingeschreven_groepen);
-        signedInCourseList.setItems(groepen);
-    }
+
 
     /**
      * Helper methode om een lijst te creëren met vermelding van alle groepen (en daarmee ook cursussen) waarvoor de student zich nog niet heeft ingeschreven.
