@@ -4,7 +4,8 @@ public class SystemAdministrator extends User {
 
     private static final String ROLE = "SystemAdministrator";
     public static final String[] SCREENS_SYSTEM_ADMIN = new String[]{"newUser.fxml", "selectUser.fxml"};
-    public static final String[] TASKS_SYSTEM_ADMIN = new String[]{"Voeg nieuwe gebruiker toe", "Selecteer gebruiker"};
+    public static final String[] TASKS_SYSTEM_ADMIN = new String[]{"Voeg nieuwe gebruiker toe",
+            "Wijzig of verwijder bestaande gebruiker"};
 
 
     public SystemAdministrator(String name, String password) {
