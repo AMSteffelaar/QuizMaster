@@ -131,6 +131,7 @@ public class CoordinatorDashboardController {
         manager.showNewCourseScene();
     }
 
+
     public void doEditCourse() {
         /*manager.showChangeCourseScene(CourseDAO.getInstance().getCourseByName(courseList.getSelectionModel().getSelectedItem()));*/
     }
