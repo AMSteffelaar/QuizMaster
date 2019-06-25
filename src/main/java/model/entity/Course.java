@@ -55,4 +55,6 @@ public class Course {
                 ", name " + name + '\'' +
                 ", coordinator " + coordinator;
     }
+
+
 }

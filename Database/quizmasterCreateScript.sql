@@ -51,17 +51,17 @@ CREATE TABLE `quiz` (
 );
 
 
-CREATE TABLE `q&a` (
-  `idQ&A` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `question` (
+  `idQuestion` int(11) NOT NULL AUTO_INCREMENT,
   `Quiz_idQuiz` int(11) NOT NULL,
   `question` varchar(255) NOT NULL,
-  `answerA` varchar(45) NOT NULL,
-  `answerB` varchar(45) NOT NULL,
-  `answerC` varchar(45) DEFAULT NULL,
-  `answerD` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idQ&A`),
-  KEY `fk_Q&A_Quiz1_idx` (`Quiz_idQuiz`),
-  CONSTRAINT `fk_Q&A_Quiz1` FOREIGN KEY (`Quiz_idQuiz`) REFERENCES `quiz` (`idQuiz`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  `answerA` varchar(245) NOT NULL,
+  `answerB` varchar(245) NOT NULL,
+  `answerC` varchar(245) DEFAULT NULL,
+  `answerD` varchar(245) DEFAULT NULL,
+  PRIMARY KEY (`idQuestion`),
+  KEY `fk_question_Quiz1_idx` (`Quiz_idQuiz`),
+  CONSTRAINT `fk_question_Quiz1` FOREIGN KEY (`Quiz_idQuiz`) REFERENCES `quiz` (`idQuiz`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ;
 
 

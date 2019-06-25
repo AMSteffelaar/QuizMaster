@@ -7,8 +7,8 @@ import model.Database.UserDAO;
 public class NewGroupController extends UpdateGroupController{
 
   public void setup() {
-    vulDocent();
     vulCursus();
+    vulDocent();
   }
 
   public void doMenu(ActionEvent event){manager.showWelcomeScene();}
@@ -31,6 +31,7 @@ public class NewGroupController extends UpdateGroupController{
       courseMenuButton.setText("maak een keuze");
     } else {
       gdao.storeGroup(cursusID,docentId, naamGroep);
+      manager.showManageGroupsScene();
     }
   }
 }

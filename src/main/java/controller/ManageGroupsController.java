@@ -7,13 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Database.GroupDAO;
-import model.entity.Course;
 import model.entity.Group;
 import view.SceneManager;
 
 import java.util.ArrayList;
-
-import view.SceneManager;
 
 public class ManageGroupsController {
   private SceneManager manager = SceneManager.getSceneManager();
@@ -38,19 +35,30 @@ public class ManageGroupsController {
   }
 
   public void doChangeGroup(ActionEvent event){
-    System.out.println(groupList.getSelectionModel().getSelectedItem());
-//    Group group = gdao.getGroupById()ByName((String) courseList.getSelectionModel().getSelectedItem());
-//    manager.showChangeCourseScene();
+    Group group = (Group)groupList.getSelectionModel().getSelectedItem();
+    //    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
+//    Group group = gdao.getGroupById(groupID);
+//    group.setIdGroup(groupID);
+    manager.showChangeGroupScene(group);
   }
-  public void doDeleteGroup(ActionEvent event){}
+  public void doDeleteGroup(ActionEvent event){
+    Group group = (Group)groupList.getSelectionModel().getSelectedItem();
+//    Group group = gdao.getGroupById(groupID);
+//    System.out.println(group.getName());
+//    group.setIdGroup(groupID);
+//    System.out.println(group.getIdGroup());
+    gdao.deleteGroup(group);
+    manager.showManageGroupsScene();
+  }
 
   private void populateScreen(){
-    ObservableList<String> groepen = FXCollections.observableArrayList();
+    ObservableList<Group> groepen = FXCollections.observableArrayList();
     ArrayList<Group> groups  = gdao.getGroups();
-    for (Group g : groups) {
-      groepen.add(g.getName());
-      idgroep.add(g.getIdGroup());
-    }
+    groepen.setAll(groups);
+//    for (Group g : groups) {
+//      groepen.add(g.getName());
+//      idgroep.add(g.getIdGroup());
+//    }
     groupList.setItems(groepen);
   }
 }

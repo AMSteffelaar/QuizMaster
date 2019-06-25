@@ -3,8 +3,10 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import view.SceneManager;
 
 public class FillOutQuizController {
+  SceneManager manager = SceneManager.getSceneManager();
 
   @FXML
   private Label title;
@@ -44,5 +46,7 @@ public class FillOutQuizController {
 
   public void doPreviousQuestion() {}
 
-  public void doMenu() {}
+  public void doMenu() {
+    manager.showWelcomeScene();
+  }
 }

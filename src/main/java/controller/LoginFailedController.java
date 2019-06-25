@@ -5,11 +5,10 @@ import view.Main;
 import view.SceneManager;
 
 public class LoginFailedController {
+    SceneManager manager = SceneManager.getSceneManager();
 
   public void doTryAgain(ActionEvent event) {
-      SceneManager.getSceneManager().showLoginScene();
-      ;
-
+      manager.showLoginScene();
   }
 
   public void doQuit(ActionEvent event) {
