@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import model.entity.Quiz;
 import model.entity.Session;
 import model.entity.User.*;
 import view.Main;
@@ -113,9 +114,9 @@ public class WelcomeController {
                         case "coordinatorDashboard.fxml":
                             manager.showCoordinatorDashboard();
                             break;
-                        case "fillOutQuiz.fxml":
+                        /*case "fillOutQuiz.fxml":
                             manager.showFillOutQuiz();
-                            break;
+                            break;*/
                         case "studentSignInOut.fxml":
                             manager.showStudentSignInOutScene();
                             break;
