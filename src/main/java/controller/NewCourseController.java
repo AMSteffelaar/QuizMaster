@@ -12,39 +12,36 @@ import model.entity.User.User;
 import view.Main;
 import view.SceneManager;
 
-public class NewCourseController extends UpdateCourseController{
+public class NewCourseController extends UpdateCourseController {
 
-  private SceneManager manager = SceneManager.getSceneManager();
+    private SceneManager manager = SceneManager.getSceneManager();
 
-  @FXML
-  private TextField nameField;
+    @FXML
+    private TextField nameField;
 
-  @FXML
-  private MenuButton coordinatorMenuButton = new MenuButton();
+    @FXML
+    private MenuButton coordinatorMenuButton = new MenuButton();
 
-  public void setup() {
-    //Maak een choice box voor het drop down menu
-    
-
+    public void setup() {
+        //Maak een choice box voor het drop down menu
 
 
+    }
 
-  }
+    public void doMenu(ActionEvent event) {
+        //Als op de menu-knop wordt gedrukt, moet de user naar het welkomstscherm
+        Main.getSceneManager().showWelcomeScene();
+    }
 
-  public void doMenu(ActionEvent event) {
-    //Als op de menu-knop wordt gedrukt, moet de user naar het welkomstscherm
-    Main.getSceneManager().showWelcomeScene();
-  }
-
-  public void doNewCourse(ActionEvent event){
-  String name = nameField.getText();
-  String coordinatorName = coordinatorMenuButton.getText();
-  UserDAO udao = UserDAO.getInstance();
-  User coordinator = udao.getUserByName(coordinatorName);
-  Course course = new Course(name, coordinator);
-  CourseDAO cdao = CourseDAO.getInstance();
-  cdao.storeCourse(course);
-  manager.showManageCoursesScene();
-  }
+    public void doNewCourse(ActionEvent event) {
+        String name = nameField.getText();
+        String coordinatorName = coordinatorMenuButton.getText();
+        UserDAO udao = UserDAO.getInstance();
+        User coordinator = udao.getUserByName(coordinatorName);
+        Course course = new Course(name, coordinator);
+        CourseDAO cdao = CourseDAO.getInstance();
+        cdao.storeCourse(course);
+        manager.showManageCoursesScene();
+    }
 
 }

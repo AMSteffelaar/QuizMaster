@@ -23,7 +23,8 @@ public class CourseDAO extends AbstractDAO {
         }
     }
 
-    //deze methode levert de course adhva het Id, deze is nodig om een group te maken in
+    //deze methode levert de course adhva het Id, deze is nodig om
+    // een group te maken in
     //de methode getGroups in groupDAO
 
     public CourseDAO(DBaccess dBaccess) {
