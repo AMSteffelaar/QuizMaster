@@ -131,6 +131,7 @@ public class CoordinatorDashboardController {
     }
 
     public void doNewCourse() {
+        Course course = courseList.getSelectionModel().getSelectedItem();
         manager.showNewCourseScene();
     }
 
