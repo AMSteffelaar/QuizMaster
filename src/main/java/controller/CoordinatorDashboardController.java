@@ -77,101 +77,101 @@ public class CoordinatorDashboardController {
                         if (courseList.isFocused()) ;
                     });
                 }
-                quizList.setCellFactory(param -> new ListCell<Quiz>() {
+            }
+        });
+        quizList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Quiz>() {
+            @Override
+            public void changed(ObservableValue<? extends Quiz> observableValue, Quiz s, Quiz t2) {
+                System.out.println("Selected item in quizList: " + observableValue + ", " + s + ", " + t2);
+                populateQuestion(t2);
+            }
+        });
+
+        quizList.setCellFactory(param -> new ListCell<Quiz>() {
+            @Override
+            protected void updateItem(Quiz qui, boolean empty) {
+                super.updateItem(qui, empty);
+                if (empty || qui == null || qui.getName() == null) {
+                    setText(" ");
+                } else {
+                    setText(qui.getName());
+                    quizList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Quiz> observable, Quiz oldValue, Quiz newValue) -> {
+                        if (quizList.isFocused()) ;
+                    });
+                }
+
+
+                questionList.setCellFactory(param -> new ListCell<Question>() {
                     @Override
-                    protected void updateItem(Quiz qui, boolean empty) {
-                        super.updateItem(qui, empty);
-                        if (empty || qui == null || qui.getName() == null) {
+                    protected void updateItem(Question quis, boolean empty) {
+                        super.updateItem(quis, empty);
+                        if (empty || quis == null || quis.getQuestion() == null) {
                             setText(" ");
                         } else {
-                            setText(qui.getName());
-                            quizList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Quiz> observable, Quiz oldValue, Quiz newValue) -> {
-                                if (quizList.isFocused()) ;
+                            setText(quis.getQuestion());
+                            questionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Question> observable, Question oldValue, Question newValue) -> {
+                                if (courseList.isFocused()) ;
                             });
                         }
-                        quizList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Quiz>() {
+
+
+                        questionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Question>() {
                             @Override
-                            public void changed(ObservableValue<? extends Quiz> observableValue, Quiz s, Quiz t2) {
-                                System.out.println("Selected item in quizList: " + observableValue + ", " + s + ", " + t2);
-                                populateQuestion(t2);
-                            }
-                        });
-
-
-                        questionList.setCellFactory(param -> new ListCell<Question>() {
-                            @Override
-                            protected void updateItem(Question quis, boolean empty) {
-                                super.updateItem(quis, empty);
-                                if (empty || quis == null || quis.getQuestion() == null) {
-                                    setText(" ");
-                                } else {
-                                    setText(quis.getQuestion());
-                                    questionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Question> observable, Question oldValue, Question newValue) -> {
-                                        if (courseList.isFocused()) ;
-                                    });
-                                }
-
-
-                                questionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Question>() {
-                                    @Override
-                                    public void changed(ObservableValue<? extends Question> observableValue, Question s, Question t3) {
-                                        System.out.println("Selected item in questionList: " + observableValue + ", " + s + ", " + t3);
-                                    }
-                                });
+                            public void changed(ObservableValue<? extends Question> observableValue, Question s, Question t3) {
+                                System.out.println("Selected item in questionList: " + observableValue + ", " + s + ", " + t3);
                             }
                         });
                     }
                 });
             }
         });
-    }
 
-    public void doMenu() {
-        manager.showWelcomeScene();
-    }
+        public void doMenu () {
+            manager.showWelcomeScene();
+        }
 
-    public void doNewCourse() {
-        manager.showNewCourseScene();
-    }
+        public void doNewCourse () {
+            manager.showNewCourseScene();
+        }
 
-    public void doEditCourse() {
-        /*manager.showChangeCourseScene(CourseDAO.getInstance().getCourseByName(courseList.getSelectionModel().getSelectedItem()));*/
-    }
+        public void doEditCourse () {
+            /*manager.showChangeCourseScene(CourseDAO.getInstance().getCourseByName(courseList.getSelectionModel().getSelectedItem()));*/
+        }
 
-    public void doNewQuiz() {
-    }
+        public void doNewQuiz () {
+        }
 
-    public void doEditQuiz() {
-    }
+        public void doEditQuiz () {
+        }
 
-    public void doNewQuestion() {
-    }
+        public void doNewQuestion () {
+        }
 
-    public void doEditQuestion() {
-    }
+        public void doEditQuestion () {
+        }
 
-    private void populateCourses() {
-        ObservableList<Course> cursus = FXCollections.observableArrayList();
-        ArrayList<Course> courses = cdao.getCoursesByCoordinator(Session.getInstance().getCurrentUser().getId());
-        cursus.setAll(courses);
-        courseList.setItems(cursus);
+        private void populateCourses () {
+            ObservableList<Course> cursus = FXCollections.observableArrayList();
+            ArrayList<Course> courses = cdao.getCoursesByCoordinator(Session.getInstance().getCurrentUser().getId());
+            cursus.setAll(courses);
+            courseList.setItems(cursus);
 
-    }
+        }
 
-    private void populateQuiz(Course c) {
-        c.getIdCourse();
-        ObservableList<Quiz> quizeses = FXCollections.observableArrayList();
-        ArrayList<Quiz> quizes = qdao.getQuizByCourse(c.getIdCourse());
-        quizeses.setAll(quizes);
-        quizList.setItems(quizeses);
-    }
+        private void populateQuiz (Course c){
+            c.getIdCourse();
+            ObservableList<Quiz> quizeses = FXCollections.observableArrayList();
+            ArrayList<Quiz> quizes = qdao.getQuizByCourse(c.getIdCourse());
+            quizeses.setAll(quizes);
+            quizList.setItems(quizeses);
+        }
 
-    private void populateQuestion(Quiz q) {
-        q.getIdQuiz();
-        ObservableList<Question> questionses = FXCollections.observableArrayList();
-        ArrayList<Question> questions = qudao.getQuestionByQuiz(q.getIdQuiz());
-        questionses.setAll(questions);
-        questionList.setItems(questionses);
+        private void populateQuestion (Quiz q){
+            q.getIdQuiz();
+            ObservableList<Question> questionses = FXCollections.observableArrayList();
+            ArrayList<Question> questions = qudao.getQuestionByQuiz(q.getIdQuiz());
+            questionses.setAll(questions);
+            questionList.setItems(questionses);
+        }
     }
-}
 
