@@ -35,27 +35,30 @@ public class ManageGroupsController {
   }
 
   public void doChangeGroup(ActionEvent event){
-    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
-    Group group = gdao.getGroupById(groupID);
-    group.setIdGroup(groupID);
+    Group group = (Group)groupList.getSelectionModel().getSelectedItem();
+    //    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
+//    Group group = gdao.getGroupById(groupID);
+//    group.setIdGroup(groupID);
     manager.showChangeGroupScene(group);
   }
   public void doDeleteGroup(ActionEvent event){
-    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
-    Group group = gdao.getGroupById(groupID);
-    System.out.println(group.getName());
-    group.setIdGroup(groupID);
-    System.out.println(group.getIdGroup());
+    Group group = (Group)groupList.getSelectionModel().getSelectedItem();
+//    Group group = gdao.getGroupById(groupID);
+//    System.out.println(group.getName());
+//    group.setIdGroup(groupID);
+//    System.out.println(group.getIdGroup());
     gdao.deleteGroup(group);
+    manager.showManageGroupsScene();
   }
 
   private void populateScreen(){
-    ObservableList<String> groepen = FXCollections.observableArrayList();
+    ObservableList<Group> groepen = FXCollections.observableArrayList();
     ArrayList<Group> groups  = gdao.getGroups();
-    for (Group g : groups) {
-      groepen.add(g.getName());
-      idgroep.add(g.getIdGroup());
-    }
+    groepen.setAll(groups);
+//    for (Group g : groups) {
+//      groepen.add(g.getName());
+//      idgroep.add(g.getIdGroup());
+//    }
     groupList.setItems(groepen);
   }
 }

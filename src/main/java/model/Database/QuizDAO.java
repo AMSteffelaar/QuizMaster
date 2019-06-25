@@ -28,7 +28,7 @@ public class QuizDAO extends AbstractDAO {
     }
 
     public ArrayList<Quiz> getQuizByCourse(int idCourse) {
-        String sql = "Select * from quiz where course_idCourse = ?";
+        String sql = "SELECT * from quiz where course_idCourse = ?";
         ArrayList<Quiz> results = null;
         Quiz result;
         try {
@@ -59,8 +59,8 @@ public class QuizDAO extends AbstractDAO {
             ps.setInt(1, id);
             ResultSet rs = executeSelectPreparedStatement(ps);
             while (rs.next()) {
-                String name = rs.getString("name");
                 int course_idCourse = rs.getInt("course_idCourse");
+                String name = rs.getString("quizname");
                 CourseDAO cdao = CourseDAO.getInstance();
                 Course course = cdao.getCourseById(course_idCourse);
                 quiz = new Quiz(course, name);
