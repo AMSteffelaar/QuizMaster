@@ -37,11 +37,13 @@ public class QuizDAO extends AbstractDAO {
             ResultSet rs = executeSelectPreparedStatement(ps);
             results = new ArrayList<>();
             while (rs.next()) {
+                int id_Quiz = rs.getInt("idQuiz");
                 int courseCourse = rs.getInt("course_idCourse");
                 String quizName = rs.getString("quizname");
                 CourseDAO cdao = CourseDAO.getInstance();
                 Course course = cdao.getCourseById(courseCourse);
                 result = new Quiz(course, quizName);
+                result.setIdQuiz(id_Quiz);
                 result.setIdQuiz(courseCourse);
                 results.add(result);
             }
