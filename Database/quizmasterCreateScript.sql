@@ -45,6 +45,8 @@ CREATE TABLE `quiz` (
   `idQuiz` int(11) NOT NULL AUTO_INCREMENT,
   `course_idCourse` int(11) NOT NULL,
   `quizName` varchar(45) NOT NULL,
+  `numberOfQuestions` int(2) NOT NULL,
+  `treshold` int(2) NOT NULL,
   PRIMARY KEY (`idQuiz`),
   KEY `fk_Quiz_Course_idx` (`Course_idCourse`),
   CONSTRAINT `fk_Quiz_Course` FOREIGN KEY (`Course_idCourse`) REFERENCES `course` (`idCourse`) ON DELETE CASCADE ON UPDATE CASCADE
