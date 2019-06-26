@@ -162,11 +162,8 @@ public class CoordinatorDashboardController {
 
     private void populateQuiz(Course c) {
         int idcourse = c.getIdCourse();
-        System.out.println(idcourse);
         ObservableList<Quiz> quizeses = FXCollections.observableArrayList();
         ArrayList<Quiz> quizes = qdao.getQuizByCourse(idcourse);
-        System.out.println(quizes.size());
-        System.out.println(quizes.get(0).getIdQuiz());
         quizeses.setAll(quizes);
         quizList.setItems(quizeses);
     }
