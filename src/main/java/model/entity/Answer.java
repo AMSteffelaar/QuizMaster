@@ -11,14 +11,36 @@ public class Answer {
     private Student student;
     private Question[] vragen;
     private String[] antwoord;
-    private LocalDate date;
 
     public Answer(Quiz quiz, Student student) {
         this.quiz = quiz;
         this.student = student;
-        this.vragen = new Question[quiz.getNumber];
-        this.antwoord = new String[quiz.getNumber];
-        this.date = LocalDate.now();
+        this.vragen = new Question[quiz.getNumberOfQuestions()];
+        this.antwoord = new String[quiz.getNumberOfQuestions()];
+        }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public Question[] getVragen() {
+        return vragen;
+    }
+
+    public void setVragen(Question[] vragen) {
+        this.vragen = vragen;
+    }
+
+    public String[] getAntwoord() {
+        return antwoord;
+    }
+
+    public void setAntwoord(String[] antwoord) {
+        this.antwoord = antwoord;
     }
 
     public void setQuiz(Quiz quiz) {

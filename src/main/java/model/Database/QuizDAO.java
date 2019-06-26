@@ -40,9 +40,11 @@ public class QuizDAO extends AbstractDAO {
                 int id_Quiz = rs.getInt("idQuiz");
                 int courseCourse = rs.getInt("course_idCourse");
                 String quizName = rs.getString("quizname");
+                int numberOfQuestions = rs.getInt("numberOfQuestions");
+                int treshold = rs.getInt("treshold");
                 CourseDAO cdao = CourseDAO.getInstance();
                 Course course = cdao.getCourseById(courseCourse);
-                result = new Quiz(course, quizName);
+                result = new Quiz(course, quizName,numberOfQuestions,treshold);
                 result.setIdQuiz(id_Quiz);
                 result.setIdQuiz(courseCourse);
                 results.add(result);
@@ -63,9 +65,11 @@ public class QuizDAO extends AbstractDAO {
             while (rs.next()) {
                 int course_idCourse = rs.getInt("course_idCourse");
                 String name = rs.getString("quizname");
+                int numberOfQuestions = rs.getInt("numberOfQuestions");
+                int treshold = rs.getInt("treshold");
                 CourseDAO cdao = CourseDAO.getInstance();
                 Course course = cdao.getCourseById(course_idCourse);
-                quiz = new Quiz(course, name);
+                quiz = new Quiz(course, name,numberOfQuestions,treshold);
                 quiz.setIdQuiz(id);
             }
         } catch (SQLException e) {

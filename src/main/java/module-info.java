@@ -10,4 +10,5 @@ module QuizMaster {
   opens controller to javafx.fxml;
   opens model.entity.User to gson;
   opens model.entity to gson;
+
 }
