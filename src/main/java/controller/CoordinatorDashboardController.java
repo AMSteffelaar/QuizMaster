@@ -14,6 +14,7 @@ import model.Database.QuestionDAO;
 import model.Database.QuizDAO;
 import model.entity.*;
 import view.SceneManager;
+
 import java.util.ArrayList;
 
 
@@ -144,19 +145,20 @@ public class CoordinatorDashboardController {
         Question question = questionList.getSelectionModel().getSelectedItem();
         Quiz quiz = quizList.getSelectionModel().getSelectedItem();
         manager.showNewQuestion(quiz, question);
-
     }
+
 
     public void doEditQuestion() {
     }
+
 
     private void populateCourses() {
         ObservableList<Course> cursus = FXCollections.observableArrayList();
         ArrayList<Course> courses = cdao.getCoursesByCoordinator(Session.getInstance().getCurrentUser().getId());
         cursus.setAll(courses);
         courseList.setItems(cursus);
-
     }
+
 
     private void populateQuiz(Course c) {
         int idcourse = c.getIdCourse();
@@ -168,6 +170,7 @@ public class CoordinatorDashboardController {
         quizeses.setAll(quizes);
         quizList.setItems(quizeses);
     }
+
 
     private void populateQuestion(Quiz q) {
         q.getIdQuiz();
