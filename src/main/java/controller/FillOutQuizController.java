@@ -4,10 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import model.Database.CouchDB.CouchDBaccess;
+import model.Database.CouchDB.AnswerToJsonBuilder;
 import model.Database.QuestionDAO;
-import model.Database.QuizDAO;
+import model.entity.Answer;
 import model.entity.Question;
 import model.entity.Quiz;
+import model.entity.Session;
+import model.entity.User.Student;
 import view.SceneManager;
 
 import java.util.ArrayList;
@@ -21,6 +25,8 @@ public class FillOutQuizController {
     private ArrayList<Question> questions = new ArrayList<>();
 
     SceneManager manager = SceneManager.getSceneManager();
+    AnswerToJsonBuilder quizCouch = new AnswerToJsonBuilder(CouchDBaccess.getInstance());
+    Answer answers;
 
     @FXML
     private Label title;
@@ -46,6 +52,7 @@ public class FillOutQuizController {
     private Button menuButton;
 
     public void setup(Quiz quiz) {
+        answers = new Answer(quiz, (Student)Session.getInstance().getCurrentUser());
         QuestionDAO qdao = QuestionDAO.getInstance();
         questions = qdao.getQuestionsByQuiz(quiz.getIdQuiz());
         showQuestion(questions.get(currentQuestion));
@@ -77,9 +84,12 @@ public class FillOutQuizController {
 
     private void registerAnswer(char answer) {
         Question question = questions.get(currentQuestion);
+        answers.setVragen(question, currentQuestion);
+        String a = Character.toString(answer);
         if (answer == question.getCorrectAnswer()) {
-            //Schrijf in couchDB dat antwoord goed was
+            answers.setAntwoord(a, currentQuestion);
         } else {
+            answers.setAntwoord(a, currentQuestion);
             //Update couchDB met fout antwoord.
         }
     }
@@ -129,6 +139,8 @@ public class FillOutQuizController {
 
     public void doFinishQuiz () {
         Quiz quiz = questions.get(0).getQuiz();
+        System.out.println(answers);
+        quizCouch.saveAnswer(answers);
         manager.showStudentFeedback(quiz);
     }
 

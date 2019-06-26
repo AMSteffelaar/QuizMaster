@@ -8,4 +8,6 @@ module QuizMaster {
   requires lightcouch;
   opens view to javafx.graphics, javafx.fxml;
   opens controller to javafx.fxml;
+  opens model.entity.User to gson;
+  opens model.entity to gson;
 }

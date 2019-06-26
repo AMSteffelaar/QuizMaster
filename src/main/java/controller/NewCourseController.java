@@ -41,7 +41,7 @@ public class NewCourseController extends UpdateCourseController {
         Course course = new Course(name, coordinator);
         CourseDAO cdao = CourseDAO.getInstance();
         cdao.storeCourse(course);
-        manager.showManageCoursesScene();
+        checkRole();
     }
 
 
