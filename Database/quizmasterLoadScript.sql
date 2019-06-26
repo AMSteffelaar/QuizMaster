@@ -23,10 +23,17 @@ INSERT INTO `user` VALUES (1,'Student','Cyntia','cyntia'),
 INSERT INTO `quizmaster`.`course` (`coordinator_idUser`, `name`) VALUES ('3', 'Bouldercursus');
 INSERT INTO `quizmaster`.`course` (`coordinator_idUser`, `name`) VALUES ('8', 'Rotsklimcursus');
 INSERT INTO `quizmaster`.`course` (`coordinator_idUser`, `name`) VALUES ('3', 'C1Cursus');
+<<<<<<< HEAD
 INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`, `numberOfQuestions`, `treshold`) VALUES ('1', 'Boulderquiz', '3', '60');
 INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`, `numberOfQuestions`, `treshold`) VALUES ('2', 'Rotsklimquiz1', '3', '60');
 INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`, `numberOfQuestions`, `treshold`) VALUES ('2', 'Rotsklimquiz2', '3', '60');
 INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`, `numberOfQuestions`, `treshold`) VALUES ('3', 'C1quiz', '4', '50');
+=======
+INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`,`numberOfQuestions`, `treshold') VALUES ('1', 'Boulderquiz', '3', '60');
+INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`,`numberOfQuestions`, `treshold') VALUES ('2', 'Rotsklimquiz1', '3', '60');
+INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`,`numberOfQuestions`, `treshold') VALUES ('2', 'Rotsklimquiz2','3', '60');
+INSERT INTO `quizmaster`.`quiz` (`course_idCourse`, `quizName`,`numberOfQuestions`, `treshold') VALUES ('3', 'C1quiz','4', '50');
+>>>>>>> newQuiz
 INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES ('1', 'Wat is spotten?', 'Spotten is de klimmer volgen met je handen en lichaam om de klimmer te kunnen opvangen als die valt', 'Vogeltjes kijken ', 'Vliegtuignummers noteren', 'Iemand voor de gek zetten');
 INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES ('1', 'Wat is een crashpad?', 'Een mat die wordt gebruikt om onder de klimmer te leggen zodat een val wordt verzacht', 'Een mat voor een crashtestdummy', 'een koffiepad', 'Ik weet het niet');
 INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES ('1', 'Hoe wordt bepaald of een route getopt is?', 'De klimmer heeft de laatste greep met beide handen vast.', 'Boven aan de route staat een topvlag', 'een route is al een keer geklommen door iemand anders', 'Alleen een topklimmer kan de route klimmen.');

@@ -11,10 +11,10 @@ public class NewQuizController {
   private SceneManager manager = SceneManager.getSceneManager();
 
   @FXML
-  private Label newQuizLabel = new Label();
+  private Label newQuizLabel = new Label(); //naam van de cursus moet hier komen te staan
 
   @FXML
-  private TextField nameField;
+  private TextField nameField; //naam van de quiz
 
   @FXML
   private TextField nrOfQuestionsField;
@@ -23,7 +23,8 @@ public class NewQuizController {
   private TextField tresholdField;
 
   public void setup(Course course) {
-    System.out.println(course.getName());
+    newQuizLabel.setText("Maak nieuwe quiz voor de cursus " + course.getName());
+    System.out.println("de cursus naam: " + course.getName());
 
   }
 

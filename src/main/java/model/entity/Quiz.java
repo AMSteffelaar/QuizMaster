@@ -3,6 +3,8 @@ package model.entity;
 import java.util.ArrayList;
 
 public class Quiz {
+    private int numberOfQuestions;
+    private int treshold;
     private int idQuiz;
     private Course course;
     private String name;
@@ -13,6 +15,13 @@ public class Quiz {
     }
 
     public Quiz(Course course, String name) {
+        this.course = course;
+        this.name = name;
+    }
+
+    public Quiz(int numberOfQuestions, int treshold, Course course, String name) {
+        this.numberOfQuestions = numberOfQuestions;
+        this.treshold = treshold;
         this.course = course;
         this.name = name;
     }
