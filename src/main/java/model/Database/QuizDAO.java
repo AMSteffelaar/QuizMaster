@@ -73,4 +73,20 @@ public class QuizDAO extends AbstractDAO {
         }
         return quiz;
     }
+
+/*
+    public void storeQuiz (){
+    Quiz quiz = createQuiz(numberOfQuestions, treshold, course, name);
+    String sql = "INSERT INTO `quizmaster`.`quiz` ("course_idCourse", "quizName", ) VALUES (?, ?, ?);";
+        try {
+        PreparedStatement ps = getStatementWithKey(sql);
+        ps.setString(1, user.getRole());
+        ps.setString(2, user.getName());
+        ps.setString(3, user.getPassword());
+        int id = executeInsertPreparedStatement(ps);
+        user.setId(id);
+    } catch (SQLException e) {
+        System.out.println("SQL error: " + e.getMessage());
+    }
 }
+*/
