@@ -157,7 +157,7 @@ public class CoordinatorDashboardController {
     Quiz quiz = quizList.getSelectionModel().getSelectedItem();
     manager.showNewQuestion(quiz, question);
   }*/
-  
+
 
   public void doEditQuestion() {
   }
