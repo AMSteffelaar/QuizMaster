@@ -15,14 +15,6 @@ public class Student extends User {
         //super.screens = new String[]{"StudentFeedback.fxml", "FillOutQuiz.fxml", "SelectQuizForStudent.fxml", "StudentSigninOut"};
     }
 
-    public void subscribe(){
-
-    }
-
-    public void unsubscribe(){
-
-    }
-
     @Override
     public String toString() {
         return "student";
