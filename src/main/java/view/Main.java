@@ -29,6 +29,7 @@ public class Main extends Application {
         cdb.run();
         launch(args);
         db.closeConnection();
+        cdb.close();
     }
 
     @Override

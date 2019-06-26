@@ -1,15 +1,13 @@
 package model.Database;
 
+import com.google.gson.JsonObject;
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.CouchDbProperties;
 import org.lightcouch.Response;
 
-
-import com.google.gson.JsonObject;
-
 public class CouchDBaccess {
-    private CouchDbClient client;
     private static CouchDBaccess cdb;
+    private CouchDbClient client;
 
     public static CouchDBaccess getInstance() {
         if (cdb == null) {
@@ -49,6 +47,15 @@ public class CouchDBaccess {
     public String saveDocument(JsonObject document) {
         Response response = client.save(document);
         return response.getId();
+    }
+
+    public void close() {
+        try {
+            client.shutdown();
+            System.out.println("Connectie CouchDB afgesloten");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void run() {

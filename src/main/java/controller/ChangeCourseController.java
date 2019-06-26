@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import model.Database.UserDAO;
 import model.entity.Course;
+import model.entity.User.Administrator;
 import model.entity.User.Coordinator;
 import model.entity.User.User;
 
@@ -30,7 +31,7 @@ public class ChangeCourseController extends UpdateCourseController {
             User user = UserDAO.getInstance().getUserByName(naam);
             Course course = new Course(id,naamCursus,user);
             cdao.storeCourse(course);
-            manager.showManageCoursesScene();
+            checkRole();
         }
     }
 
