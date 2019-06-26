@@ -120,4 +120,5 @@ public class Question {
         setAnswerC(answers.get(2).substring(1));
         setAnswerD(answers.get(3).substring(1));
     }
+
 }
