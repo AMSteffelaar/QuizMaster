@@ -174,7 +174,7 @@ public class CoordinatorDashboardController {
     private void populateQuestion(Quiz q) {
         q.getIdQuiz();
         ObservableList<Question> questionses = FXCollections.observableArrayList();
-        ArrayList<Question> questions = qudao.getQuestionByQuiz(q.getIdQuiz());
+        ArrayList<Question> questions = qudao.getQuestionsByQuiz(q.getIdQuiz());
         questionses.setAll(questions);
         questionList.setItems(questionses);
     }

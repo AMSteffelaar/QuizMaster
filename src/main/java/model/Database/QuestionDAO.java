@@ -82,7 +82,7 @@ public class QuestionDAO extends AbstractDAO {
     }
 
     public void storeQuestion(int quizId, int questionid, String naam) {
-        String sql = "INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `idQuestion`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `idQuestion`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES (?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = getStatementWithKey(sql);
             ps.setInt(1, quizId);

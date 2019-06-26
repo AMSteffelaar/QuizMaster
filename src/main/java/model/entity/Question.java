@@ -8,7 +8,6 @@ public class Question {
     private int idQA;
     private Quiz quiz;
     private String question;
-    private ArrayList<String> answers;
     private String answerA;
     private String answerB;
     private String answerC;
