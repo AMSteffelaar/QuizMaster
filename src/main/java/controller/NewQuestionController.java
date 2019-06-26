@@ -3,9 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import model.Database.CourseDAO;
-import model.Database.QuizDAO;
-import model.Database.UserDAO;
+import model.Database.*;
 import model.entity.Course;
 import model.entity.Question;
 import model.entity.Quiz;
@@ -20,6 +18,9 @@ public class NewQuestionController {
   SceneManager manager = SceneManager.getSceneManager();
   Quiz quiz;
   Question question;
+  protected QuestionDAO qdao = QuestionDAO.getInstance();
+  private int id;
+  private int id2;
 
   @FXML
   protected TextField nameField;
@@ -54,6 +55,11 @@ public class NewQuestionController {
     String antwoordC = nameField21.getText();
     String antwoordD = nameField22.getText();
 
+    int quizId = QuizDAO.getInstance().getQuizById(id).getIdQuiz();
+    System.out.println(quizId);
+    int questionId = QuestionDAO.getInstance().getQuestionById(id2).getIdQA();
+    String name = QuestionDAO.getInstance().getQuestionById(id2).getQuestion();
+
     if (vraag == null) {
       nameField.setText("Graag een naam invullen");
     } else if (antwoordA == null) {
@@ -64,7 +70,7 @@ public class NewQuestionController {
       nameField21.setText("maak een keuze");
     } else if (antwoordD == null) {
       nameField22.setText("maak een keuze");
-    } else {
+    } else {qdao.storeQuestion(quizId, questionId, name);
       manager.showCoordinatorDashboard();
     }
 

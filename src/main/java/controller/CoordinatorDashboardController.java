@@ -143,8 +143,8 @@ public class CoordinatorDashboardController {
     }
 
     public void doNewQuestion(ActionEvent event) {
-        Question question = (Question) questionList.getSelectionModel().getSelectedItems();
-        Quiz quiz = (Quiz) quizList.getSelectionModel().getSelectedItems();
+        Question question = questionList.getSelectionModel().getSelectedItem();
+        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
         manager.showNewQuestion(quiz, question);
 
     }
