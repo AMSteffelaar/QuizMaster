@@ -2,7 +2,7 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Database.CouchDBaccess;
+import model.Database.CouchDB.CouchDBaccess;
 import model.Database.DBaccess;
 
 public class Main extends Application {

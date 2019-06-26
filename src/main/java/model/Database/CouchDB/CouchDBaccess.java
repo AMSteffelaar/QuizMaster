@@ -1,4 +1,4 @@
-package model.Database;
+package model.Database.CouchDB;
 
 import com.google.gson.JsonObject;
 import org.lightcouch.CouchDbClient;
