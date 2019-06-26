@@ -139,6 +139,8 @@ public class CoordinatorDashboardController {
     }
 
     public void doNewQuiz() {
+        Course c = courseList.getSelectionModel().getSelectedItems().get(0);
+        manager.showNewQuiz(c);
     }
 
     public void doEditQuiz() {
