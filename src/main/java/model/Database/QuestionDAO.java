@@ -81,18 +81,19 @@ public class QuestionDAO extends AbstractDAO {
         return question;
     }
 
-    public void storeQuestion(int quizId, int questionid, String naam) {
-        String sql = "INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `idQuestion`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    public void storeQuestion(int idQuiz, String question, String answerA, String answerB, String answerC, String answerD) {
+        String sql = "INSERT INTO `quizmaster`.`question` (`Quiz_idQuiz`, `question`, `answerA`, `answerB`, `answerC`, `answerD`) VALUES (?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement ps = getStatementWithKey(sql);
-            ps.setInt(1, quizId);
-            ps.setInt(2, questionid);
-            ps.setString(3, naam);
+            ps.setInt(1, idQuiz);
+            ps.setString(2,question);
+            ps.setString(3,answerA);
+            ps.setString(4,answerB);
+            ps.setString(5,answerC);
+            ps.setString(6,answerD);
             executeInsertPreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
     }
 }
-
-
