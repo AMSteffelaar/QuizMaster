@@ -13,9 +13,19 @@ public class DBaccess {
     private static final String MAIN_USER_PASSWORD = "pwQuiz";
     private static final String PREFIX_CONNECTION_URL = "jdbc:mysql://localhost:3306/";
     private static final String CONNECTION_SETTINGS = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static DBaccess db;
 
-    public DBaccess() {
+    private DBaccess() {
         super();
+    }
+
+    public static DBaccess getInstance() {
+        if (db == null) {
+            db = new DBaccess();
+            return db;
+        } else {
+            return db;
+        }
     }
 
     /**

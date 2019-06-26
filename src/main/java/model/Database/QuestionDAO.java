@@ -20,7 +20,7 @@ public class QuestionDAO extends AbstractDAO {
 
     public static QuestionDAO getInstance() {
         if (questdao == null) {
-            questdao = new QuestionDAO(Main.getInstance());
+            questdao = new QuestionDAO(db.getInstance());
             return questdao;
         } else {
             return questdao;
