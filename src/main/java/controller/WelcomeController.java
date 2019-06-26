@@ -33,17 +33,17 @@ public class WelcomeController {
         LocalTime timeNow = LocalTime.now();
         if (timeNow.isAfter(LocalTime.of(7, 0, 0)) &&
                 timeNow.isBefore(LocalTime.of(12, 0, 0))) {
-            welcomeLabel.setText("Goedemorgen " + Session.getInstance().getCurrentUser().getName() +
-                    "! U bent ingelogd als " + Session.getInstance().getCurrentUser().toString() + ".");
+            welcomeLabel.setText(String.format("%s %s! U bent ingelogd als %s.","Goedemorgen",
+                    Session.getInstance().getCurrentUser().getName(),Session.getInstance().getCurrentUser().toString()));
         } else if (timeNow.isBefore(LocalTime.of(18, 0, 0))) {
-            welcomeLabel.setText("Goedemiddag " + Session.getInstance().getCurrentUser().getName() +
-                    "! U bent ingelogd als " + Session.getInstance().getCurrentUser().toString() + ".");
+            welcomeLabel.setText(String.format("%s %s! U bent ingelogd als %s.","Goedemiddag",
+                    Session.getInstance().getCurrentUser().getName(),Session.getInstance().getCurrentUser().toString()));
         } else if (timeNow.isBefore(LocalTime.of(23, 59, 59))) {
-            welcomeLabel.setText("Goedenavond " + Session.getInstance().getCurrentUser().getName() +
-                    "! U bent ingelogd als " + Session.getInstance().getCurrentUser().toString() + ".");
+            welcomeLabel.setText(String.format("%s %s! U bent ingelogd als %s.","Goedenavond",
+                    Session.getInstance().getCurrentUser().getName(),Session.getInstance().getCurrentUser().toString()));
         } else {
-            welcomeLabel.setText("Goedenacht " + Session.getInstance().getCurrentUser().getName() +
-                    "! U bent ingelogd als " + Session.getInstance().getCurrentUser().toString() + ".");
+            welcomeLabel.setText(String.format("%s %s! U bent ingelogd als %s. Moet u niet naar bed?","Goedenacht",
+                    Session.getInstance().getCurrentUser().getName(),Session.getInstance().getCurrentUser().toString()));
         }
         populateTaskMenu(Session.getInstance().getCurrentUser().getRole());
     }
@@ -114,9 +114,6 @@ public class WelcomeController {
                         case "coordinatorDashboard.fxml":
                             manager.showCoordinatorDashboard();
                             break;
-                        /*case "fillOutQuiz.fxml":
-                            manager.showFillOutQuiz();
-                            break;*/
                         case "studentSignInOut.fxml":
                             manager.showStudentSignInOutScene();
                             break;

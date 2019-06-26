@@ -37,12 +37,12 @@ public class NewQuestionController {
     protected Label QuizNameLabel;
 
 
+
     public void setup(Quiz quiz, Question question) {
         this.quiz = quiz;
         this.question = question;
 
         QuizNameLabel.setText(String.format("Maak een nieuwe quiz voor %s",quiz.getName()));
-
     }
 
     public void doMenu(ActionEvent event) {
@@ -55,32 +55,25 @@ public class NewQuestionController {
         String antwoordB = nameField2.getText();
         String antwoordC = nameField21.getText();
         String antwoordD = nameField22.getText();
-
-
         Quiz quizes = QuizDAO.getInstance().getQuizById(quiz.getIdQuiz());
         System.out.println(quizes);
         qdao.storeQuestion(quizes.getIdQuiz(), vraag, antwoordA,antwoordB,antwoordC, antwoordD);
         manager.showCoordinatorDashboard();
 
-
-        /*qdao.storeQuestion(quizId);
-        int questionId = QuestionDAO.getInstance().getQuestionById(id2).getIdQA();
-        String name = QuestionDAO.getInstance().getQuestionById(id2).getQuestion();
-
-        if (vraag == null) {
-            nameField.setText("Graag een vraag invullen");
-        } else if (antwoordA == null) {
-            nameField1.setText("maak een keuze");
-        } else if (antwoordB == null) {
-            nameField2.setText("maak een keuze");
-        } else if (antwoordC == null) {
-            nameField21.setText("maak een keuze");
-        } else if (antwoordD == null) {
-            nameField22.setText("maak een keuze");
-        } else {
-            qdao.storeQuestion(quizId, questionId, name);
-            manager.showCoordinatorDashboard();
-        }//*/
+//        if (vraag == null) {
+//            nameField.setText("Graag een vraag invullen");
+//        } else if (antwoordA == null) {
+//            nameField1.setText("maak een keuze");
+//        } else if (antwoordB == null) {
+//            nameField2.setText("maak een keuze");
+//        } else if (antwoordC == null) {
+//            nameField21.setText("maak een keuze");
+//        } else if (antwoordD == null) {
+//            nameField22.setText("maak een keuze");
+//        } else {
+//            qdao.storeQuestion(quizId, questionId, name);
+//            manager.showCoordinatorDashboard();
+//        }
 
     }
 }
