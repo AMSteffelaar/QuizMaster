@@ -2,13 +2,15 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Database.CouchDBaccess;
 import model.Database.DBaccess;
 
 public class Main extends Application {
 
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
-    private static DBaccess db;
+    private static DBaccess db = DBaccess.getInstance();
+    private static CouchDBaccess cdb = CouchDBaccess.getInstance();
 
 
     public static SceneManager getSceneManager() {
@@ -23,20 +25,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        DBaccess dbAccess = getInstance();
-        dbAccess.openConnection();
+        db.openConnection();
+        cdb.run();
         launch(args);
-        dbAccess.closeConnection();
-    }
-
-    public static DBaccess getInstance() {
-        if (db == null) {
-            db = new DBaccess();
-            return db;
-        } else {
-            return db;
-        }
-
+        db.closeConnection();
     }
 
     @Override

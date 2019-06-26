@@ -22,7 +22,7 @@ CREATE TABLE `course` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idCourse`),
   KEY `fk_course_user1_idx` (`coordinator_idUser`),
-  CONSTRAINT `fk_course_user1` FOREIGN KEY (`coordinator_idUser`) REFERENCES `user` (`idUser`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_course_user1` FOREIGN KEY (`coordinator_idUser`) REFERENCES `user` (`idUser`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 
@@ -35,7 +35,7 @@ CREATE TABLE `group` (
   PRIMARY KEY (`idGroup`),
   KEY `fk_Group_Course1_idx` (`Course_idCourse`),
   KEY `fk_Group_User1_idx` (`Teacher_idUser`),
-  CONSTRAINT `fk_Group_Course1` FOREIGN KEY (`Course_idCourse`) REFERENCES `course` (`idCourse`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_Group_Course1` FOREIGN KEY (`Course_idCourse`) REFERENCES `course` (`idCourse`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Group_User1` FOREIGN KEY (`Teacher_idUser`) REFERENCES `user` (`idUser`) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE `quiz` (
   `quizName` varchar(45) NOT NULL,
   PRIMARY KEY (`idQuiz`),
   KEY `fk_Quiz_Course_idx` (`Course_idCourse`),
-  CONSTRAINT `fk_Quiz_Course` FOREIGN KEY (`Course_idCourse`) REFERENCES `course` (`idCourse`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_Quiz_Course` FOREIGN KEY (`Course_idCourse`) REFERENCES `course` (`idCourse`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -61,7 +61,7 @@ CREATE TABLE `question` (
   `answerD` varchar(245) DEFAULT NULL,
   PRIMARY KEY (`idQuestion`),
   KEY `fk_question_Quiz1_idx` (`Quiz_idQuiz`),
-  CONSTRAINT `fk_question_Quiz1` FOREIGN KEY (`Quiz_idQuiz`) REFERENCES `quiz` (`idQuiz`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_question_Quiz1` FOREIGN KEY (`Quiz_idQuiz`) REFERENCES `quiz` (`idQuiz`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 
@@ -72,6 +72,6 @@ CREATE TABLE `studentsInGroup` (
   PRIMARY KEY (`Group_idGroup`,`Student_idUser`),
   KEY `fk_Group_has_User_User1_idx` (`Student_idUser`),
   KEY `fk_Group_has_User_Group1_idx` (`Group_idGroup`),
-  CONSTRAINT `fk_Group_has_User_User1` FOREIGN KEY (`Student_idUser`) REFERENCES `user` (`idUser`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_Group_has_User_Group1` FOREIGN KEY (`Group_idGroup`) REFERENCES `group` (`idGroup`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_Group_has_User_User1` FOREIGN KEY (`Student_idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Group_has_User_Group1` FOREIGN KEY (`Group_idGroup`) REFERENCES `group` (`idGroup`) ON DELETE CASCADE ON UPDATE CASCADE
 );

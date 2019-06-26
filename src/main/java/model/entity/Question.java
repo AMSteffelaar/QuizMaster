@@ -1,6 +1,8 @@
 package model.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Question {
     private int idQA;
@@ -11,6 +13,7 @@ public class Question {
     private String answerC;
     private String answerD;
     private ArrayList<Question> questions;
+    private char correctAnswer;
 
     public Question(Quiz quiz, String question, String answerA, String answerB, String answerC, String answerD) {
         this.quiz = quiz;
@@ -19,6 +22,7 @@ public class Question {
         this.answerB = answerB;
         this.answerC = answerC;
         this.answerD = answerD;
+        this.correctAnswer = 'A';
     }
 
     public int getIdQA() {
@@ -84,5 +88,36 @@ public class Question {
     public void removeQuestion(Question question) {
         questions.remove(question);
 
+    }
+
+    public char getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(char correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    //TODO: Afhandelen van nullen in antwoorden.
+    public void shuffleAnswers() {
+        ArrayList<String> answers = new ArrayList<>();
+        answers.add("A"+answerA);
+        answers.add("B"+answerB);
+        answers.add("C"+answerC);
+        answers.add("D"+answerD);
+        Collections.shuffle(answers);
+        char letter = 'A';
+        for (String answer : answers) {
+            char oldLetter = answer.charAt(0);
+            if (oldLetter == 'A') {
+                correctAnswer = letter;
+                break;
+            }
+            letter++;
+        }
+        setAnswerA(answers.get(0).substring(1));
+        setAnswerB(answers.get(1).substring(1));
+        setAnswerC(answers.get(2).substring(1));
+        setAnswerD(answers.get(3).substring(1));
     }
 }

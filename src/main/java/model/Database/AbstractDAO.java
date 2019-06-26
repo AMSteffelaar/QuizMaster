@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AbstractDAO {
-    DBaccess db;
+    static DBaccess db;
 
     public AbstractDAO(DBaccess databaseaccess) {
         this.db = databaseaccess;

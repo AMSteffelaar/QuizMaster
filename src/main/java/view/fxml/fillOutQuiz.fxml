@@ -6,9 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FillOutQuizController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FillOutQuizController">
     <children>
-        <Label fx:id="title" layoutX="14.0" layoutY="14.0" text="Vraag 1">
+        <Label fx:id="title" layoutX="14.0" layoutY="14.0" text="Vraag ">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="questionNumber" layoutX="70.0" layoutY="14.0" text="1">
             <font>
                 <Font size="18.0" />
             </font>
@@ -18,12 +23,13 @@
                 <Font size="14.0" />
             </font>
         </Button>
-      <TextArea fx:id="questionArea" layoutX="14.0" layoutY="49.0" prefHeight="300.0" prefWidth="600.0" promptText="Deze textarea bevat de vraag en de vier antwoorden." />
+      <TextArea fx:id="questionArea" layoutX="14.0" layoutY="49.0" prefHeight="300.0" prefWidth="600.0" promptText="Deze textarea bevat de vraag en de vier antwoorden." wrapText="true" />
       <Button fx:id="answerAButton" layoutX="13.0" layoutY="366.0" mnemonicParsing="false" onAction="#registerA" text="Antw. A" />
       <Button fx:id="answerBButton" layoutX="98.0" layoutY="366.0" mnemonicParsing="false" onAction="#registerB" text="Antw. B" />
       <Button fx:id="answerCButton" layoutX="179.0" layoutY="366.0" mnemonicParsing="false" onAction="#registerC" text="Antw. C" />
       <Button fx:id="answerDButton" layoutX="259.0" layoutY="366.0" mnemonicParsing="false" onAction="#registerD" text="Antw. D" />
-      <Button fx:id="nextQuestionButton" layoutX="469.0" layoutY="366.0" mnemonicParsing="false" onAction="#doNextQuestion" text="Volgende" />
-      <Button fx:id="previousQuestionButton" layoutX="556.0" layoutY="366.0" mnemonicParsing="false" onAction="#doPreviousQuestion" text="Vorige" />
+      <Button fx:id="nextQuestionButton" layoutX="525.0" layoutY="366.0" mnemonicParsing="false" onAction="#doNextQuestion" text="Volgende &gt;" />
+      <Button fx:id="previousQuestionButton" layoutX="446.0" layoutY="366.0" mnemonicParsing="false" onAction="#doPreviousQuestion" text="&lt; Vorige" />
+        <Button fx:id="finishQuizButton" layoutX="525.0" layoutY="366.0" mnemonicParsing="false" onAction="#doFinishQuiz" prefHeight="27.0" prefWidth="89.0" text="Inleveren" />
     </children>
 </AnchorPane>

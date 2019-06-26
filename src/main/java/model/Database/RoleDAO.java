@@ -22,7 +22,7 @@ public class RoleDAO extends AbstractDAO {
 
     public static RoleDAO getInstance() {
         if (rdao == null) {
-            rdao = new RoleDAO(Main.getInstance());
+            rdao = new RoleDAO(db.getInstance());
             return rdao;
         } else {
             return rdao;

@@ -20,7 +20,7 @@ public class QuestionDAO extends AbstractDAO {
 
     public static QuestionDAO getInstance() {
         if (questdao == null) {
-            questdao = new QuestionDAO(Main.getInstance());
+            questdao = new QuestionDAO(db.getInstance());
             return questdao;
         } else {
             return questdao;
@@ -28,14 +28,14 @@ public class QuestionDAO extends AbstractDAO {
     }
 
 
-    public ArrayList<Question> getQuestionByQuiz(int idQuestion) {
+    public ArrayList<Question> getQuestionsByQuiz(int idQuiz) {
         String sql = "SELECT * from question where Quiz_idQuiz = ?";
 
         ArrayList<Question> results = null;
         Question result;
         try {
             PreparedStatement ps = getStatement(sql);
-            ps.setInt(1, idQuestion);
+            ps.setInt(1, idQuiz);
             ResultSet rs = executeSelectPreparedStatement(ps);
             results = new ArrayList<>();
             while (rs.next()) {
