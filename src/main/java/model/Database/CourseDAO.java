@@ -16,7 +16,7 @@ public class CourseDAO extends AbstractDAO {
 
     public static CourseDAO getInstance() {
         if (cdao == null) {
-            cdao = new CourseDAO(Main.getInstance());
+            cdao = new CourseDAO(db.getInstance());
             return cdao;
         } else {
             return cdao;
@@ -108,8 +108,6 @@ public class CourseDAO extends AbstractDAO {
 
     public void updateCourse(Course course) {
         String sql = "update course set coordinator_idUser = ?, name = ? where idCourse = ?;";
-        CourseDAO cdao = CourseDAO.getInstance();
-        UserDAO udao = UserDAO.getInstance();
         int newCoordinatorId = course.getCoordinator().getId();
         int courseId = course.getIdCourse();
         String newName = course.getName();
@@ -147,12 +145,11 @@ public class CourseDAO extends AbstractDAO {
     //deze methode delete een cursus
     public void deleteCourse(Course course) {
         String sql = "delete FROM quizmaster.course where Idcourse = ?;";
-        CourseDAO cdao = CourseDAO.getInstance();
         int courseId = course.getIdCourse();
         try {
             PreparedStatement ps = getStatement(sql);
             ps.setInt(1, courseId);
-            cdao.executeManipulatePreparedStatement(ps);
+            executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
