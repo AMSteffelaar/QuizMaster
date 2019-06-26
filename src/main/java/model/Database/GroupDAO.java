@@ -19,7 +19,7 @@ public class GroupDAO extends AbstractDAO {
 
     public static GroupDAO getInstance() {
         if (gdao == null) {
-            gdao = new GroupDAO(Main.getInstance());
+            gdao = new GroupDAO(db.getInstance());
             return gdao;
         } else {
             return gdao;

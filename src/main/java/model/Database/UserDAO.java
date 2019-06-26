@@ -24,7 +24,7 @@ public class UserDAO extends AbstractDAO {
      */
     public static UserDAO getInstance() {
         if (udao == null) {
-            udao = new UserDAO(Main.getInstance());
+            udao = new UserDAO(db.getInstance());
             return udao;
         } else {
             return udao;
@@ -197,12 +197,11 @@ public class UserDAO extends AbstractDAO {
     //deze methode delete een user
     public void deleteUser(User user) {
         String sql = "delete FROM quizmaster.user where IdUser = ?;";
-        UserDAO udao = UserDAO.getInstance();
         int userId = user.getId();
         try {
             PreparedStatement ps = getStatementWithKey(sql);
             ps.setInt(1, userId);
-            udao.executeManipulatePreparedStatement(ps);
+            executeManipulatePreparedStatement(ps);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
