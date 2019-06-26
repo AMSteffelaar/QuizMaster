@@ -1,5 +1,7 @@
 package model.entity;
 
+import model.Database.QuestionDAO;
+
 import java.util.ArrayList;
 
 public class Quiz {
@@ -19,11 +21,12 @@ public class Quiz {
         this.name = name;
     }
 
-    public Quiz(int numberOfQuestions, int treshold, Course course, String name) {
+    public Quiz(Course course, String name, int numberOfQuestions, int treshold) {
         this.numberOfQuestions = numberOfQuestions;
         this.treshold = treshold;
         this.course = course;
         this.name = name;
+
     }
 
     public int getIdQuiz() {
@@ -61,5 +64,21 @@ public class Quiz {
     @Override
     public String toString() {
         return name ;
+    }
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+    }
+
+    public int getTreshold() {
+        return treshold;
+    }
+
+    public void setTreshold(int treshold) {
+        this.treshold = treshold;
     }
 }
