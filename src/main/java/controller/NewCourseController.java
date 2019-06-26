@@ -35,7 +35,6 @@ public class NewCourseController extends UpdateCourseController {
     public void doNewCourse(ActionEvent event) {
         String name = nameField.getText();
         String coordinatorName = coordinatorChoiceBox.getValue();
-        System.out.println(coordinatorName);
         UserDAO udao = UserDAO.getInstance();
         User coordinator = udao.getUserByName(coordinatorName);
         Course course = new Course(name, coordinator);

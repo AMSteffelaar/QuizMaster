@@ -25,13 +25,13 @@
          </font>
       </Label>
       <TextField fx:id="nameField" layoutX="132.0" layoutY="61.0" />
-      <ChoiceBox fx:id="coordinatorChoiceBox" layoutX="132.0" layoutY="110.0" />
+      <ChoiceBox fx:id="coordinatorChoiceBox" layoutX="132.0" layoutY="110.0" prefHeight="31.0" prefWidth="187.0" />
       <Button fx:id="menuButton" layoutX="14.0" layoutY="159.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="newCourseButton" layoutX="132.0" layoutY="159.0" mnemonicParsing="false" onAction="#doNewCourse" text="Maak cursus">
+      <Button fx:id="newCourseButton" layoutX="226.0" layoutY="159.0" mnemonicParsing="false" onAction="#doNewCourse" text="Maak cursus">
          <font>
             <Font size="14.0" />
          </font>

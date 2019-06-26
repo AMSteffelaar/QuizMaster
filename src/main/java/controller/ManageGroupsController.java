@@ -20,10 +20,6 @@ public class ManageGroupsController {
   @FXML
   private ListView groupList = new ListView();
 
-  @FXML
-  private Label selectLabel = new Label();
-
-
   public void setup() {
     populateScreen();
   }
@@ -36,17 +32,10 @@ public class ManageGroupsController {
 
   public void doChangeGroup(ActionEvent event){
     Group group = (Group)groupList.getSelectionModel().getSelectedItem();
-    //    int groupID = groupList.getSelectionModel().getSelectedIndex()+1;
-//    Group group = gdao.getGroupById(groupID);
-//    group.setIdGroup(groupID);
     manager.showChangeGroupScene(group);
   }
   public void doDeleteGroup(ActionEvent event){
     Group group = (Group)groupList.getSelectionModel().getSelectedItem();
-//    Group group = gdao.getGroupById(groupID);
-//    System.out.println(group.getName());
-//    group.setIdGroup(groupID);
-//    System.out.println(group.getIdGroup());
     gdao.deleteGroup(group);
     manager.showManageGroupsScene();
   }
@@ -55,10 +44,6 @@ public class ManageGroupsController {
     ObservableList<Group> groepen = FXCollections.observableArrayList();
     ArrayList<Group> groups  = gdao.getGroups();
     groepen.setAll(groups);
-//    for (Group g : groups) {
-//      groepen.add(g.getName());
-//      idgroep.add(g.getIdGroup());
-//    }
     groupList.setItems(groepen);
   }
 }

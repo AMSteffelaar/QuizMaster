@@ -70,8 +70,8 @@ public class Quiz {
         return numberOfQuestions;
     }
 
-    public void setNumberOfQuestions(int numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
+    public void addQuestion() {
+        this.numberOfQuestions++;
     }
 
     public int getTreshold() {

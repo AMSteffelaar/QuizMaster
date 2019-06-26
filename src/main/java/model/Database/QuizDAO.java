@@ -79,8 +79,7 @@ public class QuizDAO extends AbstractDAO {
     }
 
 
-    public void storeQuiz (Course course, String quizName, int numberOfQuestions, int treshold){
-    Quiz quiz = new Quiz(course, quizName, numberOfQuestions, treshold);
+    public void storeQuiz (Quiz quiz){
     String sql = "INSERT INTO `quizmaster`.`quiz` (course_idCourse, quizName, numberOfQuestions, treshold) VALUES (?, ?, ?, ?);";
         try {
         PreparedStatement ps = getStatementWithKey(sql);
@@ -93,6 +92,16 @@ public class QuizDAO extends AbstractDAO {
     } catch (SQLException e) {
         System.out.println("SQL error: " + e.getMessage());
     }}
+    public void updateNumberOfQuestions (Quiz quiz){
+        String sql = "UPDATE `quizmaster`.`quiz` SET `numberOfQuestions` = '?' WHERE (`idQuiz` = '?');";
+        try {
+            PreparedStatement ps = getStatementWithKey(sql);
+            ps.setInt(1, quiz.getNumberOfQuestions());
+            ps.setInt(2, quiz.getIdQuiz());
+            executeInsertPreparedStatement(ps);
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        }}
 }
 
 

@@ -4,45 +4,38 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.Database.*;
+import model.Database.QuestionDAO;
+import model.Database.QuizDAO;
 import model.entity.Question;
 import model.entity.Quiz;
 import view.SceneManager;
 
 
 public class NewQuestionController {
-    SceneManager manager = SceneManager.getSceneManager();
-    Quiz quiz;
-    Question question;
-    protected QuestionDAO qdao = QuestionDAO.getInstance();
-    private int id;
-    private int id2;
+    private QuestionDAO qdao = QuestionDAO.getInstance();
+    private QuizDAO quizDAO = QuizDAO.getInstance();
+    private SceneManager manager = SceneManager.getSceneManager();
+    private Quiz quiz;
+    private Question question;
 
     @FXML
     protected TextField nameField;
-
     @FXML
     protected TextField nameField1;
-
     @FXML
     protected TextField nameField2;
-
     @FXML
     protected TextField nameField21;
-
     @FXML
     protected TextField nameField22;
-
     @FXML
     protected Label QuizNameLabel;
-
-
 
     public void setup(Quiz quiz, Question question) {
         this.quiz = quiz;
         this.question = question;
 
-        QuizNameLabel.setText(String.format("Maak een nieuwe quiz voor %s",quiz.getName()));
+        QuizNameLabel.setText(String.format("Maak een nieuwe vraag voor %s", quiz.getName()));
     }
 
     public void doMenu(ActionEvent event) {
@@ -55,25 +48,32 @@ public class NewQuestionController {
         String antwoordB = nameField2.getText();
         String antwoordC = nameField21.getText();
         String antwoordD = nameField22.getText();
-        Quiz quizes = QuizDAO.getInstance().getQuizById(quiz.getIdQuiz());
-        System.out.println(quizes);
-        qdao.storeQuestion(quizes.getIdQuiz(), vraag, antwoordA,antwoordB,antwoordC, antwoordD);
-        manager.showCoordinatorDashboard();
+        if (correctInput(vraag, antwoordA, antwoordB, antwoordC, antwoordD)) {
+            qdao.storeQuestion(quiz.getIdQuiz(), vraag, antwoordA, antwoordB, antwoordC, antwoordD);
+            quiz.addQuestion();
+            System.out.println(quiz.getIdQuiz());
+            quizDAO.updateNumberOfQuestions(quiz);
+            manager.showCoordinatorDashboard();
+        }
+    }
 
-//        if (vraag == null) {
-//            nameField.setText("Graag een vraag invullen");
-//        } else if (antwoordA == null) {
-//            nameField1.setText("maak een keuze");
-//        } else if (antwoordB == null) {
-//            nameField2.setText("maak een keuze");
-//        } else if (antwoordC == null) {
-//            nameField21.setText("maak een keuze");
-//        } else if (antwoordD == null) {
-//            nameField22.setText("maak een keuze");
-//        } else {
-//            qdao.storeQuestion(quizId, questionId, name);
-//            manager.showCoordinatorDashboard();
-//        }
-
+    private boolean correctInput(String vraag, String antwoordA, String antwoordB, String antwoordC, String antwoordD) {
+        if (vraag == null) {
+            nameField.setText("Graag een vraag invullen");
+            return false;
+        } else if (antwoordA == null) {
+            nameField1.setText("maak een keuze");
+            return false;
+        } else if (antwoordB == null) {
+            nameField2.setText("maak een keuze");
+            return false;
+        } else if (antwoordC == null) {
+            nameField21.setText("maak een keuze");
+            return false;
+        } else if (antwoordD == null) {
+            nameField22.setText("maak een keuze");
+            return false;
+        }
+        return true;
     }
 }

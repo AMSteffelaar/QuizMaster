@@ -41,11 +41,13 @@ public class NewQuizController {
 
 
   public void doNewQuiz(ActionEvent event) {
-    String quizname = nameField.getText();
+    String quizName = nameField.getText();
     int numberOfQuestions = Integer.parseInt(nrOfQuestionsField.getText());
     int treshold = Integer.parseInt(tresholdField.getText());
     QuizDAO qdao = QuizDAO.getInstance();
-    qdao.storeQuiz(course, quizname, numberOfQuestions, treshold);
+    Quiz quiz = new Quiz(course, quizName, numberOfQuestions, treshold);
+    qdao.storeQuiz(quiz);
+    manager.showCoordinatorDashboard();
     }
 
 

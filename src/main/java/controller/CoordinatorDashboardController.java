@@ -19,10 +19,13 @@ import java.util.ArrayList;
 
 
 public class CoordinatorDashboardController {
-    SceneManager manager = SceneManager.getSceneManager();
-    CourseDAO cdao = CourseDAO.getInstance();
-    QuizDAO qdao = QuizDAO.getInstance();
-    QuestionDAO qudao = QuestionDAO.getInstance();
+    private SceneManager manager = SceneManager.getSceneManager();
+    private CourseDAO cdao = CourseDAO.getInstance();
+    private QuizDAO qdao = QuizDAO.getInstance();
+    private QuestionDAO qudao = QuestionDAO.getInstance();
+    private Course chosenCourse;
+    private Quiz chosenQuiz;
+    private Question chosenQuestion;
 
     @FXML
     private Button menuButton;
@@ -61,6 +64,7 @@ public class CoordinatorDashboardController {
             public void changed(ObservableValue<? extends Course> observableValue, Course s, Course t1) {
                 System.out.println("Selected item in courseList: " + observableValue + ", " + s + ", " + t1);
                 populateQuiz(t1);
+                chosenCourse = t1;
             }
         });
         courseList.setCellFactory(param -> new ListCell<Course>() {
@@ -82,6 +86,7 @@ public class CoordinatorDashboardController {
             public void changed(ObservableValue<? extends Quiz> observableValue, Quiz a, Quiz t2) {
                 System.out.println("Selected item in quizList: " + observableValue + ", " + a + ", " + t2);
                 populateQuestion(t2);
+                chosenQuiz = t2;
             }
         });
 
@@ -103,6 +108,7 @@ public class CoordinatorDashboardController {
             @Override
             public void changed(ObservableValue<? extends Question> observableValue, Question s, Question t3) {
                 System.out.println("Selected item in questionList: " + observableValue + ", " + s + ", " + t3);
+                chosenQuestion = t3;
             }
         });
 
@@ -136,17 +142,18 @@ public class CoordinatorDashboardController {
     }
 
     public void doNewQuiz() {
-        Course course = courseList.getSelectionModel().getSelectedItem();
-        manager.showNewQuiz(course);
+//        Course course = courseList.getSelectionModel().getSelectedItem();
+        manager.showNewQuiz(chosenCourse);
     }
 
     public void doEditQuiz() {
     }
 
     public void doNewQuestion(ActionEvent event) {
-        Question question = questionList.getSelectionModel().getSelectedItem();
-        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-        manager.showNewQuestion(quiz, question);
+        System.out.println(chosenQuiz.getIdQuiz());
+//        Question question = questionList.getSelectionModel().getSelectedItem();
+//        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
+        manager.showNewQuestion(chosenQuiz, chosenQuestion);
     }
 
 

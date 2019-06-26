@@ -29,5 +29,10 @@
             <Font size="14.0" />
          </font>
       </Button>
+      <Label fx:id="Foutmelding" layoutX="12.0" layoutY="333.0" prefHeight="30.0" prefWidth="403.0" text="foutmelding" visible="false">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -26,9 +26,6 @@ public class UpdateUserController {
     protected TextField passwordField;
 
     @FXML
-    protected MenuButton roleMenuButton = new MenuButton();
-
-    @FXML
     protected ChoiceBox <String> roleChoiceBox;
 
     /**
@@ -37,7 +34,6 @@ public class UpdateUserController {
      * als nieuwe gebruiker wordt aangemaakt.
      */
     protected void populateRoleChoiceBox() {
-        /*ObservableList<String> rollen = FXCollections.observableArrayList();*/
         RoleDAO rdao = RoleDAO.getInstance();
         ArrayList<String> roles = rdao.getRoles();
         for ( String role : roles){
