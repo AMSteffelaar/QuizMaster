@@ -7,7 +7,7 @@ public class Course {
     private String name;
     private User coordinator;
 
-    public Course() {
+    public Course(String bouldercursus, int i) {
         super();
     }
 

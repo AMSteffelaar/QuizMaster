@@ -15,7 +15,7 @@ public class DBaccess {
     private static final String CONNECTION_SETTINGS = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static DBaccess db;
 
-    private DBaccess() {
+    public DBaccess() {
         super();
     }
 
